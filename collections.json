@@ -1,0 +1,43 @@
+{
+    "user": [
+        {
+            "_id": "u0110",
+            "name": "Eli Malchi",
+            "location": {
+                "geolocation": {
+                    "lat": 1.394772641,
+                    "lng": 1.913746344
+                },
+                "city": "Tel Tabiv",
+                "address": "harav goren st."
+            },
+            "phone": "0502202023",
+            "email": "test@gmail.com"
+        }
+    ],
+    "meetup": [
+        {
+            "_id": "m011",
+            "name": "FOOTBALL(NOT SOCCER)",
+            "location": {
+                "geolocation": {
+                    "lat": 1.394772641,
+                    "lng": 1.913746344
+                },
+                "city": "Tel Tabiv",
+                "address": "harav goren st."
+            },
+            "isOpen": true,
+            "creator": "u101",
+            "category": "Sports",
+            "participants": {
+                "u101": {
+                    "role": "Striker",
+                    "mvpVoteCount": 0,
+                    "hasVoted": false
+                }
+            }
+        },
+    }
+]
+}
