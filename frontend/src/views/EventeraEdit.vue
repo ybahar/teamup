@@ -32,25 +32,23 @@ export default {
   methods: {
     getLocation() {
         if (!navigator || !navigator.geolocation) return
-        navigator.geolocation.getCurrentPosition(
-            this.setGeo,
-          err => console.warn(err),
-          { enableHighAccuracy: true }
-        );
+        navigator.geolocation.getCurrentPosition(this.setGeo,err => console.warn(err),
+        { enableHighAccuracy: true });
     },
     setGeo({ coords }) {
-        this.eventera.loc.geo.lat = coords.latitude;
+      this.eventera.loc.geo.lat = coords.latitude;
       this.eventera.loc.geo.lng = coords.longitude;
     },
     saveEventera() {
       this.eventera.categories = this.categoryList.split(",");
       console.log('in save' ,this.eventera);
-      // this.$store.dispatch('saveEventera')
+      this.$store.dispatch('saveEventera',this.eventera)
     }
   },
   async created() {
     if (this.$route.params.id) {
-      let eventera = await this.$store.dispatch(getEventeraByID);
+      let _id = this.$route.params.id
+      let eventera = await this.$store.dispatch({type:'getEventeraById',_id});
       this.eventera = eventera;
       this.categoryList = eventera.categories.join(",");
     }
