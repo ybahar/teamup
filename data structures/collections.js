@@ -40,3 +40,23 @@
         }
     ]
 }
+
+
+function organizeUserCollection (users){
+    return users.map(u=> {
+        let newU = Object.assign({}, u);
+        delete newU.lat
+        delete newU.lng
+        delete newU.address
+        delete newU.city
+        newU.loc = {
+            geo: {
+                lat: u.lat,
+                lng: u.lng
+            },
+            address: u.address,
+            city: u.city
+        }
+        return newU;
+    })
+} 
