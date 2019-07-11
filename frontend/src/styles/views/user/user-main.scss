@@ -1,0 +1,28 @@
+section,
+section>* {
+    width: 100%;
+}
+
+.main-header {
+    border-bottom: 1px solid rgba(0.5, 0.5, 0.5, 0.3);
+}
+
+.main-body {
+    padding: 10px 40px;
+}
+
+
+.main-body form {
+    display: flex;
+    flex-direction: column;
+}
+
+.main-body input {
+    margin: 5px;
+    width: 200px;
+}
+.main-body button {
+    width: 60px;
+    float:right;
+    align-self: flex-end;
+}

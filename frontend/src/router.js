@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import UserDetails from '@/components/user/UserDetails.vue';
+import UserBasics from '@/components/user/UserBasics.vue';
 
 
 Vue.use(Router)
@@ -27,7 +28,14 @@ export default new Router({
     {
       path: '/user/',
       // name: 'profile',
-      component: UserDetails
+      component: UserDetails,
+      children: [
+        {
+          path: 'basics',
+          // name: 'profile',
+          component: UserBasics
+        },
+      ]
     },
   ]
 })
