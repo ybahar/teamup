@@ -1,10 +1,10 @@
-{
+let collection = {
     "user": [
         {
             "_id": "u0110",
             "name": "Eli Malchi",
-            "location": {
-                "geoLoc": {
+            "loc": {
+                "geo": {
                     "lat": 1.394772641,
                     "lng": 1.913746344
                 },
@@ -15,35 +15,37 @@
             "email": "test@gmail.com"
         }
     ],
-    "meetup": [
+    "eventEra": [
         {
             "_id": "m011",
             "name": "FOOTBALL(NOT SOCCER)",
-            "location": {
-                "geoLoc": {
+            "loc" :{
+                "geo": {
                     "lat": 1.394772641,
                     "lng": 1.913746344
                 },
                 "city": "Tel Tabiv",
                 "address": "harav goren st."
             },
-            "isOpen": true,
-            "creator": "u101",
-            "category": "Sports",
+            "createdAt": 1562846469162,
+            "expireAt": 1562846479162,
+            "creator": {
+                "_id": "u0110",
+                "name": "Eli Malchi"
+            },
+            "category": ["Sports"],
             "members": [
                 {
                     "role": "Striker",
-                    "mvpVoteCount": 0,
-                    "hasVoted": false
+                    "mvpVoteCount": 0
                 }
             ]
         }
     ]
 }
 
-
-function organizeUserCollection (users){
-    return users.map(u=> {
+function organizeUserCollection(users) {
+    return users.map(u => {
         let newU = Object.assign({}, u);
         delete newU.lat
         delete newU.lng
