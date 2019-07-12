@@ -2,6 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import EventeraEdit from './views/EventeraEdit.vue'
+import UserDetails from '@/components/user/UserDetails.vue';
+import UserBasics from '@/components/user/UserBasics.vue';
+
 
 Vue.use(Router)
 
@@ -26,6 +29,19 @@ export default new Router({
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-    }
+    },
+    // User Routes
+    {
+      path: '/user/',
+      // name: 'profile',
+      component: UserDetails,
+      children: [
+        {
+          path: 'basics',
+          // name: 'profile',
+          component: UserBasics
+        },
+      ]
+    },
   ]
 })
