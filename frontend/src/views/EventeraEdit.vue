@@ -41,7 +41,6 @@ export default {
     },
     saveEventera() {
       this.eventera.categories = this.categoryList.split(",");
-      console.log('in save' ,this.eventera);
       this.$store.dispatch('saveEventera',this.eventera)
     }
   },
@@ -49,6 +48,7 @@ export default {
     if (this.$route.params.id) {
       let _id = this.$route.params.id
       let eventera = await this.$store.dispatch({type:'getEventeraById',_id});
+      console.log('eventera',eventera)
       this.eventera = eventera;
       this.categoryList = eventera.categories.join(",");
     }

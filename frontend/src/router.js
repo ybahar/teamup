@@ -15,7 +15,7 @@ export default new Router({
       component: Home
     },
     {
-      path: '/eventera/edit',
+      path: '/eventera/edit/:id?',
       name: 'editEventera',
       component: EventeraEdit,
     },

@@ -1,7 +1,7 @@
 
 const BASE_URL = process.env.NODE_ENV === 'production'
-    ? '/api/'
-    : '//localhost:3000/api/'
+    ? '/'
+    : '//localhost:3000/'
 
 
 import Axios from 'axios';
@@ -19,7 +19,8 @@ async function ajax(endpoint, method='get', data=null,params=null) {
         })
         return res.data;
     } catch (err) {
-
+        console.warn('in httpservice : ',err)
+        throw err;
     }
 }
 
