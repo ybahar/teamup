@@ -35,7 +35,7 @@ let collection = {
                 "_id": "u0110",
                 "name": "Eli Malchi"
             },
-            "category": ["Sports"],
+            "categories": ["Sports"],
             "members": [
                 {
                     "role": "Striker",

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import EventeraEdit from './views/EventeraEdit.vue'
 import UserDetails from '@/components/user/UserDetails.vue';
 import UserBasics from '@/components/user/UserBasics.vue';
 import LoggedUser from '@/components/user/LoggedUser.vue'
@@ -15,6 +16,11 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/eventera/edit/:id?',
+      name: 'editEventera',
+      component: EventeraEdit,
     },
     {
       path: '/about',
