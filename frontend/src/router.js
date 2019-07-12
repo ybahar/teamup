@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import UserDetails from '@/components/user/UserDetails.vue';
 import UserBasics from '@/components/user/UserBasics.vue';
-
+import LoggedUser from '@/components/user/LoggedUser.vue'
 
 Vue.use(Router)
 
@@ -36,6 +36,6 @@ export default new Router({
           component: UserBasics
         },
       ]
-    },
+    }
   ]
 })

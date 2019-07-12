@@ -8,7 +8,7 @@ import Axios from 'axios';
 var axios = Axios.create({
     withCredentials: true
 });
-
+// mb add _ to ajax, it's not exported
 async function ajax(endpoint, method='get', data=null,params=null) {
     try {
         const res = await axios({
