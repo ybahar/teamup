@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import EventeraEdit from './views/EventeraEdit.vue'
+import EventeraApp from './views/EventeraAppPage.vue'
 
 Vue.use(Router)
 
@@ -13,6 +14,11 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/eventera/',
+      name: 'EventeraApp',
+      component: EventeraApp,
     },
     {
       path: '/eventera/edit/:id?',
