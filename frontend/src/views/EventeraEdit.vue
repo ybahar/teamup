@@ -51,13 +51,15 @@ export default {
       this.$store.dispatch('saveEventera',this.eventera)
     },
     setTimes(date){
-      this.expireTime =  expirationDate.toLocaleTimeString('he-il').split(':').forEach(t => {
-        if(+t< 10) '0' + t
-        })
-      this.expireDate =  expirationDate.toLocaleDateString('he-il').split('.').forEach(t => {
-        if(+t< 10) '0' + t
-        })
-      console.log(expirationDate , this.expireDate , this.expireTime)
+      //format time and date strings to confirm to input rules 
+      this.expireTime =  date.toLocaleTimeString('he-il').split(':')
+      .map(t => {
+        if(+t< 10) return '0' + t
+        else return t}).join(':')
+      this.expireDate =  date.toLocaleDateString('he-il').split('.').reverse()
+        .map(t => {
+        if(+t< 10) return '0' + t
+        else return t}).join('-')
       
     }
   },
