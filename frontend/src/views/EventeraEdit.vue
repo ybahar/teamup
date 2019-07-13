@@ -69,7 +69,6 @@ export default {
       let eventera = await this.$store.dispatch({type:'getEventeraById',_id});
       this.eventera = eventera;
       this.categoryList = eventera.categories.join(",");
-      var options = { year: 'numeric', month: 'numeric', day: 'numeric' };
       let expirationDate = new Date(eventera.expireAt)
       this.setTimes(expirationDate)
       
