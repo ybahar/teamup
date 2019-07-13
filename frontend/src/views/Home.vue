@@ -1,18 +1,25 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <header>
+    <EventeraHeader/>
+      <!-- this header tag sould be a component, and in it put LoggedUser -->
+      <Homepage/>
+      
+    </header>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+
+import EventeraHeader from "../components/EventeraHeader";
+import Homepage from "../views/Hompage";
 
 export default {
-  name: 'home',
+  name: "home",
   components: {
-    HelloWorld
+    EventeraHeader,
+    Homepage
   }
-}
+};
 </script>

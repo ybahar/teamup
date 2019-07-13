@@ -4,7 +4,11 @@ import eventeraService from '@/services/EventeraService'
 export default {
 
     state: {
-        eventeras: [],
+
+        eventeras : [],
+        filterBy: {
+            txt:''
+        }
     },
     mutations: {
         saveEventera(state, { eventera, _id }) {
