@@ -9,9 +9,15 @@ export default new Vuex.Store({
     eventeraStore
   },
   state: {
+    loggedUser: {
+      _id: 'u101',
+      name: 'Salom Anderson'
+    }
   },
   mutations: {
-
+    setLoggedUser(state, { user }) {
+      state.loggedUser = user;
+    }
   },
   actions: {
 

@@ -1,0 +1,67 @@
+
+.collapsible {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $clr4;
+    color: $clr1;
+    cursor: pointer;
+    padding: rem(9px);
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
+.logo-icon {
+    font-size: rem(25px);
+    display: block
+}
+.logo-text {
+    font-size: rem(15px)
+}
+
+.search-events {
+    outline: none;
+    background-color: $clr1;
+    color: black;
+    padding: rem(11px);
+    border-radius: 10px;
+
+}
+.content {
+    height: 0;
+    &.open { 
+        // transition: height 2s;
+        padding: 0 rem(18px);
+        height: 250px;
+        overflow: hidden;
+        background-color: $clr1;
+        box-shadow: 1px 1px 2px 2px rgba(0,0,0,.2);
+    }
+}
+
+.item-container {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+
+}
+.content-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 250px;
+    width: 33.3%;
+    border-left: 1px solid $clr4;
+    border-right: 1px solid $clr4;
+    & a {
+        color: black;
+    }
+}
+
+
