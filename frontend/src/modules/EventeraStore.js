@@ -5,6 +5,9 @@ export default {
     
     state: {
         eventeras : [],
+        filterBy: {
+            txt:''
+        }
     },
     mutations: {
         saveEventera(state, { eventera, _id }) {
