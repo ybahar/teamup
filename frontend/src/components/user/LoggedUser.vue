@@ -8,13 +8,13 @@
       </div>
       <div v-else>
         <div v-if="status">
-          <div class="quit" @click="status =''">X</div>
+          <div class="quit" @click="clear">X</div>
           <h3>{{ status }}</h3>
           <form @submit.prevent="execSubmit">
             <span v-if="err" class="danger">{{err}}</span>
             <input v-model="credentials.username" type="text" placeholder="Username" />
             <input v-model="credentials.password" type="password" placeholder="Password" />
-            <hr>
+            <hr />
             <button>{{status}}</button>
           </form>
         </div>
@@ -56,12 +56,18 @@ export default {
     console.log("checking localStorage for user");
     let user = storageService.load(LOGGED_USER_STORAGE_KEY);
     if (user) {
-      console.log(user);
+      this.user._id = user._id;
+      this.user.username = user.username;
     } else {
       console.log("no user found :(");
     }
   },
   methods: {
+    clear() {
+      this.clearErr();
+      this.clearCredentials();
+      this.status = "";
+    },
     async login() {
       try {
         let user = await userService.login(this.credentials);
@@ -90,6 +96,10 @@ export default {
         this.err = err.message;
         setTimeout(this.clearErr, 6000);
       }
+    },
+    storeUser() {
+      // TODO: continue
+      // this.$store.commit({ type: "setLoggedUser", user: this.user });
     },
     clearCredentials() {
       this.credentials.username = "";

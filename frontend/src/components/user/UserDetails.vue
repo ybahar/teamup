@@ -6,9 +6,9 @@
           <div class="profile-pic flex-center">{{userInitials}}</div>
           <h2>{{ user.name }}</h2>
           <router-link to="/user/basics">Basics</router-link>
-          <router-link to="#">Profile Pictue</router-link>
-          <router-link to="#">Location</router-link>
-          <router-link to="#">My EventEras</router-link>
+          <router-link to="/user/picture">Profile Pictue</router-link>
+          <router-link to="/user/location">Location</router-link>
+          <router-link to="/user/eventera">My EventEras</router-link>
         </div>
         <router-view></router-view>
       </div>

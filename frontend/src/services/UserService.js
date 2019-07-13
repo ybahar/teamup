@@ -14,8 +14,7 @@ async function login({ username, password }) {
         const user = users.find(u => u.username === username && u.password === password)
         if (user) {
             return user
-        } else throw new Error('Wrong username or wrong password')
-
+        } else throw new Error('Wrong username or wrong password');
     } catch (err) {
         console.log('ERR: had problems logging in', err);
     }
@@ -28,7 +27,7 @@ async function signup({ username, password }) {
         if (user) {
             throw new Error('User Exists')
         } else {
-            return httpService.post(URL_ENDING, { username, password });
+            return httpService.post(URL_ENDING, { username, password })
         }
     } catch (err) {
         console.log('ERR: had problems with signup', err);
