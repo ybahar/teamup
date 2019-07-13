@@ -5,6 +5,8 @@ import EventeraEdit from './views/EventeraEdit.vue'
 import UserDetails from '@/components/user/UserDetails.vue';
 import UserBasics from '@/components/user/UserBasics.vue';
 import LoggedUser from '@/components/user/LoggedUser.vue'
+import EventeraApp from './views/EventeraAppPage.vue'
+
 
 Vue.use(Router)
 
@@ -16,6 +18,11 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/eventera/',
+      name: 'EventeraApp',
+      component: EventeraApp,
     },
     {
       path: '/eventera/edit/:id?',
