@@ -1,14 +1,14 @@
 <template>
   <section class="carousel-container">
     <carousel :per-page="1" :mouse-drag="true"
-    :autoplay="true" :loop="true" :paginationEnabled="false">
-      <slide @slideclick="handleClick" data-name="SLS">
+    :autoplay="false" :loop="true" :paginationEnabled="false">
+      <slide class="carousel-slide" @slideclick="handleClick" data-name="SLS">
         <img src="../imgs/SLS.jpg" />
       </slide>
-      <slide @slideclick="handleClick" data-name="P1">
+      <slide class="carousel-slide" @slideclick="handleClick" data-name="P1">
         <img src="../imgs/P1.jpg" />
       </slide>
-      <slide @slideclick="handleClick" data-name="jeep">
+      <slide class="carousel-slide" @slideclick="handleClick" data-name="jeep">
         <img src="../imgs/jeep.jpg"/>
       </slide>
     </carousel>

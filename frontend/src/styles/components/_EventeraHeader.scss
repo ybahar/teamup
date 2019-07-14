@@ -17,6 +17,13 @@
     }
 }
 
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: em(550px)
+}
+
 .logo-icon {
     font-size: rem(25px);
     display: block
@@ -31,12 +38,15 @@
     color: black;
     padding: rem(11px);
     border-radius: 10px;
-
 }
+
 .content {
     height: 0;
     &.open { 
-        // transition: height 2s;
+        position: absolute;
+        z-index: 2;
+        right: 0;
+        width: 100%;
         padding: 0 rem(18px);
         height: 250px;
         overflow: hidden;

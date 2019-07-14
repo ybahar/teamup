@@ -1,0 +1,35 @@
+
+
+.images-container {
+    border: 1px solid black;
+    border-radius: 10px;
+    width: rem(455px);
+    height: rem(425px);
+    background-color: $clr1;
+}
+
+.full-image {
+    width: rem(425px);
+    height: rem(300px);
+    margin-bottom: 2px;
+    box-shadow: 12px 12px 12px grey;
+    & img {
+        object-fit: cover;
+        border-radius: 8px;
+        width: rem(425px);
+        height: rem(290px);
+    }
+}
+
+.image-list {
+    width: rem(100px);
+    height: rem(100px);
+    & img {
+        margin: 5px;
+        border: 1px solid black;
+        &:hover {
+            cursor: pointer;
+            box-shadow: 5px 5px 5px $clr2
+        }
+    }
+}
