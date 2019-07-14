@@ -34,7 +34,9 @@
             </h3>
           </section>
         </section>
-        <section class="pic-cmp">pic cmp here</section>
+        <section class="pic-cmp">
+          <eventera-pictures :pictureUrls="fakeImgUrls"></eventera-pictures>
+          </section>
       </section>
     </section>
     <section class="suggestion-list"><h4>Suggestions</h4></section>
@@ -42,10 +44,15 @@
 </template>
 
 <script>
+import EventeraPictures from '@/components/EventeraPictures'
 export default {
   data() {
     return {
-      eventera: null
+      eventera: null,
+      fakeImgUrls:['https://www.versacourt.com/cmss_files/photogallery/structure/Residential_Multi-Sport_Game_Courts/image57815.jpg',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRY7d9aeTD8P-FbLTIhPTHBDVIzE6Bn_ZSF0O4pjYYrlPYsmR0H',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShICMlIEuLvf7ofylql6XlAqarL9JAxFLZYyloKKqxaHkgMUgZ',
+      ]
     };
   },
   async created() {
@@ -76,6 +83,9 @@ export default {
       // }
       // this.eventera.members.push(member)
     }
+  },
+  components:{
+    EventeraPictures
   }
 };
 </script>
