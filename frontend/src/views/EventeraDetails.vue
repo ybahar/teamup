@@ -4,12 +4,14 @@
       <section class="eventera-title-contianer">
         <h1>{{eventera.name}}</h1>
         <button @click="joinEventera" :disabled="!isOpen">{{joinBtnTxt}}</button>
-        <p>{{eventera.expireAt | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</p>
+        <p>Eventera date : {{eventera.expireAt | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</p>
         <section class="category-list">
-          <span
+          <p> Category : 
+            <span 
             v-for="(category, idx) in eventera.categories"
             :key="category"
           >{{(idx)?',':''}} {{category}}</span>
+            </p>
         </section>
       </section>
       <section class="eventera-loc-container">

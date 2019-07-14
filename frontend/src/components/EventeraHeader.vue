@@ -36,6 +36,7 @@ export default {
     openHeader() {
       this.isOpen = !this.isOpen;
     },
+    // diffrent name then the @input
     setInput() {
        this.$emit('searchEvent', this.filterBy)
     }
