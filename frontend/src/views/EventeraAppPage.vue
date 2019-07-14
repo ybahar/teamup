@@ -1,29 +1,35 @@
 <template>
-<section>
+  <section>
     <eventera-header></eventera-header>
-    <eventera-list :eventeras="eventeras"></eventera-list>
-    </section>    
+    <eventera-list
+      :eventeraByCategory="eventerasByCategory"
+      v-for="eventerasByCategory in eventerasByCategories"
+      :key="eventerasByCategory.category"
+    />
+  </section>
 </template>
 
 <script>
-import eventeraList from '@/components/EventeraList'
-import eventeraHeader from '@/components/EventeraHeader'
+import eventeraList from "@/components/EventeraList";
+import eventeraHeader from "@/components/EventeraHeader";
 export default {
-    data(){
-        return {
-        }
-    },
-    computed:{
-        eventeras(){
-            return this.$store.getters.eventerasForDisplay;
-        },
-    },
-    components:{
-      eventeraList,
-      eventeraHeader
-    },
-    created(){
-      this.$store.dispatch({type:'loadEventeras'})
+  name: "EventeraApp",
+  created() {
+    this.$store.dispatch({ type: "loadEventeras" });
+  },
+  computed: {
+    eventerasByCategories() {
+      return this.$store.getters.eventerasByCategories;
     }
-}
+  },
+  components: {
+    eventeraList,
+    eventeraHeader
+  }
+};
 </script>
+
+<style scoped>
+
+</style>
+

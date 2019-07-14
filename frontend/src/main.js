@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import VueCarousel from 'vue-carousel'
 import './registerServiceWorker'
+import '@/filters.js';
 Vue.use(require('vue-moment'));
 Vue.config.productionTip = false
 Vue.use(VueCarousel);

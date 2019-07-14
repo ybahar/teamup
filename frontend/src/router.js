@@ -9,10 +9,10 @@ import UserLocation from '@/components/user/UserLocation.vue';
 import UserEventera from '@/components/user/UserEventera.vue';
 
 
-import LoggedUser from '@/components/user/LoggedUser.vue'
+// import LoggedUser from '@/components/user/LoggedUser.vue'
 import EventeraApp from './views/EventeraAppPage.vue'
 import EventeraDetails from './views/EventeraDetails.vue'
-
+// import EventeraCategory from '@/components/EventeraCategory.vue';
 
 Vue.use(Router)
 
