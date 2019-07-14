@@ -1,11 +1,81 @@
+.eventera-details-container {
+  width: 80vw;
+  margin-left: 20px;
+  background-color: $clr2;
+  color: $clr1;
+}
+.eventera-member-list {
+  display: flex;
+  flex-direction: column;
+}
+.category-list {
+  display: block;
+}
 
-.eventera-details{
-    display: flex;
+.eventera-title-contianer {
+  display: flex;
+  background-color: $clr1;
+  justify-content: space-around;
+  color: $clr4;
+  h1 {
+    font-size: 1.5rem;
+  }
+  button {
+    height: 40px;
+    width: 50px;
+    align-self: center;
+  }
 }
-.eventera-member-list{
-    display: flex;
-    flex-direction: column;
+.eventera-general-details-container {
+    height: 35%;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  section {
+    width: 50%;
+  }
+  .map {
+    width: 40%;
+    height: 100%;
+    background-color: $clr4;
+  }
 }
-.category-list{
-    display: block;
+
+.details-segment {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  height: 35%;
+  .eventera-member-list {
+    width: 40%;
+    section {
+      background-color: $clr1;
+      color: $clr4;
+      width: 100%;
+      height: 50px;
+      button{
+          background: transparent;
+          border: none;
+      }
+    }
+    section:nth-child(even) {
+      background-color: $clr4;
+      color: $clr1;
+    }
+  }
+  .pic-cmp {
+    width: 40%;
+    background-color: $clr4;
+    color: $clr1;
+  }
+}
+
+.details-page-container{
+    display: flex;
+    .suggestion-list{
+        height: 100vh;
+        background-color: $clr2;
+        width: calc(100vw - (80vw + 50px));
+    }
 }

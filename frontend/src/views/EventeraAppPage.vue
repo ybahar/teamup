@@ -1,13 +1,11 @@
 <template>
 <section>
-    <eventera-header></eventera-header>
     <eventera-list :eventeras="eventeras"></eventera-list>
     </section>    
 </template>
 
 <script>
 import eventeraList from '@/components/EventeraList'
-import eventeraHeader from '@/components/EventeraHeader'
 export default {
     data(){
         return {
@@ -20,7 +18,6 @@ export default {
     },
     components:{
       eventeraList,
-      eventeraHeader
     },
     created(){
       this.$store.dispatch({type:'loadEventeras'})
