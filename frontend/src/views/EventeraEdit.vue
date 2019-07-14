@@ -31,7 +31,7 @@ export default {
         }
       },
       categoryList: "",
-      expireTime : '18:24:52',
+      expireTime : '',
       expireDate : '',
     }
   },
@@ -49,15 +49,28 @@ export default {
       this.eventera.categories = this.categoryList.split(",");
       this.eventera.expireAt = new Date(this.expireDate+ ':' + this.expireTime).getTime();
       this.$store.dispatch('saveEventera',this.eventera)
+    },
+    setTimes(date){
+      //format time and date strings to confirm to input rules 
+      this.expireTime =  date.toLocaleTimeString('he-il').split(':')
+      .map(t => {
+        if(+t< 10) return '0' + t
+        else return t}).join(':')
+      this.expireDate =  date.toLocaleDateString('he-il').split('.').reverse()
+        .map(t => {
+        if(+t< 10) return '0' + t
+        else return t}).join('-')
+      
     }
   },
   async created() {
     if (this.$route.params.id) {
       let _id = this.$route.params.id
       let eventera = await this.$store.dispatch({type:'getEventeraById',_id});
-      console.log('eventera',eventera)
       this.eventera = eventera;
       this.categoryList = eventera.categories.join(",");
+      let expirationDate = new Date(eventera.expireAt)
+      this.setTimes(expirationDate)
       
     }
   }

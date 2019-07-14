@@ -1,5 +1,5 @@
 <template>
-    <section v-if="eventeras">
+    <section v-if="eventeras" class="eventera-list">
          <eventera-preview v-for="eventera in eventeras" :key="eventera._id" 
          :eventera="eventera"></eventera-preview>
      </section>
@@ -21,3 +21,6 @@ export default {
     },
 }
 </script>
+
+<style lang="scss" scoped src="@/styles/components/_EventeraList.scss"></style>
+

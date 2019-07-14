@@ -1,0 +1,11 @@
+.eventera-preview{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 350px;
+    background-color: $clr2;
+    margin:5px;
+    border-radius: 30%;
+}
