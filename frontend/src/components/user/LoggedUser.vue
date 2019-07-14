@@ -113,14 +113,14 @@ export default {
 
 <style lang="scss" scoped>
 .login-box {
-  position: fixed;
+  position: relative;
   background-color: $clr1;
-  top: 10px;
-  right: 10px;
+  // top: 10px;
+  // right: 10px;
   padding: 20px;
-  width: 300px;
-  height: 200px;
-  border: 1px solid rgba(0.5, 0.5, 0.5, 0.3);
+  width: 400px;
+  height: 215px;
+  // border: 1px solid rgba(0.5, 0.5, 0.5, 0.3);
 }
 .login-box * {
   margin: 5px;

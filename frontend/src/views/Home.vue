@@ -1,20 +1,25 @@
 <template>
   <div class="home">
     <header>
+    <EventeraHeader/>
       <!-- this header tag sould be a component, and in it put LoggedUser -->
-      <LoggedUser />
+      <Homepage/>
+      
     </header>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import LoggedUser from "@/components/user/LoggedUser.vue";
+
+import EventeraHeader from "../components/EventeraHeader";
+import Homepage from "../views/Hompage";
 
 export default {
   name: "home",
   components: {
-    LoggedUser
+    EventeraHeader,
+    Homepage
   }
 };
 </script>

@@ -9,7 +9,7 @@ var axios = Axios.create({
     withCredentials: true
 });
 // mb add _ to ajax, it's not exported
-async function ajax(endpoint, method='get', data=null,params=null) {
+async function ajax(endpoint, method = 'get', data = null, params = null) {
     try {
         const res = await axios({
             url: `${BASE_URL}${endpoint}`,
@@ -19,22 +19,22 @@ async function ajax(endpoint, method='get', data=null,params=null) {
         })
         return res.data;
     } catch (err) {
-        console.warn('in httpservice : ',err)
+        console.warn('in httpservice : ', err)
         throw err;
     }
 }
 
 export default {
-    get(endpoint, params){
-        return ajax(endpoint, 'GET', null,params)
+    get(endpoint, params) {
+        return ajax(endpoint, 'GET', null, params)
     },
-    post(endpoint, data){
+    post(endpoint, data) {
         return ajax(endpoint, 'POST', data)
     },
-    put(endpoint, data){
+    put(endpoint, data) {
         return ajax(endpoint, 'PUT', data)
     },
-    delete(endpoint, data){
+    delete(endpoint, data) {
         return ajax(endpoint, 'DELETE', data)
     }
 
