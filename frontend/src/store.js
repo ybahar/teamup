@@ -1,18 +1,16 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import eventeraStore from '@/modules/EventeraStore'
+import UserStore from '@/modules/UserStore'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   strict: true,
   modules: {
-    eventeraStore
+    eventeraStore,
+    UserStore
   },
   state: {
-    loggedUser: {
-      _id: 'u101',
-      name: 'Salom Anderson'
-    }
   },
   mutations: {
     setLoggedUser(state, { user }) {

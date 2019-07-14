@@ -12,8 +12,8 @@
           <h3>{{ status }}</h3>
           <form @submit.prevent="execSubmit">
             <span v-if="err" class="danger">{{err}}</span>
-            <input v-model="credentials.username" type="text" placeholder="Username" />
-            <input v-model="credentials.password" type="password" placeholder="Password" />
+            <input v-model="credentials.username" type="text" placeholder="Username" required />
+            <input v-model="credentials.password" type="password" placeholder="Password" required />
             <hr />
             <button>{{status}}</button>
           </form>
@@ -31,15 +31,17 @@
 </template>
 
 <script>
-const LOGGED_USER_STORAGE_KEY = "loggedUser";
 import userService from "@/services/UserService";
-import { storageService } from "@/services/StorageService.js";
 import { setTimeout } from "timers";
 
 export default {
+  computed: {
+    user() {
+      return this.$store.getters.loggedUser || {};
+    }
+  },
   data() {
     return {
-      user: { _id: "", username: "" },
       credentials: {
         username: "",
         password: ""
@@ -53,11 +55,8 @@ export default {
     };
   },
   created() {
-    console.log("checking localStorage for user");
-    let user = storageService.load(LOGGED_USER_STORAGE_KEY);
-    if (user) {
-      this.user._id = user._id;
-      this.user.username = user.username;
+    this.$store.dispatch({type: 'loadLoggedUser'})
+    if (this.user) {
     } else {
       console.log("no user found :(");
     }
@@ -70,10 +69,18 @@ export default {
     },
     async login() {
       try {
-        let user = await userService.login(this.credentials);
-        this.user._id = user._id;
-        this.user.username = user.username;
-        storageService.store(LOGGED_USER_STORAGE_KEY, this.user);
+        await userService.login(this.credentials);
+        this.$store.dispatch({ type: "loadLoggedUser" });
+        this.clearCredentials();
+      } catch (err) {
+        this.err = err.message;
+        setTimeout(this.clearErr, 5 * 1000);
+      }
+    },
+    async signup() {
+      try {
+        await userService.signup(this.credentials);
+        this.$store.dispatch({ type: "loadLoggedUser" });
         this.clearCredentials();
       } catch (err) {
         this.err = err.message;
@@ -81,21 +88,9 @@ export default {
       }
     },
     logout() {
-      storageService.remove(LOGGED_USER_STORAGE_KEY);
-      this.status = "";
-      this.clearUser();
-    },
-    async signup() {
-      try {
-        let user = await userService.signup(this.credentials);
-        this.user._id = user._id;
-        this.user.username = user.username;
-        storageService.store(LOGGED_USER_STORAGE_KEY, this.user);
-        this.clearCredentials();
-      } catch (err) {
-        this.err = err.message;
-        setTimeout(this.clearErr, 6000);
-      }
+      userService.logout();
+      this.$store.commit({type: 'setLoggedUser', user: {}})
+      this.clear();
     },
     storeUser() {
       // TODO: continue
@@ -104,10 +99,6 @@ export default {
     clearCredentials() {
       this.credentials.username = "";
       this.credentials.password = "";
-    },
-    clearUser() {
-      this.user.username = "";
-      this.user._id = "";
     },
     clearErr() {
       this.err = "";

@@ -23,30 +23,27 @@ export default {
   data() {
     return {
       user: {
-        _id: "u101",
-        name: "Salom Anderson",
-        email: "gallridge1d@smh.com.au",
-        phone: "747-910-1663",
-        loc: {
-          geo: {
-            lat: 40.7559095,
-            lng: -0.3371889
-          },
-          address: "1092 Saint Paul Circle",
-          city: "Teruel"
-        }
+        _id: "",
+        name: ""
       }
     };
   },
+  async created() {
+    await this.$store.dispatch({ type: "loadLoggedUser" });
+    const { _id, name } = this.$store.getters.loggedUser;
+
+    if (!_id) this.$router.push("/");
+    this.user = { _id, name };
+  },
   computed: {
     userInitials() {
-      let initials = "";
-      let name = this.user.name;
-      let words = name.split(" ");
-      words.forEach(word => {
-        initials += word.charAt(0);
-      });
-      return initials;
+      if (!this.user.name) return "";
+      let words = this.user.name.split(" ");
+
+      let initials = words.reduce((acc, word) => {
+        return acc + word.charAt(0);
+      }, "");
+      return initials.slice(0, 3); // I don't want more than 3 initails.
     }
   }
 };

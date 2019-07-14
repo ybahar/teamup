@@ -16,7 +16,9 @@ function query(filterBy) {
 function getById(_id) {
     return httpService.get(`${URL_ENDING}/${_id}`)
 }
-function update(eventera) {
+function update(eventera) { 
+    //j:    how can put accept 'eventera', 
+    //      put does not accept a third argument
     return httpService.put(`${URL_ENDING}/${eventera._id}`, eventera)
 }
 function remove(_id) {

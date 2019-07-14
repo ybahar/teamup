@@ -1,22 +1,31 @@
 'use strict';
 import httpService from './HttpService'
+import { storageService } from './StorageService'
 
+
+const LOGGED_USER_STORAGE_KEY = "loggedUser";
 const URL_ENDING = 'user'
 export default {
     login,
-    // logout,
-    signup
+    logout,
+    signup,
+    update,
+    getLoggedUser // this can be removed when we get a backend
 }
 
 async function login({ username, password }) {
     try {
         const users = await httpService.get(`${URL_ENDING}`)
-        const user = users.find(u => u.username === username && u.password === password)
+        const user = users.find(u =>    u.username === username 
+                                    &&  u.password === password)
         if (user) {
-            return user
+            storageService.store(LOGGED_USER_STORAGE_KEY,
+                user);
+            return user;
         } else throw new Error('Wrong username or wrong password');
     } catch (err) {
         console.log('ERR: had problems logging in', err);
+        throw err;
     }
 }
 
@@ -27,22 +36,32 @@ async function signup({ username, password }) {
         if (user) {
             throw new Error('User Exists')
         } else {
-            return httpService.post(URL_ENDING, { username, password })
+            const newUser = await httpService.post(URL_ENDING, { username, password })
+            storageService.store(LOGGED_USER_STORAGE_KEY, newUser);
+            return newUser;
         }
     } catch (err) {
         console.log('ERR: had problems with signup', err);
         throw err;
     }
+}
 
+function logout() {
+    storageService.remove(LOGGED_USER_STORAGE_KEY);
 }
-function query(filterBy) {
-    httpService.get(URL_ENDING, filterBy)
+
+async function getLoggedUser() {
+    try {
+        const credentials = storageService.load(LOGGED_USER_STORAGE_KEY);
+        if(!credentials) throw new Error('No logged in user');
+        return httpService.get(`${URL_ENDING}/${credentials._id}`);
+    } catch (err) {
+        console.log('had problems with getLoggedUser ', err);
+    }
 }
-function getById(_id) {
-    httpService.get(`${URL_ENDING}/${_id}`)
-}
-function update(eventera) {
-    httpService.put(`${URL_ENDING}/${eventera._id}`, URL_ENDING, eventera)
+
+function update(user) {
+    return httpService.put(`${URL_ENDING}/${user._id}`, user);
 }
 function remove(_id) {
     httpService.delete(`${URL_ENDING}/${_id}`)
