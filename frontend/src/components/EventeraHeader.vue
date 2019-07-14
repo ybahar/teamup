@@ -3,7 +3,7 @@
     <button @click="openHeader" class="collapsible">
       <div class="logo-container" @click.stop="goToHome">
         <span class="logo-icon">🅴🆅🅴🅽🆃🅴🆁🅰</span>
-        <span class="logo-text">Constructing events &#x1F6E0</span>
+        <span class="logo-text">Constructing events 🛠️</span>
       </div>
       <nav class="nav-container" @click.stop>
         <router-link class="router-categories" to="/">Replace a</router-link>

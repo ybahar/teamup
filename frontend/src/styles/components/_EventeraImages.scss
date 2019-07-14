@@ -6,12 +6,13 @@
     width: rem(455px);
     height: rem(425px);
     background-color: $clr1;
+    padding: 10px;
+    // margin: 100px;
 }
 
 .full-image {
     width: rem(425px);
     height: rem(300px);
-    margin-bottom: 2px;
     box-shadow: 12px 12px 12px grey;
     & img {
         object-fit: cover;

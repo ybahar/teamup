@@ -23,6 +23,7 @@ export default {
   methods: {
       handleClick(dataset){
           console.log('inside click on slide:', dataset.name);
+          // 
           
       }
   }
