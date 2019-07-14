@@ -5,10 +5,10 @@
       <h3>Add information about yourself</h3>
     </div>
     <div class="main-body">
-      <form @submit.prevent>
-        <input type="text" placeholder="Name" />
-        <input type="email" placeholder="Email" />
-        <input type="tel" placeholder="Phone" />
+      <form @submit.prevent="save">
+        <input v-model="user.name" type="text" placeholder="Name" />
+        <input v-model="user.email" type="email" placeholder="Email" />
+        <input v-model="user.phone" type="tel" placeholder="Phone" />
         <button>Save</button>
       </form>
     </div>
@@ -16,8 +16,29 @@
 </template>
 <script>
 export default {
-  created() {
-    console.log("hi there");
+  data() {
+    return {
+      user: {
+        name: "",
+        email: "",
+        phone: ""
+      }
+    };
+  },
+  async created() {
+    await this.$store.dispatch({type:"loadLoggedUser"})
+    const { name, email, phone } = this.$store.getters.loggedUser;
+    this.user = { name, email, phone };
+  },
+  methods: {
+    save() {      
+      this.$store.dispatch({
+        type: "saveUserBasics",
+        name: this.user.name,
+        email: this.user.email,
+        phone: this.user.phone
+      });
+    }
   }
 };
 </script>
@@ -25,6 +46,5 @@ export default {
 <style lang="scss" scoped>
 // all the components are gonna look a lot alike
 @import "@/styles/views/user/user-main.scss";
-
 </style>
 
