@@ -34,3 +34,21 @@
         }
     }
 }
+
+.add-img-input {
+    display: none;
+}
+
+#add-img-label {
+    display: block;
+    margin: 0 auto;
+    box-shadow: 5px 5px 5px black;
+    font-weight: bold;
+    border-radius: 5px;
+    width: rem(125px)
+}
+
+#add-img-label:hover {
+    box-shadow: 5px 8px 5px black;
+   cursor: pointer;
+}

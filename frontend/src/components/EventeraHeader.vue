@@ -1,11 +1,11 @@
 <template>
   <section class="app-header">
-    <button @click="openHeader" class="collapsible">
+    <button @click="openHeader" class="collapsible flex flex-center space-between">
       <div class="logo-container" @click.stop="goToHome">
         <span class="logo-icon">🅴🆅🅴🅽🆃🅴🆁🅰</span>
         <span class="logo-text">Constructing events 🛠️</span>
       </div>
-      <nav class="nav-container" @click.stop>
+      <nav class="nav-container flex flex-center space-between" @click.stop>
         <router-link class="router-categories" to="/">Replace a</router-link>
         <router-link class="router-about" to="/">Replace a</router-link>
         <input

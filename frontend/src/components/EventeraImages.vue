@@ -10,10 +10,14 @@
             <img @click="setMainImg" src="../imgs/sam3.jpg"/>
             <img @click="setMainImg" src="../imgs/sam4.jpg"/>
         </div>
+        <label id="add-img-label">Add image
+            <input class="add-img-input" type="file" ref="myImage" @change="setImageUrl">
+        </label>
     </section>
 </template>
 
 <script>
+// 📁
 export default {
     data() {
         return {
@@ -24,7 +28,18 @@ export default {
     methods: {
         setMainImg(ev) {
             this.mainImg = ev.srcElement.src
-        }
+        },
+        setImageUrl() {
+            let imageFile = this.$refs.myImage.files;
+
+            let url = (function makeUrl(image) {
+                let [picture] = image
+                return URL.createObjectURL(picture)
+            })(imageFile)
+
+            this.newNote.img = url
+
+        },
     }
 }
 </script>
