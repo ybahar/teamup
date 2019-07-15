@@ -6,8 +6,8 @@
         <span class="logo-text">Constructing events 🛠️</span>
       </div>
       <nav class="nav-container flex flex-center space-between" @click.stop>
-        <router-link class="router-categories" to="/">Replace a</router-link>
-        <router-link class="router-about" to="/">Replace a</router-link>
+        <router-link class="router-categories" to="/eventera">Find</router-link>
+        <!-- <router-link class="router-about" to="/">Replace a</router-link> -->
         <input
           @click.stop
           class="search-events"
