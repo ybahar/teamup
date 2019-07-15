@@ -1,8 +1,19 @@
 <template>
   <div id="app">
+    <eventera-header></eventera-header>
     <router-view/>
   </div>
 </template>
+
+<script>
+import EventeraHeader from '@/components/EventeraHeader'
+export default {
+components:{
+  EventeraHeader 
+}  
+}
+
+</script>
 
 <style lang="scss">
 #app {
@@ -12,14 +23,5 @@
   text-align: center;
   color: #2c3e50;
 }
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
+
 </style>

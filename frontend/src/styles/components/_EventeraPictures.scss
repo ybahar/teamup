@@ -1,0 +1,23 @@
+.eventera-pictures-container{
+   height: 100%;
+   position: relative;
+}
+
+.full-picture{
+    height: 30vh;
+    img{
+        object-fit: contain;
+        height: 30vh;
+    }
+
+}
+
+.picture-thumbnail{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    .thumbnail{
+        max-width: 30%;
+        max-height: 15vh;
+    }
+}
