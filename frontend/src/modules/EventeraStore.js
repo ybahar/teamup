@@ -2,13 +2,12 @@ import eventeraService from '@/services/EventeraService'
 
 
 export default {
-
     state: {
-
-        eventeras : [],
+        eventeras: [],
         filterBy: {
-            txt:''
-        }
+            txt: ''
+        },
+        categories: ["sport", "soccer", "pop"]
     },
     mutations: {
         saveEventera(state, { eventera, _id }) {
@@ -25,12 +24,30 @@ export default {
     getters: {
         eventerasForDisplay(state) {
             return state.eventeras
+        },
+        eventerasByCategories(state) {
+            // each object in the array holds {category: 'cat', eventeras: [...]}
+            // this is pre - mongo. post-mongo should just make 3 finds with all filters
+            if(state.eventeras) {
+                return state.categories.map(category => {
+                    let eventerasByCategory = {};
+                    eventerasByCategory.category = category;
+                    let filteredEventeras =
+                    [...state.eventeras.filter(e =>
+                        e.categories.filter(c => c === category).length !== 0)];
+                        eventerasByCategory.eventeras = filteredEventeras;
+                        return eventerasByCategory
+                    });
+                } else return [];
+        },
+        categories(state) {
+            return state.categories
         }
     },
     actions: {
         async saveEventera(context, eventera) {
             let updatedEventera;
-            eventera
+            eventera // j: I keep wondering why do you just type them
             if (eventera._id) {
                 updatedEventera = await eventeraService.update(eventera)
             } else {
@@ -45,8 +62,11 @@ export default {
             const eventeras = await eventeraService.query(filterBy)
             context.commit({ type: 'setEventeras', eventeras })
         },
+        // this should be 'loadEventeraById'  
+        // and the evetnteraDetails should take it with a getter
         async getEventeraById(context, { _id }) {
             console.log('in store getbyid')
+
             let eventera = await eventeraService.getById(_id);
             return eventera;
         }

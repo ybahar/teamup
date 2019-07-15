@@ -1,4 +1,5 @@
 
-.carousel-container {
-	margin-top: 50px;
+.carousel-slide {
+	height: calc(100vh - 83px);
+	object-fit: contain;
 }

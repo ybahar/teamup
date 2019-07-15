@@ -1,5 +1,6 @@
 <template>
   <section>
+    <EventeraHeader/>
     <div class="main-box">
       <div class="flex">
         <div class="side-bar">
@@ -19,6 +20,7 @@
 </template>
 
 <script>
+import EventeraHeader from '@/components/EventeraHeader.vue';
 export default {
   data() {
     return {
@@ -45,6 +47,9 @@ export default {
       }, "");
       return initials.slice(0, 3); // I don't want more than 3 initails.
     }
+  },
+  components: {
+    EventeraHeader
   }
 };
 </script>

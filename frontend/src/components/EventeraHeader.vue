@@ -1,21 +1,35 @@
 <template>
   <section class="app-header">
-    <button @click="openHeader" class="collapsible">
-      <div class="logo-container">
-        <span class="logo-icon">🅴🆅🅴🅽🆃🅴🆁🅰 </span>
-        <span class="logo-text">Constructing events &#x1F6E0</span>
+    <button @click="openHeader" class="collapsible flex flex-center space-between">
+      <div class="logo-container" @click.stop="goToHome">
+        <span class="logo-icon">🅴🆅🅴🅽🆃🅴🆁🅰</span>
+        <span class="logo-text">Constructing events 🛠️</span>
       </div>
-
-      <input @click.stop class="search-events" type="text" v-model="filterBy.txt" @input="emitInput" placeholder="Search events" />
-      <div class="user-img-container">
+      <nav class="nav-container flex flex-center space-between" @click.stop>
+        <router-link class="router-categories" to="/">Replace a</router-link>
+        <router-link class="router-about" to="/">Replace a</router-link>
+        <input
+          @click.stop
+          class="search-events"
+          type="text"
+          v-model="filterBy.txt"
+          @input="setInput"
+          placeholder="Search events"
+        />
         <img src="../imgs/user.png" height="65" width="65" />
-      </div>
+      </nav>
     </button>
     <div class="content" :class="{open: isOpen}" v-if="isOpen">
       <ul class="item-container">
-        <li class="content-item"><img src="../imgs/worker.gif"></li>
-        <li class="content-item"><a href="">Popular Events</a></li>
-        <li class="content-item"><LoggedUser/></li>
+        <li class="content-item">
+          <img src="../imgs/worker.gif" />
+        </li>
+        <li class="content-item">
+          <a href>Popular Events</a>
+        </li>
+        <li class="content-item">
+          <LoggedUser />
+        </li>
       </ul>
     </div>
   </section>
@@ -28,7 +42,7 @@ export default {
   data() {
     return {
       isOpen: false,
-      filterBy:{txt:''}
+      filterBy: { txt: "" }
     };
   },
 
@@ -38,7 +52,10 @@ export default {
     },
     // diffrent name then the @input
     setInput() {
-       this.$emit('searchEvent', this.filterBy)
+      this.$emit("searchEvent", this.filterBy);
+    },
+    goToHome() {
+      this.$router.push("/");
     }
   },
   components: {

@@ -1,25 +1,26 @@
 <template>
-    <section v-if="eventeras" class="eventera-list">
-         <eventera-preview v-for="eventera in eventeras" :key="eventera._id" 
-         :eventera="eventera"></eventera-preview>
-     </section>
+  <section v-if="eventeraByCategory">
+    <h1 >{{ eventeraByCategory.category | capitalize }}</h1>
+    <ul class="eventera-list">
+      <eventera-preview
+        v-for="eventera in eventeraByCategory.eventeras"
+        :key="eventera._id"
+        :eventera="eventera"
+      ></eventera-preview>
+    </ul>
+  </section>
 </template>
 
 <script>
-import eventeraPreview from '@/components/EventeraPreview'
+import EventeraPreview from "@/components/EventeraPreview";
 export default {
-    props:{
-        eventeras : {
-            validator(eventeras){
-                console.log('is Array:', eventeras ,Array.isArray(eventeras) )
-                return Array.isArray(eventeras)
-            }
-        }
-    },
-    components:{
-        eventeraPreview,
-    },
-}
+  props: {
+    eventeraByCategory: Object
+  },
+  components: {
+    EventeraPreview
+  }
+};
 </script>
 
 <style lang="scss" scoped src="@/styles/components/_EventeraList.scss"></style>

@@ -1,5 +1,7 @@
-.eventera-list{
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 350px);
-    justify-content: center;
+.eventera-list {
+    display: flex;
+    // grid-template-columns: repeat(auto-fill, 350px);
+    justify-content: space-between;
+    overflow-x: scroll;
+    width: auto;
 }
