@@ -25,7 +25,7 @@
         </div>
       </section>
       <section class="details-segment">
-        <section class="eventera-member-list">
+        <section class="eventera-member-list" v-if="eventera.members">
           <section>
             <h2>Eventera Members</h2>
           </section>

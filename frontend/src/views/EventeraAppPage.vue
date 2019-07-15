@@ -10,7 +10,6 @@
 
 <script>
 import eventeraList from "@/components/EventeraList";
-import eventeraHeader from "@/components/EventeraHeader";
 
 export default {
   name: "EventeraApp",
@@ -24,7 +23,6 @@ export default {
   },
   components: {
     eventeraList,
-    eventeraHeader
   }
 };
 </script>
