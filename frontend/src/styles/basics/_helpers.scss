@@ -19,3 +19,15 @@
     align-items: center;
     justify-content: center;
 }
+
+.space-between {
+    justify-content: space-between;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.row {
+    flex-direction: row;
+}

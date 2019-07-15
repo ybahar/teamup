@@ -12,6 +12,7 @@
 <script>
 import eventeraList from "@/components/EventeraList";
 import eventeraHeader from "@/components/EventeraHeader";
+
 export default {
   name: "EventeraApp",
   created() {
