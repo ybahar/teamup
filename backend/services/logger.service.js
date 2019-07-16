@@ -5,31 +5,35 @@ if (!fs.existsSync(logsDir)) {
     fs.mkdirSync(logsDir);
 }
 
+if (!fs.existsSync(`${logsDir}/log.log`)) {
+    fs.writeFileSync(`${logsDir}/log.log`);
+}
+
 //define the time format
 function getTime() {
     let now = new Date();
     return now.toUTCString();
 }
 
-function doLog(line, level='Debug') {
-    line = `${getTime()} - ${level} - ${line}` 
-    
+function doLog(line, level = 'Debug') {
+    line = `${getTime()} - ${level} - ${line}`
+
     const content = fs.readFileSync('./logs/log.log')
     fs.writeFileSync('./logs/log.log', content + '\n' + line)
     console.log(line);
 }
 
 module.exports = {
-    debug(line){
+    debug(line) {
         doLog(line, "Debug")
     },
-    info(line){
+    info(line) {
         doLog(line, "Info")
     },
-    warn(line){
+    warn(line) {
         doLog(line, "Warn")
     },
-    error(line){
+    error(line) {
         doLog(line, "Error")
     }
 }
