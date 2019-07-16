@@ -13,7 +13,6 @@ async function login(req, res) {
     try {
         const user = await authService.login(username, password)
         req.session.user = user;
-        console.log('user logged in ' , user)
         res.json(user)
     } catch (err) {
         res.status(401).send({ error: err })
