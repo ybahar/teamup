@@ -4,6 +4,7 @@ import eventeraService from '@/services/EventeraService'
 export default {
     state: {
         eventeras: [],
+
         filterBy: {
             txt: ''
         },
@@ -18,7 +19,7 @@ export default {
 
         },
         setEventeras(state, { eventeras }) {
-            state.eventeras = eventeras;
+            state.eventeras = eventeras;            
         }
     },
     getters: {
@@ -28,20 +29,31 @@ export default {
         eventerasByCategories(state) {
             // each object in the array holds {category: 'cat', eventeras: [...]}
             // this is pre - mongo. post-mongo should just make 3 finds with all filters
-            if(state.eventeras) {
+            if (state.eventeras) {
                 return state.categories.map(category => {
                     let eventerasByCategory = {};
                     eventerasByCategory.category = category;
                     let filteredEventeras =
-                    [...state.eventeras.filter(e =>
-                        e.categories.filter(c => c === category).length !== 0)];
-                        eventerasByCategory.eventeras = filteredEventeras;
-                        return eventerasByCategory
-                    });
-                } else return [];
+                        [...state.eventeras.filter(e =>
+                            e.categories.filter(c => c === category).length !== 0)];
+                    eventerasByCategory.eventeras = filteredEventeras;
+                    return eventerasByCategory
+                });
+            } else return [];
         },
         categories(state) {
             return state.categories
+        },
+        getAlmostExpired(state) {
+            console.log('inside the filter:',state.eventeras)
+            let almostExpired = state.eventeras.filter(eventera => {
+                (eventera.expireAt - eventera.createdAt) < 172800000
+                
+                
+            })
+            console.log('inside getter:', almostExpired);
+            return almostExpired
+            
         }
     },
     actions: {

@@ -5,6 +5,11 @@ if (!fs.existsSync(logsDir)) {
     fs.mkdirSync(logsDir);
 }
 
+
+if(!fs.existsSync(`${logsDir}/log.log`)) {
+    fs.writeFileSync(`${logsDir}/log.log`);
+}
+
 //define the time format
 function getTime() {
     let now = new Date();

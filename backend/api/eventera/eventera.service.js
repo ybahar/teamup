@@ -23,6 +23,7 @@ async function query(filterBy ={}){
     const collection = await dbService.getCollection(COLLECTION_KEY);
     try {
         const eventeras = await collection.find(criteria).toArray();
+        console.log('in query:', eventeras)
         return eventeras
     } catch (err) {
         logger.error(`ERROR: cannot get Eventeras`,err)
