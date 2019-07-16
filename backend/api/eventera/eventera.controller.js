@@ -33,8 +33,9 @@ async function getEventeraById(req, res) {
 
 async function removeEventera(req,res){
     let id = req.params.id;
+    let user = req.session.user;
     try {
-        await eventeraService.remove(id);
+        await eventeraService.remove(id,user);
         res.json({});
     } catch (err){
         logger.error('[Eventera Remove]',err);
@@ -44,22 +45,24 @@ async function removeEventera(req,res){
 
 async function addEventera(req,res){
     let eventera = req.body;
+    let user = req.session.user;    
     try{
-        let eventeraWithId = await eventeraService.add(eventera)
+        let eventeraWithId = await eventeraService.add(eventera,user)
         res.json(eventeraWithId)
     } catch(err){
-        logger.error('[Eventera Remove]',err);
+        logger.error('[Eventera Add]',err);
         res.status('403').send({error : 'forbidden'})
     }
 }
 
 async function updateEventera(req,res){
     let eventera = req.body
+    let user = req.session.user;
     try{
-        let updatedEventera =  await eventeraService.update(eventera);
+        let updatedEventera =  await eventeraService.update(eventera,user);
         res.json(updatedEventera);
     } catch(err){
-        logger.error('[Eventera Remove]',err);
+        logger.error(`[Eventera Update]${err}`);
         res.status('403').send({error : 'forbidden'})
     }
 }

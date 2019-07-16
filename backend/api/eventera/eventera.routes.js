@@ -5,6 +5,6 @@ const router = express.Router()
 module.exports =  router
 router.get('/',eventeraController.getEventeras);
 router.get('/:id',eventeraController.getEventeraById);
-router.delete('/:id',eventeraController.removeEventera);
-router.post('/',eventeraController.addEventera);
-router.put('/:id',eventeraController.updateEventera);
+router.delete('/:id',requireAuth,eventeraController.removeEventera);
+router.post('/',requireAuth,eventeraController.addEventera);
+router.put('/:id',requireAuth,eventeraController.updateEventera);
