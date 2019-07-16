@@ -1,10 +1,10 @@
 <template>
   <section>
-    <eventera-list
-      :eventeraByCategory="eventerasByCategory"
-      v-for="eventerasByCategory in eventerasByCategories"
-      :key="eventerasByCategory.category"
-    />
+      <eventera-list
+        :eventeraByCategory="eventerasByCategory"
+        v-for="eventerasByCategory in eventerasByCategories"
+        :key="eventerasByCategory.category"
+      />
   </section>
 </template>
 

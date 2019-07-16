@@ -20,7 +20,9 @@
             </p>
           </section>
         </section>
-        <div class="map">MAP HERE</div>
+        <div class="map">
+          <EventeraMap/>
+        </div>
       </section>
       <section class="details-segment">
         <section class="eventera-member-list" v-if="eventera.members">
@@ -35,7 +37,8 @@
           </section>
         </section>
         <section class="pic-cmp">
-          <eventera-pictures :pictureUrls="fakeImgUrls"></eventera-pictures>
+          <!-- <eventera-pictures :pictureUrls="fakeImgUrls"></eventera-pictures> -->
+          <EventeraImages/>
           </section>
       </section>
     </section>
@@ -44,7 +47,9 @@
 </template>
 
 <script>
-import EventeraPictures from '@/components/EventeraPictures'
+// import EventeraPictures from '@/components/EventeraPictures'
+import EventeraImages from '@/components/EventeraImages'
+import EventeraMap from '@/components/EventeraMap';
 export default {
   data() {
     return {
@@ -85,7 +90,8 @@ export default {
     }
   },
   components:{
-    EventeraPictures
+    EventeraImages,
+    EventeraMap
   }
 };
 </script>

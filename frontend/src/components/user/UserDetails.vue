@@ -1,6 +1,5 @@
 <template>
   <section>
-    <EventeraHeader/>
     <div class="main-box">
       <div class="flex">
         <div class="side-bar">

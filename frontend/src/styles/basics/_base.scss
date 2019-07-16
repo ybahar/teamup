@@ -5,6 +5,7 @@
 html {
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
+
     @include for-normal-layout {
         font-size: 16px;
     }
@@ -23,6 +24,20 @@ a {
 img {
     max-width: 100%;
 }
+
 h2 {
     margin: 0;
+}
+
+input {
+    border: none;
+}
+
+button {
+    cursor: pointer;
+    background-color: $clr2;
+    box-sizing: border-box;
+    font: inherit;
+    padding: rem(5px) rem(10px);
+    border: none;
 }
