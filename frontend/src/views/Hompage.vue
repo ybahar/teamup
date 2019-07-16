@@ -10,26 +10,31 @@
       <slide class="carousel-slide" @slideclick="handleClick" data-name="SLS">
           <img src="../imgs/SLS.jpg" />
         <div class="img-container">
+          <p>Event is {{howManyLeft}}</p>
         </div>
       </slide>
       <slide class="carousel-slide" @slideclick="handleClick" data-name="ducati">
           <img src="../imgs/Ducati_Streetfighter.jpg" />
         <div class="img-container">
+          <p>Go to Event</p>
         </div>
       </slide>
       <slide class="carousel-slide" @slideclick="handleClick" data-name="jeep">
           <img src="../imgs/jeep.jpg" />
         <div class="img-container">
+          <p>Go to Event</p>
         </div>
       </slide>
       <slide class="carousel-slide" @slideclick="handleClick" data-name="bentley">
           <img src="../imgs/Bentley.jpg" />
         <div class="img-container">
+          <p>Go to Event</p>
         </div>
       </slide>
       <slide class="carousel-slide" @slideclick="handleClick" data-name="honda">
           <img src="../imgs/Honda.jpg" />
         <div class="img-container">
+          <p>Go to Event</p>
         </div>
       </slide>
       <slide class="carousel-slide" @slideclick="handleClick" data-name="jeep">
@@ -48,6 +53,11 @@
 export default {
   data() {
     return {};
+  },
+  computed: {
+    howManyLeft() {
+      return eventera.
+    }
   },
   methods: {
     handleClick(dataset) {
