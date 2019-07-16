@@ -3,3 +3,17 @@
 	height: calc(100vh - 83px);
 	object-fit: contain;
 }
+
+.btn-action {
+	padding: rem(5px) rem(10px);
+	position: absolute;
+	bottom: 10vh;
+	right: 10vh;
+}
+.jumbo {
+	font-size: rem(60px);
+	text-shadow: 3px 3px rgba(0, 0, 0, 0.2);
+	left: 10vw;
+	position: absolute;
+	background-color: transparent;
+}

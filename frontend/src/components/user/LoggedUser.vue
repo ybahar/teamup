@@ -15,7 +15,7 @@
             <input v-model="credentials.username" type="text" placeholder="Username" required />
             <input v-model="credentials.password" type="password" placeholder="Password" required />
             <hr />
-            <button>{{status}}</button>
+            <button>{{status | capitalize}}</button>
           </form>
         </div>
         <div v-else>

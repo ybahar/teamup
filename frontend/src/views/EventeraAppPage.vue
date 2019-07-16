@@ -1,17 +1,15 @@
 <template>
   <section>
-    <eventera-header></eventera-header>
-    <eventera-list
-      :eventeraByCategory="eventerasByCategory"
-      v-for="eventerasByCategory in eventerasByCategories"
-      :key="eventerasByCategory.category"
-    />
+      <eventera-list
+        :eventeraByCategory="eventerasByCategory"
+        v-for="eventerasByCategory in eventerasByCategories"
+        :key="eventerasByCategory.category"
+      />
   </section>
 </template>
 
 <script>
 import eventeraList from "@/components/EventeraList";
-import eventeraHeader from "@/components/EventeraHeader";
 
 export default {
   name: "EventeraApp",
@@ -25,7 +23,6 @@ export default {
   },
   components: {
     eventeraList,
-    eventeraHeader
   }
 };
 </script>

@@ -1,6 +1,5 @@
 <template>
   <section>
-    <h2>Hey map</h2>
     <GmapMap
       :center="{lat:32.0749831, lng:34.9120554}"
       :zoom="7"

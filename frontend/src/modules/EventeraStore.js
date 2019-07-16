@@ -7,7 +7,7 @@ export default {
         filterBy: {
             txt: ''
         },
-        categories: ["sport", "games", "music"]
+        categories: ["sport", "soccer", "pop"]
     },
     mutations: {
         saveEventera(state, { eventera, _id }) {
@@ -28,15 +28,17 @@ export default {
         eventerasByCategories(state) {
             // each object in the array holds {category: 'cat', eventeras: [...]}
             // this is pre - mongo. post-mongo should just make 3 finds with all filters
-            return state.categories.map(category => {
-                let eventerasByCategory = {};
-                eventerasByCategory.category = category;
-                let filteredEventeras =
+            if(state.eventeras) {
+                return state.categories.map(category => {
+                    let eventerasByCategory = {};
+                    eventerasByCategory.category = category;
+                    let filteredEventeras =
                     [...state.eventeras.filter(e =>
                         e.categories.filter(c => c === category).length !== 0)];
-                eventerasByCategory.eventeras = filteredEventeras;
-                return eventerasByCategory
-            });
+                        eventerasByCategory.eventeras = filteredEventeras;
+                        return eventerasByCategory
+                    });
+                } else return [];
         },
         categories(state) {
             return state.categories

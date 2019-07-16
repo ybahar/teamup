@@ -1,7 +1,7 @@
 
 const BASE_URL = process.env.NODE_ENV === 'production'
-    ? '/'
-    : '//localhost:3000/'
+    ? '/api/'
+    : '//localhost:3000/api/'
 
 
 import Axios from 'axios';

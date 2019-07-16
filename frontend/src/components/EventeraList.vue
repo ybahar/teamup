@@ -3,8 +3,7 @@
     <h1>{{ eventeraByCategory.category | capitalize }}</h1>
     <!-- <ul class="eventera-list"> -->
     <carousel :per-page="5" class="eventera-list">
-      
-    <!-- TODO: fix carousel -->
+      <!-- TODO: fix carousel -->
       <eventera-preview
         v-for="eventera in eventeraByCategory.eventeras"
         :key="eventera._id"
