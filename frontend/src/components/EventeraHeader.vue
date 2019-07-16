@@ -1,36 +1,18 @@
 <template>
-  <section class="app-header">
-    <button @click="openHeader" class="collapsible flex flex-center space-between">
-      <div class="logo-container" @click.stop="goToHome">
+  <section class="app-header" @click="closeLogin">
+    <div class="collapsible flex flex-center space-between">
+      <div class="logo-container" @click="goToHome">
         <span class="logo-icon">🅴🆅🅴🅽🆃🅴🆁🅰</span>
         <span class="logo-text">Constructing events 🛠️</span>
       </div>
-      <nav class="nav-container flex flex-center space-between" @click.stop>
-        <router-link class="router-categories" to="/eventera">Find</router-link>
-        <!-- <router-link class="router-about" to="/">Replace a</router-link> -->
-        <input
-          @click.stop
-          class="search-events"
-          type="text"
-          v-model="filterBy.txt"
-          @input="setInput"
-          placeholder="Search events"
-        />
-        <img src="../imgs/user.png" height="65" width="65" />
+      <nav class="nav-container flex flex-center space-between" >
+        <router-link class="router-categories" to="/eventera">Explore</router-link>
+        <router-link class="router-about" to="/about">Help</router-link>
+        <img @click.stop="openHeader" src="../imgs/user.png" height="65" width="65" />
       </nav>
-    </button>
+    </div>
     <div class="content" :class="{open: isOpen}" v-if="isOpen">
-      <ul class="item-container">
-        <li class="content-item">
-          <img src="../imgs/worker.gif" />
-        </li>
-        <li class="content-item">
-          <a href>Popular Events</a>
-        </li>
-        <li class="content-item">
           <LoggedUser />
-        </li>
-      </ul>
     </div>
   </section>
 </template>
@@ -50,12 +32,14 @@ export default {
     openHeader() {
       this.isOpen = !this.isOpen;
     },
-    // diffrent name then the @input
     setInput() {
       this.$emit("searchEvent", this.filterBy);
     },
     goToHome() {
       this.$router.push("/");
+    },
+    closeLogin() {
+      this.isOpen = false;
     }
   },
   components: {

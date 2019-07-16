@@ -14,8 +14,7 @@ import eventeraList from "@/components/EventeraList";
 export default {
   name: "EventeraApp",
   created() {
-    // loading Eventeras at Homepage for producing the top 6
-    // this.$store.dispatch({ type: "loadEventeras" });
+    this.$store.dispatch({ type: "loadEventeras" });
   },
   computed: {
     eventerasByCategories() {

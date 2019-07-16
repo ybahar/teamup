@@ -29,12 +29,12 @@
           <section>
             <h2>Eventera Members</h2>
           </section>
-          <section v-for="member in eventera.members" :key="member._id.$oid">
-            <h3>
+          <ul v-for="member in eventera.members" :key="member._id.$oid">
+            <li>
               {{member.name}}
               <button>👍</button>
-            </h3>
-          </section>
+            </li>
+          </ul>
         </section>
         <section class="pic-cmp">
           <!-- <eventera-pictures :pictureUrls="fakeImgUrls"></eventera-pictures> -->

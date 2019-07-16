@@ -10,12 +10,12 @@
     outline: none;
     font-size: 15px;
     &:hover {
-        opacity: 0.8;
+        background: linear-gradient( $clr4 75%, $clr1)
     }
 }
 
 .nav-container {
-    width: em(550px)
+    width: em(250px)
 }
 
 .logo-icon {
@@ -39,8 +39,9 @@
     &.open { 
         position: absolute;
         z-index: 2;
-        right: 0;
-        width: 100%;
+        right: 20px;
+        top: 80px;
+        width: 33%;
         padding: 0 rem(18px);
         height: 250px;
         overflow: hidden;
@@ -49,23 +50,15 @@
     }
 }
 
-.item-container {
-    display: flex;
-    flex-direction: row;
-    list-style: none;
 
-}
-.content-item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 250px;
-    width: 33.3%;
-    border-left: 1px solid $clr4;
-    border-right: 1px solid $clr4;
-    & a {
-        color: black;
-    }
+.router-categories, .router-about {
+  color: $clr1;
+  font-size: 25px;
+//   padding: 10px;
+  font-weight: bold;
+  &:hover {
+     text-decoration: underline
+  }
 }
 
 

@@ -19,8 +19,11 @@ export default {
 
         },
         setEventeras(state, { eventeras }) {
-            state.eventeras = eventeras;            
-        }
+            state.eventeras = eventeras;
+        },
+        setFilter(state, filterBy) {
+            state.filterBy = filterBy
+        },
     },
     getters: {
         eventerasForDisplay(state) {
@@ -44,17 +47,14 @@ export default {
         categories(state) {
             return state.categories
         },
-        getAlmostExpired(state) {
-            console.log('inside the filter:',state.eventeras)
-            let almostExpired = state.eventeras.filter(eventera => {
-                (eventera.expireAt - eventera.createdAt) < 172800000
-                
-                
-            })
-            console.log('inside getter:', almostExpired);
-            return almostExpired
-            
-        }
+        // getAlmostExpired(state) {
+        //     console.log('inside the filter:', state.eventeras)
+        //     let almostExpired = state.eventeras.filter(eventera => {
+        //         (eventera.expireAt - eventera.createdAt) < 172800000
+        //     })
+        //     return almostExpired
+
+        // }
     },
     actions: {
         async saveEventera(context, eventera) {

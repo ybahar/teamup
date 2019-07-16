@@ -2,6 +2,7 @@ const dbService = require('../../services/db.service')
 const logger = require('../../services/logger.service')
 const ObjectId = require('mongodb').ObjectId
 const COLLECTION_KEY = 'eventera'
+
 module.exports= {
     query,
     add,
@@ -23,7 +24,6 @@ async function query(filterBy ={}){
     const collection = await dbService.getCollection(COLLECTION_KEY);
     try {
         const eventeras = await collection.find(criteria).toArray();
-        console.log('in query:', eventeras)
         return eventeras
     } catch (err) {
         logger.error(`ERROR: cannot get Eventeras`,err)
