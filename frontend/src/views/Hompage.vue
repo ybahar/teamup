@@ -1,32 +1,42 @@
 <template>
   <section class="carousel-container">
     <carousel
-      :per-page="1"
+      :per-page="3"
       :mouse-drag="true"
-      :autoplay="true"
+      :autoplay="false"
       :loop="true"
       :paginationEnabled="false"
     >
       <slide class="carousel-slide" @slideclick="handleClick" data-name="SLS">
-        <p class="jumbo">
-          🇫​🇮​🇳​🇩​ 🇾​🇴​🇺​🇷​ 🇪​🇻​🇪​🇳​🇹​
-        </p>
-        <img src="../imgs/SLS.jpg" />
-        <button class="btn-action">Sport Events</button>
+          <img src="../imgs/SLS.jpg" />
+        <div class="img-container">
+        </div>
       </slide>
-      <slide class="carousel-slide" @slideclick="handleClick" data-name="P1">
-        <p class="jumbo">
-          🇫​🇮​🇳​🇩​ 🇾​🇴​🇺​🇷​ 🇪​🇻​🇪​🇳​🇹​ 
-        </p>
-        <img src="../imgs/P1.jpg" />
-        <button class="btn-action">Music</button>
+      <slide class="carousel-slide" @slideclick="handleClick" data-name="ducati">
+          <img src="../imgs/Ducati_Streetfighter.jpg" />
+        <div class="img-container">
+        </div>
       </slide>
       <slide class="carousel-slide" @slideclick="handleClick" data-name="jeep">
-        <p class="jumbo">
-          🇫​🇮​🇳​🇩​ 🇾​🇴​🇺​🇷​ 🇪​🇻​🇪​🇳​🇹​
-        </p>
-        <img src="../imgs/jeep.jpg" />
-        <button class="btn-action">Bizzare Events</button>
+          <img src="../imgs/jeep.jpg" />
+        <div class="img-container">
+        </div>
+      </slide>
+      <slide class="carousel-slide" @slideclick="handleClick" data-name="bentley">
+          <img src="../imgs/Bentley.jpg" />
+        <div class="img-container">
+        </div>
+      </slide>
+      <slide class="carousel-slide" @slideclick="handleClick" data-name="honda">
+          <img src="../imgs/Honda.jpg" />
+        <div class="img-container">
+        </div>
+      </slide>
+      <slide class="carousel-slide" @slideclick="handleClick" data-name="jeep">
+          <img src="../imgs/lamb.jpg" />
+        <div class="img-container">
+          <p>Go to Event</p>
+        </div>
       </slide>
     </carousel>
   </section>

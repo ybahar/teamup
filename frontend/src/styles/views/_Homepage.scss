@@ -1,8 +1,33 @@
 
-.carousel-slide {
-	height: calc(100vh - 83px);
-	object-fit: contain;
+
+.carousel-container {
+	position: fixed;
+	bottom: 50px;;
+	height: rem(250px);
+	width: 100%;
+	padding: 10px;
+	// object-fit: contain;
 }
+
+.carousel-slide {
+	height: rem(250px);
+	max-width: calc(100vw / 3);
+	padding: 10px;
+	& img {
+		max-width: 100%;
+		max-height: 100%;
+		border-radius: 10px;
+	}
+	&.img-container {
+		display: none;
+		
+	}
+	
+	
+}
+
+
+
 
 .btn-action {
 	padding: rem(5px) rem(10px);
