@@ -11,17 +11,21 @@ export default {
             phone: "",
             loc: {
                 geo: {
-                    lat: 0,
-                    lng: 0
+                    lat: 59.3293,
+                    lng: 18.0686
                 },
                 address: "",
-                city: ""
+                city: "",
+                formatted_address: ""
             },
         },
     },
     getters: {
         loggedUser(state) {
             return state.loggedUser;
+        },
+        loc(state) {
+            return state.loggedUser.loc;
         }
     },
     mutations: {
@@ -49,6 +53,11 @@ export default {
             } catch (err) {
                 console.log('had problems loadLoggedUser', err);
             }
+        },
+        async updateLocation(context, {geo, address}) {
+            context.loggedUser.loc.geo = geo
+            context.loggedUser.loc.address = address;
+            await userService.update(context.loggedUser);
         }
     },
 }

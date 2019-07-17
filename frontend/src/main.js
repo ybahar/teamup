@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import VueCarousel from 'vue-carousel'
 import * as VueGoogleMaps from 'vue2-google-maps'
+import {LOC_API_KEY} from '@/services/loc/LocService.js';
 import './registerServiceWorker'
 import '@/filters.js';
 
@@ -12,7 +13,7 @@ Vue.config.productionTip = false
 Vue.use(VueCarousel);
 Vue.use(VueGoogleMaps, {
   load: {
-    key: 'AIzaSyCdP6PdiSpHc1Ld8fuwHLzvk2-kLSx6hWc',
+    key: LOC_API_KEY,
     libraries: 'places', // This is required if you use the Autocomplete plugin
     // OR: libraries: 'places,drawing'
     // OR: libraries: 'places,drawing,visualization'
