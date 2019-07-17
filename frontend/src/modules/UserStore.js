@@ -31,6 +31,10 @@ export default {
     mutations: {
         setLoggedUser(state, { user }) {
             state.loggedUser = user;
+        },
+        setLocation(state, { geo, address }) {
+            state.loggedUser.loc.geo = geo;
+            state.loggedUser.loc.address = address;
         }
     },
     actions: {
@@ -54,10 +58,9 @@ export default {
                 console.log('had problems loadLoggedUser', err);
             }
         },
-        async updateLocation(context, {geo, address}) {
-            context.loggedUser.loc.geo = geo
-            context.loggedUser.loc.address = address;
-            await userService.update(context.loggedUser);
+        async updateLocation(context, { geo, address }) {
+            context.commit({ type: 'setLocation', geo, address })
+            await userService.update(context.loggedUser); // returns an updated user, not gonna use
         }
     },
 }

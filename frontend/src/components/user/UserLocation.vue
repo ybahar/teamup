@@ -5,14 +5,14 @@
       <h3>Make finding Eventeras easier</h3>
     </div>
     <div class="main-body">
-      <form @submit.prevent>
+      <form @submit.prevent="save">
         <input
           type="text"
           v-model="address"
           @input="getAddressPosition"
           placeholder="try 'Sweden Stockholm'"
         />
-        <button class="btn-action" @click="getUserLocation">Use my location</button>
+        <button type="button" class="btn-action" @click="getUserLocation">Use my location</button>
         <GmapMap :center="mapCenter" :zoom="7" map-type-id="terrain" id="g-map">
           <GmapMarker :position="mapCenter" />
         </GmapMap>
@@ -72,7 +72,7 @@ export default {
       }
     },
     save() {
-      this.$store.dispatch({ type: "updateLocation", geo: this.geo });
+      this.$store.dispatch({ type: "updateLocation", geo: this.geo, address: this.address });
       this.$store.getters.geo
     }
   }
