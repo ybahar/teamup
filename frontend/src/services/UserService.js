@@ -51,7 +51,6 @@ async function getLoggedUser() {
 }
 
 function update(user) {
-    console.log('userservice front got: ', user);
     return httpService.put(`${URL_ENDING}/${user._id}`, user);
 }
 function remove(_id) {

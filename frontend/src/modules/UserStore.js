@@ -5,19 +5,19 @@ export default {
     state: {
         loggedUser: {
             _id: "",
-            username: '',
-            name: "",
-            email: "",
-            phone: "",
-            loc: {
-                geo: {
-                    lat: 59.3293,
-                    lng: 18.0686
-                },
-                address: "",
-                city: "",
-                formatted_address: ""
-            },
+            // username: '',
+            // name: "",
+            // email: "",
+            // phone: "",
+            // loc: {
+            //     geo: {
+            //         lat: 59.3293,
+            //         lng: 18.0686
+            //     },
+            //     address: "",
+            //     city: "",
+            //     formatted_address: ""
+            // },
         },
     },
     getters: {
@@ -30,11 +30,12 @@ export default {
     },
     mutations: {
         setLoggedUser(state, { user }) {
+            console.log('setLoggedUser called')
+
             state.loggedUser = user;
         },
-        setLocation(state, { geo, address }) {
-            state.loggedUser.loc.geo = geo;
-            state.loggedUser.loc.address = address;
+        setLocation(state, { loc }) {
+            state.loggedUser.loc = loc;
         }
     },
     actions: {
@@ -51,6 +52,10 @@ export default {
             }
         },
         async loadLoggedUser(context) {
+            if (context.getters.loggedUser._id) {
+                console.log('loadLoggedUser already cached');
+                return
+            };
             try {
                 const user = await userService.getLoggedUser();
                 context.commit({ type: 'setLoggedUser', user });
@@ -58,9 +63,12 @@ export default {
                 console.log('had problems loadLoggedUser', err);
             }
         },
-        async updateLocation(context, { geo, address }) {
-            context.commit({ type: 'setLocation', geo, address })
-            await userService.update(context.loggedUser); // returns an updated user, not gonna use
+        async updateLocation(context, { loc }) {
+            console.log('updateLocation called');
+            context.commit({ type: 'setLocation', loc })
+            // without copying I get 'dont change state outside out of mutation' err
+            const userCopy = JSON.parse(JSON.stringify(context.getters.loggedUser))
+            await userService.update(userCopy); // returns an updated user, not gonna use
         }
     },
 }

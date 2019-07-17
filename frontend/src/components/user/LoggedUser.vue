@@ -37,7 +37,7 @@ import { setTimeout } from "timers";
 export default {
   computed: {
     user() {
-      return this.$store.getters.loggedUser || {};
+      return this.$store.getters.loggedUser
     }
   },
   data() {
@@ -55,7 +55,7 @@ export default {
     };
   },
   created() {
-    this.$store.dispatch({type: 'loadLoggedUser'})
+    this.$store.dispatch({ type: "loadLoggedUser" });
     if (this.user) {
     } else {
       console.log("no user found :(");
@@ -89,7 +89,7 @@ export default {
     },
     logout() {
       userService.logout();
-      this.$store.commit({type: 'setLoggedUser', user: {}})
+      this.$store.commit({ type: "setLoggedUser", user: { _id: "" } });
       this.clear();
     },
     storeUser() {

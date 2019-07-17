@@ -8,17 +8,18 @@
       <form @submit.prevent="save">
         <input
           type="text"
-          v-model="address"
+          v-model="loc.address"
           @input="getAddressPosition"
           placeholder="try 'Sweden Stockholm'"
         />
         <button type="button" class="btn-action" @click="getUserLocation">Use my location</button>
-        <GmapMap :center="mapCenter" :zoom="7" map-type-id="terrain" id="g-map">
-          <GmapMarker :position="mapCenter" />
+        <GmapMap :center="loc.geo" :zoom="7" map-type-id="terrain" id="g-map">
+          <GmapMarker :position="loc.geo" />
         </GmapMap>
         <button class="btn-action">Save</button>
       </form>
     </div>
+    {{ loc.geo }}
   </section>
 </template>
 
@@ -30,50 +31,51 @@ let debounceTimeout;
 export default {
   name: "UserLocation",
   async created() {
-    this.address = "";
+    // await this.$store.dispatch({type: 'loadLoggedUser'})
+    if (!this.$store.getters.loggedUser._id) this.$router.push("/");
+    const loc = await this.$store.getters.loc;
+    this.loc = Object.assign({}, loc);
+    if (!loc.geo || !loc.geo.lat || !loc.geo.lng) {
+      const { lat, lng } = await locService.getAddressPosition(
+        this.loc.address
+      );
+      this.loc.geo = { lat, lng };
+    }
   },
   data() {
     return {
-      address: "",
-      geo: {
-        lat: 0,
-        lng: 0
+      loc: {
+        address: "",
+        geo: {
+          lat: 0,
+          lng: 0
+        }
       }
     };
-  },
-  computed: {
-    loc() {
-      return this.$store.getters.loc;
-    },
-    mapCenter() {
-      if (this.geo)
-        if (this.geo.lat && this.geo.lng)
-          return { lat: this.geo.lat, lng: this.geo.lng };
-      return { lat: 59.3293, lng: 18.0686 };
-    }
   },
   methods: {
     async getUserLocation() {
       const { coords } = await locService.getUserPosition();
+      console.log("coords", coords);
       const { latitude, longitude } = coords;
-      this.geo = { lat: latitude, lng: longitude };
+      this.loc.geo = { lat: latitude, lng: longitude };
     },
     getAddressPosition() {
       try {
         if (debounceTimeout) clearTimeout(debounceTimeout);
         debounceTimeout = setTimeout(async () => {
           const { lat, lng } = await locService.getAddressPosition(
-            this.address
+            this.loc.address
           );
-          this.geo = { lat, lng };
+          this.loc.geo = { lat, lng };
         }, 500);
       } catch (err) {
         console.log("had issues with finding getAddressPosition", err);
       }
     },
     save() {
-      this.$store.dispatch({ type: "updateLocation", geo: this.geo, address: this.address });
-      this.$store.getters.geo
+      this.$store.dispatch({ type: "updateLocation", loc: this.loc });
+      // this.$store.getters.geo
     }
   }
 };
