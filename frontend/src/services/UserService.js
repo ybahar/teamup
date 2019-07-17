@@ -47,6 +47,7 @@ async function getLoggedUser() {
         return httpService.get(`${URL_ENDING}/${credentials._id}`);
     } catch (err) {
         console.log('No logged in user', err);
+        throw err;
     }
 }
 

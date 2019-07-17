@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="login-box">
-      <div v-if="user._id">
+      <div v-if="user && user._id">
         Welcome,
         <router-link to="/user/">{{ user.username }}</router-link>
         <button @click="logout">Logout</button>
@@ -12,8 +12,20 @@
           <h3>{{ status }}</h3>
           <form @submit.prevent="execSubmit">
             <span v-if="err" class="danger">{{err}}</span>
-            <input v-model="credentials.username" type="text" placeholder="Username" required />
-            <input v-model="credentials.password" type="password" placeholder="Password" required />
+            <input
+              v-model="credentials.username"
+              autocomplete
+              type="text"
+              placeholder="Username"
+              required
+            />
+            <input
+              v-model="credentials.password"
+              autocomplete
+              type="password"
+              placeholder="Password"
+              required
+            />
             <hr />
             <button>{{status | capitalize}}</button>
           </form>
@@ -37,7 +49,7 @@ import { setTimeout } from "timers";
 export default {
   computed: {
     user() {
-      return this.$store.getters.loggedUser
+      return this.$store.getters.loggedUser;
     }
   },
   data() {
@@ -54,12 +66,8 @@ export default {
       status: ""
     };
   },
-  created() {
-    this.$store.dispatch({ type: "loadLoggedUser" });
-    if (this.user) {
-    } else {
-      console.log("no user found :(");
-    }
+  async created() {
+    await this.$store.dispatch({ type: "loadLoggedUser" });
   },
   methods: {
     clear() {
@@ -89,6 +97,7 @@ export default {
     },
     logout() {
       userService.logout();
+      if (this.$route.path.includes("/user")) this.$router.push("/");
       this.$store.commit({ type: "setLoggedUser", user: { _id: "" } });
       this.clear();
     },

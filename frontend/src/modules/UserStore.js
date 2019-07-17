@@ -30,8 +30,6 @@ export default {
     },
     mutations: {
         setLoggedUser(state, { user }) {
-            console.log('setLoggedUser called')
-
             state.loggedUser = user;
         },
         setLocation(state, { loc }) {
@@ -52,19 +50,18 @@ export default {
             }
         },
         async loadLoggedUser(context) {
-            if (context.getters.loggedUser._id) {
-                console.log('loadLoggedUser already cached');
-                return
-            };
-            try {
-                const user = await userService.getLoggedUser();
-                context.commit({ type: 'setLoggedUser', user });
-            } catch (err) {
-                console.log('had problems loadLoggedUser', err);
+            if (!context.getters.loggedUser._id) {
+                {
+                    try {
+                        const user = await userService.getLoggedUser();
+                        if (user) context.commit({ type: 'setLoggedUser', user });
+                    } catch (err) {
+                        console.log('had problems loadLoggedUser', err);
+                    }
+                }
             }
         },
         async updateLocation(context, { loc }) {
-            console.log('updateLocation called');
             context.commit({ type: 'setLocation', loc })
             // without copying I get 'dont change state outside out of mutation' err
             const userCopy = JSON.parse(JSON.stringify(context.getters.loggedUser))
