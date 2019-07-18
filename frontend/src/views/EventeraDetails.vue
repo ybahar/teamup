@@ -1,6 +1,6 @@
 <template>
-  <section class="details-container">
-    <div class="gallery-contianer">
+  <section class="details-container" @click="closeChat" v-if="eventera">
+    <section class="gallery-contianer">
       <div class="img-container-one">
         <img class="gallery-img" src="../imgs/sport-default.jpg"/>
       </div>
@@ -10,11 +10,31 @@
       <div class="img-container-three">
         <img class="gallery-img" src="../imgs/Basketball.jpg"/>
       </div>
-    </div>
-    <section class="desc-container">
-      <div class="text-container">
+    </section>
+    <section class="desc-container max-width">
+      <div class="text-container flex flex-center space-around">
         <h1>{{eventera.name}}</h1>
         <img src="../imgs/user.png" width="65px" height="65px">
+      </div>
+      <div class="eventera-status flex flex-center space-around">
+        <h2 class="members">{{eventera.members.length}} / {{eventera.maxMembers}}</h2>
+        <button class="join-btn" @click="joinEventera">Join</button>
+      </div>
+      <div class="members-list flex column space-around">
+        <h1>Members list</h1>
+        <ul>
+          <li v-for="(member,index) in eventera.members" :key="index" class="member-item">{{member.name}}</li>
+        </ul>
+      </div>
+      <div class="eventera-creator-text flex column">
+        <h2>Looking for: 10 players to play football</h2>
+        <h3>About me: former proffessional player</h3>
+        <p>Our goal is to create the best event possible of playing football</p>
+      </div>
+      <span class="chat-icon" @click.stop="openChat"></span>
+      <div class="chat-container flex column space-between" @click.stop :class="{chat: isChat}">
+        <h1>members chat</h1>
+        <input type="text" class="chat-input">
       </div>
     </section>
   </section>
@@ -26,11 +46,8 @@ import EventeraMap from '@/components/EventeraMap';
 export default {
   data() {
     return {
+      isChat: false,
       eventera: null,
-      fakeImgUrls:['https://www.versacourt.com/cmss_files/photogallery/structure/Residential_Multi-Sport_Game_Courts/image57815.jpg',
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRY7d9aeTD8P-FbLTIhPTHBDVIzE6Bn_ZSF0O4pjYYrlPYsmR0H',
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShICMlIEuLvf7ofylql6XlAqarL9JAxFLZYyloKKqxaHkgMUgZ',
-      ]
     };
   },
   async created() {
@@ -50,6 +67,12 @@ export default {
     }
   },
   methods: {
+    closeChat() {
+      this.isChat = false;
+    },
+    openChat() {
+      this.isChat = !this.isChat
+    },
     joinEventera() {
       console.log("Need store user data , Function currently is noted  ");
       //TODO : GET USER FROM STORE

@@ -1,8 +1,10 @@
 
 .app-header {
     background: transparent;
-    padding: 10px;
+    color: $clr1;
 }
+
+
 
 .header {
     width: 100%;
@@ -14,7 +16,10 @@
 
 .nav-container {
     padding: 10px;
+    color: $clr1
+
 }
+
 
 .logo-container {
     width: rem(70px);
@@ -27,15 +32,25 @@
     }
 }
 
+.isMain {
+    color: black;
+    & .router-categories, .router-about, .link-login, .link-signup, .link-build {
+        &:hover {
+            border-bottom: 1px solid black;
+        }
+    }
+}
+
 
 .router-categories, .router-about, .link-login, .link-signup, .link-build {
-  color: $clr1;
+  color: inherit;
   font-size: 18px;
   padding: 10px;
   font-weight: bold;
   outline: none;
   &:hover {
-     border-bottom: 1px solid $clr1
+     border-bottom: 1px solid $clr1;
+     cursor: pointer;
   }
 }
 
