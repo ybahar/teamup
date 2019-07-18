@@ -1,17 +1,45 @@
 .eventera-preview {
-    min-width: 200px;
-    height: 300px;
-    background-color: $clr2;
-    margin: 5px;
-    padding: 5px;
-    border-radius: 20px;
+    & img {
+        margin-bottom: 5px;
+    }
+    @include for-mobile-layout {
+        // background-color: #fff; 
+    }
+    @include for-narrow-layout {
+        // background-color: #aaa;
+    }
+    @include for-normal-layout {
+        // background-color: #666;
+    }
+    
+    @include for-wide-layout {
+        border: 1px solid black; // #discard
+        min-width: 246px;
+        min-height: 266px;
+        margin: 5px;
+        align-items: flex-start;
+        // padding: 5px;
+        // border-radius: 20px;
+    }
+
+    background-color: transparent;
 }
+
+.category {
+    color: #767676;
+    margin-bottom: 5px;
+}
+
+.eventera-preview-details {
+    padding: 5px;
+}
+
 .btn {
     padding: 4px 7px;
     width: 80px;
     cursor: pointer;
+
     &:hover {
-        background-color: rgba(255,255,255,0.3);
+        background-color: rgba(255, 255, 255, 0.3);
     }
 }
-
