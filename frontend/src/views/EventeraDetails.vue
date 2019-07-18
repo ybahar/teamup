@@ -1,9 +1,23 @@
 <template>
-  
+  <section class="details-container">
+    <div class="gallery-contianer">
+      <div class="img-container-one">
+        <img class="gallery-img" src="../imgs/sport-default.jpg"/>
+      </div>
+      <div class="img-container-two">
+        <img class="gallery-img" src="../imgs/Football.jpg"/>
+      </div>
+      <div class="img-container-three">
+        <img class="gallery-img" src="../imgs/Basketball.jpg"/>
+      </div>
+    </div>
+    <section class="desc-container">
+      
+    </section>
+  </section>
 </template>
 
 <script>
-// import EventeraPictures from '@/components/EventeraPictures'
 import EventeraImages from '@/components/EventeraImages'
 import EventeraMap from '@/components/EventeraMap';
 export default {
