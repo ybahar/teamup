@@ -3,8 +3,9 @@
     <img src="@/imgs/dummy-card.png" alt />
     <div class="secondary">
       <span>{{eventera.categories[0] | capitalize }}</span>
-      <span v-if="distance">| {{distance}} away</span>
+      <span v-if="distance"> | {{ distance | meterToKM }}</span>
     </div>
+    <div>{{ eventera.expireAt | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</div>
 
     <h2>{{eventera.name}}</h2>
     {{eventera}}
@@ -17,6 +18,7 @@
 </template>
 
 <script>
+import { getDistance } from "geolib";
 export default {
   props: {
     eventera: Object
@@ -26,9 +28,13 @@ export default {
       return `/eventera/${this.eventera._id}`;
     },
     distance() {
-      const loc = this.$store.getters.loc;
-      if (!loc) return "";
-      return "0.5 km";
+      const loggedUserLoc = this.$store.getters.loc;
+      if (loggedUserLoc) {
+        const eventeraGeo = this.eventera.loc.geo;
+        if (!eventeraGeo) return "";
+        const distance = getDistance(eventeraGeo, loggedUserLoc.geo);
+        return distance;
+      }
     }
   }
 };
