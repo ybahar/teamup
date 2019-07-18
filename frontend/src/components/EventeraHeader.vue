@@ -7,6 +7,7 @@
       </div>
       <nav class="nav-container flex flex-center space-between" >
         <router-link class="router-categories" to="/eventera">Explore</router-link>
+        <button class="link-build">Plan event</button>
         <router-link class="router-about" to="/about">Help</router-link>
         <button class="link-login">Log in</button>
         <button class="link-signup">Sign up</button>

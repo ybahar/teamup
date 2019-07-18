@@ -28,14 +28,14 @@
 }
 
 
-.router-categories, .router-about, .link-login, .link-signup {
+.router-categories, .router-about, .link-login, .link-signup, .link-build {
   color: $clr1;
   font-size: 18px;
   padding: 10px;
   font-weight: bold;
   outline: none;
   &:hover {
-     border-bottom: 1px solid white
+     border-bottom: 1px solid $clr1
   }
 }
 

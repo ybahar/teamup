@@ -15,8 +15,8 @@
 
 
 .search-container {
-    justify-content: left;
-    width: 20em;
+    // justify-content: left;
+    width: 90%;
     padding-left: 10px;
     & h5 {
         width: rem(77px);
@@ -27,7 +27,7 @@
 }
 
 .search-filter-input {
-    width: 65%;
+    width: 45%;
     outline: none;
     background-color: $clr1;
     color: black;
@@ -37,17 +37,15 @@
 }
 
 .search-eventeras {
-    position: absolute;
-    right: 15px;
-    top: 98px;
     width: rem(95px);
     height: rem(35px);
-    background: linear-gradient(to top left, $clr4, $clr3, $clr1);
-    border-radius: 5px;
+    background-color: $clr3;
+    padding: 10px 10px;
+    border-radius: 2px;
     font-weight: bold;
     color: $clr1;
     &:hover {
-        color: $clr4;
-        transition: 0.3s;
+        background-color: darken($clr3, 10%);
+        // transition: 0.3s;
     }
 }

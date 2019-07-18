@@ -1,49 +1,5 @@
 <template>
-  <section class="details-page-container">
-    <section class="eventera-details-container" v-if="eventera">
-      <section class="eventera-title-contianer eventera-join-container">
-        <h1>{{eventera.name}}</h1>
-        <button @click="joinEventera" :disabled="!isOpen">{{joinBtnTxt}}</button>
-      </section>
-      <section class="eventera-general-details-container">
-        <section>
-          <p>{{eventera.members.length}} / {{eventera.maxMembers}}</p>
-          <p>{{eventera.expireAt | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</p>
-          <p>{{eventera.loc.address}}, {{eventera.loc.city}}</p>
-          <section class="category-list">
-            <p>
-              Category :
-              <span
-                v-for="(category, idx) in eventera.categories"
-                :key="category"
-              >{{(idx)?',':''}} {{category}}</span>
-            </p>
-          </section>
-        </section>
-        <div class="map">
-          <EventeraMap/>
-        </div>
-      </section>
-      <section class="details-segment">
-        <section class="eventera-member-list" v-if="eventera.members">
-          <section>
-            <h2>Eventera Members</h2>
-          </section>
-          <ul v-for="member in eventera.members" :key="member._id.$oid">
-            <li>
-              {{member.name}}
-              <button>👍</button>
-            </li>
-          </ul>
-        </section>
-        <section class="pic-cmp">
-          <!-- <eventera-pictures :pictureUrls="fakeImgUrls"></eventera-pictures> -->
-          <EventeraImages/>
-          </section>
-      </section>
-    </section>
-    <section class="suggestion-list"><h4>Suggestions</h4></section>
-  </section>
+  
 </template>
 
 <script>
