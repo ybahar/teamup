@@ -10,7 +10,7 @@
           type="text"
           v-model="loc.address"
           @input="getAddressPosition"
-          placeholder="try 'Sweden Stockholm'"
+          placeholder="Try 'Sweden Stockholm'"
         />
         <button type="button" class="btn-action" @click="getUserLocation">Use my location</button>
         <GmapMap :center="loc.geo" :zoom="7" map-type-id="terrain" id="g-map">

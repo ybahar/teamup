@@ -1,17 +1,13 @@
 <template>
-  <section v-if="eventeraByCategory" class="eventera-list-container">
+  <section v-if="eventeraByCategory" class="eventera-list-container max-width">
     <h1>{{ eventeraByCategory.category | capitalize }}</h1>
-    <!-- <ul class="eventera-list"> -->
-    <carousel :per-page="5" class="eventera-list">
-      <!-- TODO: fix carousel -->
+    <ul class="eventera-list">
       <eventera-preview
-        v-for="eventera in eventeraByCategory.eventeras"
+        v-for="eventera in eventeraByCategory.eventeras.slice(0,4)"
         :key="eventera._id"
         :eventera="eventera"
       ></eventera-preview>
-    </carousel>
-    <!-- </ul> -->
-    <hr />
+    </ul>
   </section>
 </template>
 

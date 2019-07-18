@@ -8,6 +8,7 @@ import {LOC_API_KEY} from '@/services/loc/LocService.js';
 import './registerServiceWorker'
 import '@/filters.js';
 
+
 Vue.use(require('vue-moment'));
 Vue.config.productionTip = false
 Vue.use(VueCarousel);
