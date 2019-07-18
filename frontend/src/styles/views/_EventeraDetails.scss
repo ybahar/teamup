@@ -45,5 +45,12 @@
 .desc-container {
   display: grid;
   grid-template-columns: repeat(2fr, 1fr);
-  grid-template-rows: repeat(2, 5vw);
+  grid-template-rows: repeat(1fr, 2fr);
+}
+
+.text-container {
+  grid-column-start: 1;
+  grid-column-end: 1;
+  grid-row-start: 1;
+  grid-row-end: 1;
 }

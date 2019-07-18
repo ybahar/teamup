@@ -2,8 +2,7 @@
   <header class="app-header flex-center space-between">
     <div class="header flex flex-center space-between">
       <div class="logo-container" @click="goToHome">
-        <!-- <span class="logo-icon">🅴🆅🅴🅽🆃🅴🆁 🅰</span> -->
-        <img class="logo-icon" src="../imgs/spider-logo.svg">
+        <img class="logo-icon" src="../imgs/ee-logo.svg">
       </div>
       <nav class="nav-container flex flex-center space-between" >
         <router-link class="router-categories" to="/eventera">Explore</router-link>

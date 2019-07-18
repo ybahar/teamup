@@ -12,7 +12,9 @@
       </div>
     </div>
     <section class="desc-container">
-      
+      <div class="text-container">
+        <h1>{{eventera.name}}</h1> <img src="../imgs/user.png" width="65px" height="65px">
+      </div>
     </section>
   </section>
 </template>
