@@ -44,8 +44,9 @@
 
 .desc-container {
   display: grid;
-  grid-template-columns: repeat(2fr, 1fr);
-  grid-template-rows: repeat(1fr, 2fr);
+  width: 100%;
+  grid-template-columns: repeat(3fr, 1fr);
+  grid-template-rows: repeat(2, 2fr);
 }
 
 .text-container {
@@ -53,4 +54,7 @@
   grid-column-end: 1;
   grid-row-start: 1;
   grid-row-end: 1;
+  & h1 {
+    display: inline-block;
+  }
 }
