@@ -13,15 +13,14 @@
     }
     
     @include for-wide-layout {
-        border: 1px solid black; // #discard
         min-width: 246px;
-        min-height: 266px;
+        // min-height: 266px;
         margin: 5px;
         align-items: flex-start;
         // padding: 5px;
         // border-radius: 20px;
     }
-
+    cursor:pointer;
     background-color: transparent;
 }
 

@@ -1,7 +1,13 @@
+
+.eventera-list-container {
+    margin: 0 auto;
+    border-bottom: 1px solid rgb(235,235,235);
+    padding-bottom: rem(20px);
+}
 .eventera-list {
+    margin: 0 12px;
     display: flex;
-    justify-content: space-between;
-    width: auto;
+    justify-content: flex-start;
     
 }
 .eventera-list-container:last-child {

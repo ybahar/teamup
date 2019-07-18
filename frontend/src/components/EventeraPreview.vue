@@ -1,20 +1,14 @@
 <template>
-  <section class="eventera-preview flex column">
-    <img src="@/imgs/dummy-card.png" alt />
-    <div class="secondary">
-      <span>{{eventera.categories[0] | capitalize }}</span>
-      <span v-if="distance"> | {{ distance | meterToKM }}</span>
-    </div>
-    <div>{{ eventera.expireAt | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</div>
-
-    <h2>{{eventera.name}}</h2>
-    {{eventera}}
-    <!-- <p>
-      <span>{{ eventera.expireAt | moment("dddd, MMMM Do YYYY, h:mm:ss a") }}</span>
-    </p>
-    <p>{{eventera.loc.address}},{{eventera.loc.city}}</p>
-    <router-link class="btn" tag="div" :to="detailsUrl">Details</router-link>-->
-  </section>
+  <router-link tag="div" :to="detailsUrl">
+    <section class="eventera-preview flex column">
+      <img src="@/imgs/dummy-card.png" alt />
+      <div class="secondary">
+        <span>{{eventera.categories[0] | capitalize }}</span>&nbsp
+        <span v-if="distance">{{ distance | meterToKM }}</span>
+      </div>
+      <h2>{{eventera.name}}</h2>
+    </section>
+  </router-link>
 </template>
 
 <script>

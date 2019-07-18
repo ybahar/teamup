@@ -11,9 +11,9 @@ Vue.filter('timeAgo', ms => {
 });
 
 Vue.filter('meterToKM', num => {
-
     const km = (num / 1000).toFixed(1);
-    if (km < 1) { return 'Less than km away' }
+    if (km < 1) return '<1km'
+    if (km > 50) return '>50km'
     return `${km}km away`
 });
 
