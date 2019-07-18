@@ -32,17 +32,19 @@ async function query(filterBy ={}){
 }
 
 async function add(newEventera,user){
-    eventera.creator = {
+    
+    newEventera.creator = {
       _id : user._id,
     }
-    eventera.members = [{
+    newEventera.members = [{
         _id : user._id,
       name : user.name,
       mvpVoteCount :0,
     }]
     const collection = await dbService.getCollection(COLLECTION_KEY)
     try {
-        await collection.insertOne(newEventera);
+        newEventera = await collection.insertOne(newEventera);
+        console.log(newEventera);
         return newEventera;
     } catch (err) {
         logger.error(`ERROR: cannot insert Eventera`,err)
