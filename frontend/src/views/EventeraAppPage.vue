@@ -1,5 +1,6 @@
 <template>
   <section>
+    <eventera-filter></eventera-filter>
       <eventera-list
         :eventeraByCategory="eventerasByCategory"
         v-for="eventerasByCategory in eventerasByCategories"
@@ -10,6 +11,7 @@
 
 <script>
 import eventeraList from "@/components/EventeraList";
+import eventeraFilter from '@/components/EventeraFilter.vue';
 
 export default {
   name: "EventeraApp",
@@ -23,6 +25,7 @@ export default {
   },
   components: {
     eventeraList,
+    eventeraFilter,
   }
 };
 </script>

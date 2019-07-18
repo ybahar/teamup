@@ -1,0 +1,8 @@
+.eventera-filter{
+    input.check-box{
+        display: none;
+    }
+    label>.check-box:checked+span{
+        font-weight: bold;
+    }
+}

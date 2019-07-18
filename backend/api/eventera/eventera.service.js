@@ -12,17 +12,21 @@ module.exports= {
 }
 
 async function query(filterBy ={}){
-     
+    
     let criteria = {}
     if (filterBy.txt){
-        criteria.name = filterBy.txt;
+        // criteria.name = filterBy.txt;
+        const regex = new RegExp(filterBy.txt)
+        criteria.name = { $regex : regex , $options : 'i'}
     }
-    if (filterBy.categories && filterBy.categories.length){
-        criteria.categories = {$all : filterBy.categories};
+    if (filterBy.category !== 'General'){
+        criteria.categories = {$all : [filterBy.category]};
     }
     const collection = await dbService.getCollection(COLLECTION_KEY);
     try {
         const eventeras = await collection.find(criteria).toArray();
+        console.log(eventeras.length)
+        console.log('checkiong queryt ' , criteria)
         return eventeras
     } catch (err) {
         logger.error(`ERROR: cannot get Eventeras`,err)
