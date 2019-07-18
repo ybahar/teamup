@@ -4,7 +4,7 @@ import eventeraService from '@/services/EventeraService'
 export default {
     state: {
         eventeras: [],
-
+        newEventera: {name},
         filterBy: {
             txt: ''
         },
@@ -24,10 +24,16 @@ export default {
         setFilter(state, filterBy) {
             state.filterBy = filterBy
         },
+        buildEventera(state, newEventera) {
+            state.newEventera = newEventera
+        }
     },
     getters: {
         eventerasForDisplay(state) {
             return state.eventeras
+        },
+        getNewEventera(state) {
+            return state.newEventera
         },
         eventerasByCategories(state) {
             // each object in the array holds {category: 'cat', eventeras: [...]}

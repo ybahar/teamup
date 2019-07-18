@@ -2,23 +2,19 @@
 
 .filter-container {
     width: rem(470px);
-    height: 35vh;
-   background: whitesmoke;
+    height: rem(200px);
+    border-radius: 3px;
+   background: $clr1;
    position: absolute;
-   top: rem(87px);
+   top: rem(187px);
    left: rem(65px);
-   border-radius: 10px;
-   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
    & h1 {
        font-size: 25px;
    }
 }
-.headline-divider {
-    font-size: 16px;
-    color:$clr2
-}
 
-.search-container, .build-container {
+
+.search-container {
     justify-content: left;
     width: 20em;
     padding-left: 10px;
@@ -44,22 +40,6 @@
     position: absolute;
     right: 15px;
     top: 98px;
-    width: rem(95px);
-    height: rem(35px);
-    background: linear-gradient(to top left, $clr4, $clr3, $clr1);
-    border-radius: 5px;
-    font-weight: bold;
-    color: $clr1;
-    &:hover {
-        color: $clr4;
-        transition: 0.3s;
-    }
-}
-
-.build-eventeras {
-    position: absolute;
-    right: 15px;
-    top: 265px;
     width: rem(95px);
     height: rem(35px);
     background: linear-gradient(to top left, $clr4, $clr3, $clr1);

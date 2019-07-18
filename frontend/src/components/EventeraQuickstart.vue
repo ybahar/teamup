@@ -2,16 +2,8 @@
   <section class="filter-container">
     <h1>Explore events</h1>
     <div class="search-container flex column">
-      <h5>What kind:</h5>
-      <input class="search-filter-input" v-model="filterBy.txt" type="text" placeholder="Anything" />
+      <input class="search-filter-input" v-model="filterBy.txt" type="text" placeholder="Try: Football" />
       <button class="search-eventeras" @click="emitSearch">Explore</button>
-    </div>
-    <h3 class="headline-divider">or</h3>
-    <h1>Build your own</h1>
-    <div class="build-container flex column">
-      <h5>Name it:</h5>
-      <input class="search-filter-input" type="text" placeholder="Its changable" />
-      <button class="build-eventeras">Build</button>
     </div>
   </section>
 </template>
@@ -22,6 +14,9 @@ export default {
     return {
       filterBy: {
         txt: ""
+      },
+      newEventera: {
+        name:''
       }
     };
   },
@@ -29,6 +24,9 @@ export default {
     emitSearch() {
       if (!this.filterBy.txt) return
       this.$emit("searchEventeras", this.filterBy);
+    },
+    emitBuild() {
+      this.$emit("buildEventera", this.newEventera);
     }
   }
 };

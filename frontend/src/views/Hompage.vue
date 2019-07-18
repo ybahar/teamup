@@ -1,16 +1,16 @@
 <template>
   <section class="home-container flex">
-    <div class="construct-background">
-    </div>
-    <EventeraQuickstart @searchEventeras="searchEventeras"/>
-    <h1 class="carousel-header">Hottest events:</h1>
+    <div class="bg-container"></div>
+    <!-- <img src="../imgs/homeIMG.jpg" alt=""> -->
+    <EventeraQuickstart @buildEventera="buildEventera" @searchEventeras="searchEventeras"/>
+    <!-- <h1 class="carousel-header">Hottest events:</h1> -->
     <section class="carousel-container">
       <span>{{due}}</span>
       <carousel
         v-if="dueEventeras.length"
-        :per-page="4"
+        :per-page="1"
         :mouse-drag="true"
-        :autoplay="false"
+        :autoplay="true"
         :loop="true"
         :paginationEnabled="false"
         :speed="1000"
@@ -84,6 +84,10 @@ export default {
       this.$store.commit("setFilter", filterBy);
       this.$router.push('/eventera')
     },
+    buildEventera(newEventera) {
+      this.$store.commit("buildEventera", newEventera);
+      this.$router.push('/eventera/edit')
+    }
   },
   created() {
     this.loadEventeras()

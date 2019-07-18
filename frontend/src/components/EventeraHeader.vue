@@ -1,49 +1,36 @@
 <template>
-  <section class="app-header" @click="closeLogin">
-    <div class="collapsible flex flex-center space-between">
+  <header class="app-header flex-center space-between">
+    <div class="header flex flex-center space-between">
       <div class="logo-container" @click="goToHome">
-        <span class="logo-icon">🅴🆅🅴🅽🆃🅴🆁🅰</span>
-        <span class="logo-text">Constructing events 🛠️</span>
+        <!-- <span class="logo-icon">🅴🆅🅴🅽🆃🅴🆁 🅰</span> -->
+        <img class="logo-icon" src="../imgs/spider-logo.svg">
       </div>
       <nav class="nav-container flex flex-center space-between" >
         <router-link class="router-categories" to="/eventera">Explore</router-link>
         <router-link class="router-about" to="/about">Help</router-link>
-        <img @click.stop="openHeader" src="../imgs/user.png" height="65" width="65" />
+        <button class="link-login">Log in</button>
+        <button class="link-signup">Sign up</button>
+        <img v-if="isUserLogged" src="../imgs/user.png" height="65" width="65" />
       </nav>
     </div>
-    <div class="content" :class="{open: isOpen}" v-if="isOpen">
-          <LoggedUser />
-    </div>
-  </section>
+  </header>
 </template>
 
 
 <script>
-import LoggedUser from "@/components/user/LoggedUser.vue";
 export default {
   data() {
     return {
-      isOpen: false,
-      filterBy: { txt: "" }
+      isUserLogged: false,
     };
   },
 
   methods: {
-    openHeader() {
-      this.isOpen = !this.isOpen;
-    },
-    setInput() {
-      this.$emit("searchEvent", this.filterBy);
-    },
     goToHome() {
       this.$router.push("/");
     },
-    closeLogin() {
-      this.isOpen = false;
-    }
   },
   components: {
-    LoggedUser
   }
 };
 </script>

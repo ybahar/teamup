@@ -1,10 +1,6 @@
 <template>
   <div class="home">
-    <header>
-      <!-- this header tag sould be a component, and in it put LoggedUser -->
       <Homepage/>
-      
-    </header>
   </div>
 </template>
 

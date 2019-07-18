@@ -71,7 +71,9 @@ export default {
       this.categoryList = eventera.categories.join(",");
       let expirationDate = new Date(eventera.expireAt)
       this.setTimes(expirationDate)
-      
+    } else {
+      let newEventera = this.$store.getters.getNewEventera;
+      this.eventera.name = newEventera.name
     }
   }
 };
