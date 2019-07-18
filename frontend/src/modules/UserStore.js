@@ -5,28 +5,35 @@ export default {
     state: {
         loggedUser: {
             _id: "",
-            username: '',
-            name: "",
-            email: "",
-            phone: "",
-            loc: {
-                geo: {
-                    lat: 0,
-                    lng: 0
-                },
-                address: "",
-                city: ""
-            },
+            // username: '',
+            // name: "",
+            // email: "",
+            // phone: "",
+            // loc: {
+            //     geo: {
+            //         lat: 59.3293,
+            //         lng: 18.0686
+            //     },
+            //     address: "",
+            //     city: "",
+            //     formatted_address: ""
+            // },
         },
     },
     getters: {
         loggedUser(state) {
             return state.loggedUser;
+        },
+        loc(state) {
+            return state.loggedUser.loc;
         }
     },
     mutations: {
         setLoggedUser(state, { user }) {
             state.loggedUser = user;
+        },
+        setLocation(state, { loc }) {
+            state.loggedUser.loc = loc;
         }
     },
     actions: {
@@ -43,12 +50,22 @@ export default {
             }
         },
         async loadLoggedUser(context) {
-            try {
-                const user = await userService.getLoggedUser();
-                context.commit({ type: 'setLoggedUser', user });
-            } catch (err) {
-                console.log('had problems loadLoggedUser', err);
+            if (!context.getters.loggedUser._id) {
+                {
+                    try {
+                        const user = await userService.getLoggedUser();
+                        if (user) context.commit({ type: 'setLoggedUser', user });
+                    } catch (err) {
+                        console.log('had problems loadLoggedUser', err);
+                    }
+                }
             }
+        },
+        async updateLocation(context, { loc }) {
+            context.commit({ type: 'setLocation', loc })
+            // without copying I get 'dont change state outside out of mutation' err
+            const userCopy = JSON.parse(JSON.stringify(context.getters.loggedUser))
+            await userService.update(userCopy); // returns an updated user, not gonna use
         }
     },
 }

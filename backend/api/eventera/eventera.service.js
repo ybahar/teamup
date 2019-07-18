@@ -32,10 +32,20 @@ async function query(filterBy ={}){
 
 }
 
-async function add(newEventera){
+async function add(newEventera,user){
+    
+    newEventera.creator = {
+      _id : user._id,
+    }
+    newEventera.members = [{
+        _id : user._id,
+      name : user.name,
+      mvpVoteCount :0,
+    }]
     const collection = await dbService.getCollection(COLLECTION_KEY)
     try {
-        await collection.insertOne(newEventera);
+        newEventera = await collection.insertOne(newEventera);
+        console.log(newEventera);
         return newEventera;
     } catch (err) {
         logger.error(`ERROR: cannot insert Eventera`,err)
@@ -43,13 +53,17 @@ async function add(newEventera){
     }
 }
 
-async function update(eventera) {
+async function update(eventera,user) {
+    if (eventera.creator._id !== user._id) return Promise.reject('Not authrized')
     const collection = await dbService.getCollection(COLLECTION_KEY)
+    let eventeraId = eventera._id;
     try {
-        await collection.updateOne({"_id":ObjectId(eventera._id)}, {$set : eventera})
+       delete eventera._id;
+        await collection.updateOne({"_id":ObjectId(eventeraId)}, {$set : eventera})
+        eventera._id = eventeraId;
         return eventera
     } catch (err) {
-        logger.error(`ERROR: cannot update Eventera ${eventera._id}` , err)
+        logger.error(`ERROR: cannot update Eventera ${eventeraId} , err :${err}` , )
         throw err;
     }
 }
@@ -65,13 +79,16 @@ async function getById(eventeraId) {
     }
 }
 
-async function remove(eventeraId) {
-    const collection = await dbService.getCollection(COLLECTION_KEY)
-    try {
-        await collection.remove({"_id":ObjectId(eventeraId)})
-    } catch (err) {
-        logger.error(`ERROR: cannot delete Eventera ${eventeraId}`,err)
-
-        throw err;
-    }
+async function remove(eventeraId,user) {
+    let eventera = getById(eventeraId)
+    if(eventera.creator._id === user._id){
+        const collection = await dbService.getCollection(COLLECTION_KEY)
+        try {
+            await collection.remove({"_id":ObjectId(eventeraId)})
+        } catch (err) {
+            logger.error(`ERROR: cannot delete Eventera ${eventeraId}`,err)
+            
+            throw err;
+        }
+    } else return Promise.reject('Not the event creator')
 }

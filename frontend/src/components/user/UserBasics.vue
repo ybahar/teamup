@@ -9,11 +9,12 @@
         <input v-model="user.name" type="text" placeholder="Name" />
         <input v-model="user.email" type="email" placeholder="Email" />
         <input v-model="user.phone" type="tel" placeholder="Phone" />
-        <button>Save</button>
+        <button class="btn-action">Save</button>
       </form>
     </div>
   </section>
 </template>
+
 <script>
 export default {
   data() {

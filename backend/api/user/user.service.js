@@ -5,7 +5,7 @@ const ObjectId = require('mongodb').ObjectId
 module.exports = {
     query,
     getById,
-    getByEmail,
+     getByUsername,
     remove,
     update,
     add
@@ -14,13 +14,9 @@ module.exports = {
 async function query(filterBy = {}) {
 
     const criteria = {};
-    if (filterBy.txt) {
-        criteria.name = filterBy.txt
+    if (filterBy.username) {
+        criteria.username = filterBy.username
     }
-    if (filterBy.minBalance) {
-        criteria.balance = {$gte : filterBy.minBalance}
-    }
-
 
     const collection = await dbService.getCollection('user')
     try {
@@ -35,20 +31,19 @@ async function query(filterBy = {}) {
 async function getById(userId) {
     const collection = await dbService.getCollection('user')
     try {
-        const user = await collection.findOne({"_id":ObjectId(userId)})
-        return user
+        return await collection.findOne({"_id":ObjectId(userId)})
     } catch (err) {
         console.log(`ERROR: while finding user ${userId}`)
         throw err;
     }
 }
-async function getByEmail(email) {
+async function getByUsername(username) {
     const collection = await dbService.getCollection('user')
     try {
-        const user = await collection.findOne({email})
+        const user = await collection.findOne({username})
         return user
     } catch (err) {
-        console.log(`ERROR: while finding user ${email}`)
+        console.log(`ERROR: while finding user ${username}`)
         throw err;
     }
 }
@@ -65,11 +60,14 @@ async function remove(userId) {
 
 async function update(user) {
     const collection = await dbService.getCollection('user')
+    let userId = user._id;
+    delete user._id;
     try {
-        await collection.replaceOne({"_id":ObjectId(user._id)}, {$set : user})
+          await collection.replaceOne({"_id":ObjectId(userId)}, {$set : user})
+        user._id = userId;
         return user
     } catch (err) {
-        console.log(`ERROR: cannot update user ${user._id}`)
+        console.log(`ERROR: cannot update user ${userId}`)
         throw err;
     }
 }
@@ -84,5 +82,6 @@ async function add(user) {
         throw err;
     }
 }
+
 
 

@@ -2,21 +2,41 @@ const userService = require('./user.service')
 
 async function getUser(req, res) {
     const user = await userService.getById(req.params.id)
-    res.send(user)
+    res.json(user)
 }
-  
-const getUsers = async (req, res) => {
-    const users = await userService.query()
-    res.send(users)
+
+async function getUsers(req, res) {
+    let filterBy = req.body
+    const users = await userService.query(filterBy)
+    res.json(users)
 }
 
 async function deleteUser(req, res) {
     await userService.remove(req.params.id)
-    res.send({})
+    res.json({})
+}
+
+async function getLoggedInUser(req, res) {
+    let user = req.session.user;
+    if (user) res.json(user);
+    else res.status(401).send('Unautharized')
+}
+
+async function updateUser(req, res) {
+    let user = req.body;
+    console.log('updateUser got: ', user);
+    if (user._id === req.session.user._id) {
+        await userService.update(user);
+        return res.json({});
+    }
+    else return res.status(401).send('Unautharized')
 }
 
 module.exports = {
     getUser,
     getUsers,
-    deleteUser
+    deleteUser,
+    getLoggedInUser,
+    updateUser
+
 }
