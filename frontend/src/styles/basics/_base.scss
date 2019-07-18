@@ -35,10 +35,9 @@ input {
 
 button {
     cursor: pointer;
-    background-color: $clr2;
+    background:transparent;
     box-sizing: border-box;
     font: inherit;
-    padding: rem(5px) rem(10px);
     border: none;
 }
 

@@ -2,6 +2,7 @@ const dbService = require('../../services/db.service')
 const logger = require('../../services/logger.service')
 const ObjectId = require('mongodb').ObjectId
 const COLLECTION_KEY = 'eventera'
+
 module.exports= {
     query,
     add,

@@ -5,7 +5,8 @@ if (!fs.existsSync(logsDir)) {
     fs.mkdirSync(logsDir);
 }
 
-if (!fs.existsSync(`${logsDir}/log.log`)) {
+
+if(!fs.existsSync(`${logsDir}/log.log`)) {
     fs.writeFileSync(`${logsDir}/log.log`);
 }
 

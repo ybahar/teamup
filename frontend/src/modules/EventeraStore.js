@@ -4,6 +4,7 @@ import eventeraService from '@/services/EventeraService'
 export default {
     state: {
         eventeras: [],
+        newEventera: {name},
         filterBy: {
             txt: '',
             category: 'General',
@@ -32,6 +33,9 @@ export default {
         eventerasForDisplay(state) {
             return state.eventeras
         },
+        getNewEventera(state) {
+            return state.newEventera
+        },
         eventerasByCategories(state) {
             // each object in the array holds {category: 'cat', eventeras: [...]}
             // this is pre - mongo. post-mongo should just make 3 finds with all filters
@@ -49,7 +53,15 @@ export default {
         },
         categories(state) {
             return state.categories
-        }
+        },
+        // getAlmostExpired(state) {
+        //     console.log('inside the filter:', state.eventeras)
+        //     let almostExpired = state.eventeras.filter(eventera => {
+        //         (eventera.expireAt - eventera.createdAt) < 172800000
+        //     })
+        //     return almostExpired
+
+        // }
     },
     actions: {
         async saveEventera(context, eventera) {

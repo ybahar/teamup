@@ -1,53 +1,26 @@
 <template>
-  <section class="details-page-container">
-    <section class="eventera-details-container" v-if="eventera">
-      <section class="eventera-title-contianer eventera-join-container">
+  <section class="details-container">
+    <div class="gallery-contianer">
+      <div class="img-container-one">
+        <img class="gallery-img" src="../imgs/sport-default.jpg"/>
+      </div>
+      <div class="img-container-two">
+        <img class="gallery-img" src="../imgs/Football.jpg"/>
+      </div>
+      <div class="img-container-three">
+        <img class="gallery-img" src="../imgs/Basketball.jpg"/>
+      </div>
+    </div>
+    <section class="desc-container">
+      <div class="text-container">
         <h1>{{eventera.name}}</h1>
-        <button @click="joinEventera" :disabled="!isOpen">{{joinBtnTxt}}</button>
-      </section>
-      <section class="eventera-general-details-container">
-        <section>
-          <p>{{eventera.members.length}} / {{eventera.maxMembers}}</p>
-          <p>{{eventera.expireAt | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</p>
-          <p>{{eventera.loc.address}}, {{eventera.loc.city}}</p>
-          <section class="category-list">
-            <p>
-              Category :
-              <span
-                v-for="(category, idx) in eventera.categories"
-                :key="category"
-              >{{(idx)?',':''}} {{category}}</span>
-            </p>
-          </section>
-        </section>
-        <div class="map">
-          <EventeraMap/>
-        </div>
-      </section>
-      <section class="details-segment">
-        <section class="eventera-member-list" v-if="eventera.members">
-          <section>
-            <h2>Eventera Members</h2>
-          </section>
-          <section v-for="member in eventera.members" :key="member._id.$oid">
-            <h3>
-              {{member.name}}
-              <button>👍</button>
-            </h3>
-          </section>
-        </section>
-        <section class="pic-cmp">
-          <!-- <eventera-pictures :pictureUrls="fakeImgUrls"></eventera-pictures> -->
-          <EventeraImages/>
-          </section>
-      </section>
+        <img src="../imgs/user.png" width="65px" height="65px">
+      </div>
     </section>
-    <section class="suggestion-list"><h4>Suggestions</h4></section>
   </section>
 </template>
 
 <script>
-// import EventeraPictures from '@/components/EventeraPictures'
 import EventeraImages from '@/components/EventeraImages'
 import EventeraMap from '@/components/EventeraMap';
 export default {

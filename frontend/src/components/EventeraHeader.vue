@@ -1,65 +1,36 @@
 <template>
-  <section class="app-header">
-    <button @click="openHeader" class="collapsible flex flex-center space-between">
-      <div class="logo-container" @click.stop="goToHome">
-        <span class="logo-icon">🅴🆅🅴🅽🆃🅴🆁🅰</span>
-        <span class="logo-text">Constructing events 🛠️</span>
+  <header class="app-header flex-center space-between">
+    <div class="header flex flex-center space-between">
+      <div class="logo-container" @click="goToHome">
+        <img class="logo-icon" src="../imgs/ee-logo.svg">
       </div>
-      <nav class="nav-container flex flex-center space-between" @click.stop>
-        <router-link class="router-categories" to="/eventera">Find</router-link>
-        <!-- <router-link class="router-about" to="/">Replace a</router-link> -->
-        <input
-          @click.stop
-          class="search-events"
-          type="text"
-          v-model="filterBy.txt"
-          @input="setInput"
-          placeholder="Search events"
-        />
-        <img src="../imgs/user.png" height="65" width="65" />
+      <nav class="nav-container flex flex-center space-between" >
+        <router-link class="router-categories" to="/eventera">Explore</router-link>
+        <button class="link-build">Plan event</button>
+        <router-link class="router-about" to="/about">Help</router-link>
+        <button class="link-login">Log in</button>
+        <button class="link-signup">Sign up</button>
+        <img v-if="isUserLogged" src="../imgs/user.png" height="65" width="65" />
       </nav>
-    </button>
-    <div class="content" :class="{open: isOpen}" v-if="isOpen">
-      <ul class="item-container">
-        <li class="content-item">
-          <img src="../imgs/worker.gif" />
-        </li>
-        <li class="content-item">
-          <a href>Popular Events</a>
-        </li>
-        <li class="content-item">
-          <LoggedUser />
-        </li>
-      </ul>
     </div>
-  </section>
+  </header>
 </template>
 
 
 <script>
-import LoggedUser from "@/components/user/LoggedUser.vue";
 export default {
   data() {
     return {
-      isOpen: false,
-      filterBy: { txt: "" }
+      isUserLogged: false,
     };
   },
 
   methods: {
-    openHeader() {
-      this.isOpen = !this.isOpen;
-    },
-    // diffrent name then the @input
-    setInput() {
-      this.$emit("searchEvent", this.filterBy);
-    },
     goToHome() {
       this.$router.push("/");
-    }
+    },
   },
   components: {
-    LoggedUser
   }
 };
 </script>

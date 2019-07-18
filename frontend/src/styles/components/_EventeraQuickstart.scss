@@ -1,0 +1,51 @@
+
+
+.filter-container {
+    width: rem(470px);
+    height: rem(200px);
+    border-radius: 3px;
+   background: $clr1;
+   position: absolute;
+   top: rem(187px);
+   left: rem(65px);
+   & h1 {
+       font-size: 25px;
+   }
+}
+
+
+.search-container {
+    // justify-content: left;
+    width: 90%;
+    padding-left: 10px;
+    & h5 {
+        width: rem(77px);
+        padding-bottom: 7px;
+        padding-left: 1px;
+        margin: 0;
+    }
+}
+
+.search-filter-input {
+    width: 45%;
+    outline: none;
+    background-color: $clr1;
+    color: black;
+    padding: rem(8px);
+    border-radius: 10px;
+    border: 1px solid $clr2;
+}
+
+.search-eventeras {
+    width: rem(95px);
+    height: rem(35px);
+    background-color: $clr3;
+    padding: 10px 10px;
+    border-radius: 2px;
+    font-weight: bold;
+    color: $clr1;
+    &:hover {
+        background-color: darken($clr3, 10%);
+        // transition: 0.3s;
+    }
+}
