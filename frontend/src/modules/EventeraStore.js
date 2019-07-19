@@ -12,7 +12,7 @@ export default {
             startingAt: 0,
             showClosed: false,
         },
-        categories: ['General', "Sport", "Music", 'Games', 'Self improvement', 'Hobbies','soccer'],
+        categories: ["Sport", "Music", 'Games', 'Self improvement', 'Hobbies'],
     },
     mutations: {
         saveEventera(state, { eventera, _id }) {

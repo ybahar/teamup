@@ -3,6 +3,7 @@
     <form>
       <input type="text" placeholder="Eventera name" v-model="filterBy.txt" @input="setFilter"/>
       <select class="category" v-model="filterBy.category" @change="setFilter">
+        <option value="General">All</option>
         <option v-for="category in categories" :key="category" :value="category">{{category}}</option>
       </select>
       <label>
