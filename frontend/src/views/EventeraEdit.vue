@@ -1,16 +1,56 @@
 <template>
   <section class="eventera-edit">
     <form @submit.prevent="saveEventera">
-      <input type="text" v-model="eventera.name" placeholder="Title" />
-      <input type="text" v-model="eventera.loc.address" placeholder="Address"/>
-      <input type="text" v-model="eventera.loc.city" placeholder="City" />
-      <label> Event date and time
-      <input type="date" v-model="expireDate"  />
-      <input type="time" v-model="expireTime"  />
-      </label>
-      <button @click.prevent="getLocation">Use my current location</button>
-      <input type="text" v-model="categoryList" placeholder="Categories , saparated by ',''" />
-      <button type="submit">Save</button>
+    <div class="bg_img"></div>
+    <div class="form_wrapper">
+      <div class="form_container">
+        <div class="title_container">
+          <h2>Plan your event</h2>
+        </div>
+        <form>
+          <div class="row clearfix">
+            <div class="col_half">
+              <label>Title</label>
+              <div class="input_field">
+                <input type="text" v-model="eventera.name" name="first_name" placeholder="Title" required />
+              </div>
+            </div>
+            <div class="col_half">
+              <label>Enter event location / GPS: <span class="GPS-pin" @click.prevent="getLocation">📌</span></label>
+              <div class="input_field">
+                <input  type="text" name="location"  v-model="eventera.loc.city" placeholder="City: Ramat-Gan"/>
+                <input  type="text" name="location" v-model="eventera.loc.address" placeholder="Address: Habonim 6"/>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col_half">
+              <label>Categories - seperated by commas</label>
+              <div class="input_field">
+                <input type="text"  v-model="categoryList" placeholder="Ex: Football, Sport, 7x7" required />
+              </div>
+            </div>
+            <div class="col_half">
+              <label>Date & Time</label>
+              <div class="input_field">
+                <input type="date" class="date" max="2030-03-31" v-model="expireDate" required  />
+                <input type="time" class="time" v-model="expireTime" required />
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div>
+              <label>Your description</label>
+              <div class="textarea_field">
+                <textarea cols="46" rows="3" v-model="description" name="comments" maxlength="400" placeholder="Not required"></textarea>
+              </div>
+            </div>
+          </div>
+          <input class="button" type="submit" value="Sumbit" />
+        </form>
+      </div>
+    </div>
+
     </form>
   </section>
 </template>
@@ -31,15 +71,19 @@ export default {
         }
       },
       categoryList: "",
-      expireTime : '',
-      expireDate : '',
-    }
+      description: "",
+      expireTime: "",
+      expireDate: ""
+    };
   },
   methods: {
     getLocation() {
-        if (!navigator || !navigator.geolocation) return
-        navigator.geolocation.getCurrentPosition(this.setGeo,err => console.warn(err),
-        { enableHighAccuracy: true });
+      if (!navigator || !navigator.geolocation) return;
+      navigator.geolocation.getCurrentPosition(
+        this.setGeo,
+        err => console.warn(err),
+        { enableHighAccuracy: true }
+      );
     },
     setGeo({ coords }) {
       this.eventera.loc.geo.lat = coords.latitude;
@@ -47,38 +91,51 @@ export default {
     },
     saveEventera() {
       this.eventera.categories = this.categoryList.split(",");
-      this.eventera.expireAt = new Date(this.expireDate+ ':' + this.expireTime).getTime();
-      this.$store.dispatch('saveEventera',this.eventera)
+      this.eventera.expireAt = new Date(
+        this.expireDate + ":" + this.expireTime
+      ).getTime();
+      this.$store.dispatch("saveEventera", this.eventera);
     },
-    setTimes(date){
-      //format time and date strings to confirm to input rules 
-      
-      this.expireTime =  date.toLocaleTimeString('he-il').split(':')    
-      .map(t => {
-        
-        if(+t && +t< 10) return '0' + t
-        else return t}).join(':')
-      this.expireDate =  date.toLocaleDateString('he-il').split('.').reverse()
+    setTimes(date) {
+      //format time and date strings to confirm to input rules
+
+      this.expireTime = date
+        .toLocaleTimeString("he-il")
+        .split(":")
         .map(t => {
-          if(+t< 10) return '0' + t
-        else return t}).join('-')
-      
+          if (+t && +t < 10) return "0" + t;
+          else return t;
+        })
+        .join(":");
+      this.expireDate = date
+        .toLocaleDateString("he-il")
+        .split(".")
+        .reverse()
+        .map(t => {
+          if (+t < 10) return "0" + t;
+          else return t;
+        })
+        .join("-");
     }
   },
   async created() {
     if (this.$route.params.id) {
-      let _id = this.$route.params.id
-      let eventera = await this.$store.dispatch({type:'getEventeraById',_id});
+      let _id = this.$route.params.id;
+      let eventera = await this.$store.dispatch({
+        type: "getEventeraById",
+        _id
+      });
       this.eventera = eventera;
       this.categoryList = eventera.categories.join(",");
-      let expirationDate = new Date(eventera.expireAt)
-      this.setTimes(expirationDate)
+      let expirationDate = new Date(eventera.expireAt);
+      this.setTimes(expirationDate);
     } else {
       let newEventera = this.$store.getters.getNewEventera;
-      this.eventera.name = newEventera.name
+      this.eventera.name = newEventera.name;
     }
   }
 };
 </script>
 
-<style lang="scss" scoped src='@/styles/views/_EventeraEdit.scss'> </style>
+<style lang="scss" scoped src='@/styles/views/_EventeraEdit.scss'>
+</style>
