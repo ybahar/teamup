@@ -52,7 +52,13 @@ export default {
             } else return [];
         },
         categories(state) {
-            return state.categories
+            return state.categories;
+        },
+        selectedCategory(state){
+             return state.filterBy.category;
+        },
+        filterBy(state){
+             return state.filterBy;
         },
         // getAlmostExpired(state) {
         //     console.log('inside the filter:', state.eventeras)
