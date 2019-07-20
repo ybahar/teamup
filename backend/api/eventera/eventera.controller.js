@@ -7,6 +7,7 @@ module.exports = {
     removeEventera,
     addEventera,
     updateEventera,
+    joinEventera,
 }
 
 async function getEventeras(req, res) {
@@ -48,7 +49,7 @@ async function addEventera(req,res){
         let eventeraWithId = await eventeraService.add(eventera)
         res.json(eventeraWithId)
     } catch(err){
-        logger.error('[Eventera Remove]',err);
+        logger.error('[Eventera add]',err);
         res.status('403').send({error : 'forbidden'})
     }
 }
@@ -59,7 +60,20 @@ async function updateEventera(req,res){
         let updatedEventera =  await eventeraService.update(eventera);
         res.json(updatedEventera);
     } catch(err){
-        logger.error('[Eventera Remove]',err);
+        logger.error('[Eventera update]',err);
         res.status('403').send({error : 'forbidden'})
     }
+}
+
+async function joinEventera(req,res){
+    try{
+        let {_id} =  req.body;
+        let user = req.session.user
+        let updateEventera = await eventeraService.join(_id,user);
+        res.json(updateEventera)
+    } catch(err) {
+        logger.error('[Eventera join]',err)
+        res.status('401').send({error:'no logged in user'})
+    }
+
 }

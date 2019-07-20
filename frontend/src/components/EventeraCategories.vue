@@ -7,6 +7,7 @@
 <script>
 import EventeraList from "@/components/EventeraList.vue";
 import { randomBytes } from "crypto";
+
 export default {
   async created() {
     this.$store.dispatch({type: "loadEventeras"});

@@ -10,6 +10,7 @@ module.exports = {
 
 async function login(req, res) {
     const { username, password } = req.body
+    logger.debug('in login')
     try {
         const user = await authService.login(username, password)
         req.session.user = user;

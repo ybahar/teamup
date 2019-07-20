@@ -14,7 +14,9 @@
     <section class="desc-container max-width">
       <div class="text-container flex flex-center space-around">
         <h1>{{eventera.name}}</h1>
-        <img src="../imgs/user.png" width="65px" height="65px">
+        <img v-if="eventera.creator.profileImgUrl" 
+        :src="`../${eventera.creator.profileImgUrl}`" width="65px" height="65px">
+        <img v-else src="../imgs/user.png" width="65px" height="65px">
       </div>
       <div class="eventera-status flex flex-center space-around">
         <h2 class="members">{{eventera.members.length}} / {{eventera.maxMembers}}</h2>
@@ -75,13 +77,10 @@ export default {
     },
     joinEventera() {
       //TODO : GET USER FROM STORE
-       let user = this.$store.getters.loggedUser;
-       if(user._id){
-       let member = {_id:user._id , profileImgUrl:user.profileImgUrl , mvpVoteCount:0 }
-       let eventera = JSON.parse(JSON.stringify(this.eventera))
-       eventera.members.push(member);
-       this.$store.dispatch({type:'saveEventera',eventera})
-       } else console.log('add log in prompt')
+      let user = this.$store.getters.loggedInUser
+      if(user._id){
+        this.$store.dispatch({type:'joinEventera',_id:this.eventera._id})
+      }
             
 }
   },

@@ -6,9 +6,13 @@ export default {
         eventeras: [],
         newEventera: {name},
         filterBy: {
-            txt: ''
+            txt: '',
+            category: 'General',
+            almostFull: false,
+            startingAt: 0,
+            showClosed: false,
         },
-        categories: ["sport", "soccer", "pop"]
+        categories: ["Sport", "Music", 'Games', 'Self improvement', 'Hobbies'],
     },
     mutations: {
         saveEventera(state, { eventera, _id }) {
@@ -21,12 +25,9 @@ export default {
         setEventeras(state, { eventeras }) {
             state.eventeras = eventeras;
         },
-        setFilter(state, filterBy) {
-            state.filterBy = filterBy
+        setFilter(state, { filterBy }) {
+            state.filterBy = filterBy;
         },
-        buildEventera(state, newEventera) {
-            state.newEventera = newEventera
-        }
     },
     getters: {
         eventerasForDisplay(state) {
@@ -51,14 +52,21 @@ export default {
             } else return [];
         },
         categories(state) {
-            return state.categories
+            return state.categories;
+        },
+        selectedCategory(state){
+             return state.filterBy.category;
+        },
+        filterBy(state){
+             return state.filterBy;
         },
             },
     actions: {
         async saveEventera(context, eventera) {
             let updatedEventera;
-            eventera // j: I keep wondering why do you just type them
+            console.log( eventera);
             if (eventera._id) {
+                console.log('in update');
                 updatedEventera = await eventeraService.update(eventera)
             } else {
                 eventera.createdAt = Date.now();
@@ -68,20 +76,21 @@ export default {
             context.commit({ type: 'saveEventera', eventera: updatedEventera, _id: eventera._id })
             return updatedEventera
         },
-        async loadEventeras(context, filterBy = null) {
+        async loadEventeras(context) {
+            const filterBy = context.state.filterBy;
             const eventeras = await eventeraService.query(filterBy)
             context.commit({ type: 'setEventeras', eventeras })
         },
-        // this should be 'loadEventeraById'  
-        // and the evetnteraDetails should take it with a getter
         async getEventeraById(context, { _id }) {
-            console.log('in store getbyid')
 
             let eventera = await eventeraService.getById(_id);
             return eventera;
         },
-        joinEventera(context,{_id}){
-           
-        }
+        async setFilter(context, { filterBy }) {
+            return context.commit({ type: 'setFilter', filterBy })
+        },
+        async joinEventera(context ,{_id}){
+
+        },
     },
 }

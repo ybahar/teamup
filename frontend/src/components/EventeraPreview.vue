@@ -1,7 +1,7 @@
 <template>
   <router-link tag="div" :to="detailsUrl">
     <section class="eventera-preview flex column">
-      <img src="@/imgs/dummy-card.png" alt />
+      <img :src="eventera.imgUrls[0]" alt />
       <div class="secondary">
         <span>{{eventera.categories[0] | capitalize }}</span>&nbsp
         <span v-if="distance">{{ distance | meterToKM }}</span>

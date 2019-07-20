@@ -9,7 +9,8 @@
       <input type="time" v-model="expireTime"  />
       </label>
       <button @click.prevent="getLocation">Use my current location</button>
-      <input type="text" v-model="categoryList" placeholder="Categories , saparated by ',''" />
+      <input type="number"  placeholder="Maximum number of particpiants" v-model="eventera.maxMembers">
+      <input type="text" v-model.number="categoryList" placeholder="Categories , saparated by ',''" />
       <button type="submit">Save</button>
     </form>
   </section>
@@ -33,6 +34,7 @@ export default {
       categoryList: "",
       expireTime : '',
       expireDate : '',
+      maxMembers : 0,
     }
   },
   methods: {

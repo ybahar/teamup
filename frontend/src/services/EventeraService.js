@@ -19,6 +19,7 @@ function getById(_id) {
 function update(eventera) { 
     //j:    how can put accept 'eventera', 
     //      put does not accept a third argument
+    //y:    put is commonly used in rest api to update , it does accept an argument
     return httpService.put(`${URL_ENDING}/${eventera._id}`, eventera)
 }
 function remove(_id) {
@@ -27,5 +28,7 @@ function remove(_id) {
 function add(eventera) {
     return httpService.post(URL_ENDING, eventera)
     
-
+function join(_id){
+    return httpService.put(`${URL_ENDING}/join`,{_id})
+}
 }
