@@ -53,15 +53,7 @@ export default {
         categories(state) {
             return state.categories
         },
-        // getAlmostExpired(state) {
-        //     console.log('inside the filter:', state.eventeras)
-        //     let almostExpired = state.eventeras.filter(eventera => {
-        //         (eventera.expireAt - eventera.createdAt) < 172800000
-        //     })
-        //     return almostExpired
-
-        // }
-    },
+            },
     actions: {
         async saveEventera(context, eventera) {
             let updatedEventera;
@@ -87,6 +79,9 @@ export default {
 
             let eventera = await eventeraService.getById(_id);
             return eventera;
+        },
+        joinEventera(context,{_id}){
+           
         }
     },
 }

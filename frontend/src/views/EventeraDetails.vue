@@ -74,16 +74,16 @@ export default {
       this.isChat = !this.isChat
     },
     joinEventera() {
-      console.log("Need store user data , Function currently is noted  ");
       //TODO : GET USER FROM STORE
-      //         let member = {
-      //     _id : user._id,
-      //     name : user.name,
-      //     role: null,
-      //     mvpVoteCount:0
-      // }
-      // this.eventera.members.push(member)
-    }
+       let user = this.$store.getters.loggedUser;
+       if(user._id){
+       let member = {_id:user._id , profileImgUrl:user.profileImgUrl , mvpVoteCount:0 }
+       let eventera = JSON.parse(JSON.stringify(this.eventera))
+       eventera.members.push(member);
+       this.$store.dispatch({type:'saveEventera',eventera})
+       } else console.log('add log in prompt')
+            
+}
   },
   components:{
     EventeraImages,
