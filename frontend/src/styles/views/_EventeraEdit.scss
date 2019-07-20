@@ -79,7 +79,7 @@ input[type="time"].time::-webkit-inner-spin-button {
 }
 // used to be with spans here
 
-.form_wrapper input[type="text"], .form_wrapper input[type="email"], .form_wrapper input[type="date"], .form_wrapper input[type="time"], textarea {
+.form_wrapper input[type="text"], .form_wrapper input[type="number"], .form_wrapper input[type="date"], .form_wrapper input[type="time"], textarea {
 	width:100%;
 	padding:10px 10px 10px 35px;
 	border:1px solid #ccc;
@@ -122,6 +122,7 @@ input[type="time"].time::-webkit-inner-spin-button {
 .GPS-pin:hover {
     cursor: pointer;
 }
+
 
 .time, .date {
     font-size: 15px;
