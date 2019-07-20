@@ -7,5 +7,5 @@ router.get('/',eventeraController.getEventeras);
 router.get('/:id',eventeraController.getEventeraById);
 router.delete('/:id',requireAuth,eventeraController.removeEventera);
 router.post('/',requireAuth,eventeraController.addEventera);
-router.put('/join',requireAuth,eventeraController.joinEventera);
+router.put('/join/:id',requireAuth,eventeraController.joinEventera);
 router.put('/:id',requireAuth,eventeraController.updateEventera);

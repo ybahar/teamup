@@ -45,6 +45,7 @@
 <script>
 import EventeraImages from '@/components/EventeraImages'
 import EventeraMap from '@/components/EventeraMap';
+import userService from '@/services/UserService';
 export default {
   data() {
     return {
@@ -77,10 +78,10 @@ export default {
     },
     joinEventera() {
       //TODO : GET USER FROM STORE
-      let user = this.$store.getters.loggedInUser
-      if(user._id){
+      let user = this.$store.getters.loggedUser
+      if(user && user._id){
         this.$store.dispatch({type:'joinEventera',_id:this.eventera._id})
-      }
+      } else console.log('not logged in')
             
 }
   },

@@ -6,7 +6,6 @@ const saltRounds = 10
 
 
 async function login(username, password) {
-    logger.debug(`in login service ${username}, ${password} `)
     if (!username || !password) return Promise.reject('username and password are required!')
 
     const user = await userService.getByUsername(username)

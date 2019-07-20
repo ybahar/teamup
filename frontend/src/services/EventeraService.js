@@ -7,7 +7,8 @@ export default {
     getById,
     update,
     add,
-    remove
+    remove,
+    join,
 }
 
 function query(filterBy) {
@@ -16,7 +17,7 @@ function query(filterBy) {
 function getById(_id) {
     return httpService.get(`${URL_ENDING}/${_id}`)
 }
-function update(eventera) { 
+function update(eventera) {
     //j:    how can put accept 'eventera', 
     //      put does not accept a third argument
     //y:    put is commonly used in rest api to update , it does accept an argument
@@ -27,8 +28,7 @@ function remove(_id) {
 }
 function add(eventera) {
     return httpService.post(URL_ENDING, eventera)
-    
-function join(_id){
-    return httpService.put(`${URL_ENDING}/join`,{_id})
 }
+function join(_id) {
+    return httpService.put(`${URL_ENDING}/join/${_id}`)
 }

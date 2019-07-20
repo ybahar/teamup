@@ -64,15 +64,12 @@ export default {
     actions: {
         async saveEventera(context, eventera) {
             let updatedEventera;
-            console.log( eventera);
             if (eventera._id) {
-                console.log('in update');
                 updatedEventera = await eventeraService.update(eventera)
             } else {
                 eventera.createdAt = Date.now();
                 updatedEventera = await eventeraService.add(eventera)
             }
-            console.log(eventera)
             context.commit({ type: 'saveEventera', eventera: updatedEventera, _id: eventera._id })
             return updatedEventera
         },
@@ -82,15 +79,19 @@ export default {
             context.commit({ type: 'setEventeras', eventeras })
         },
         async getEventeraById(context, { _id }) {
-
-            let eventera = await eventeraService.getById(_id);
-            return eventera;
+              try{
+                  let eventera = await eventeraService.getById(_id);
+                  return eventera;
+                } catch (err ){
+                    console.log(err);
+                }
         },
         async setFilter(context, { filterBy }) {
             return context.commit({ type: 'setFilter', filterBy })
         },
         async joinEventera(context ,{_id}){
-
+            let updatedEventera = await eventeraService.join(_id);
+            context.commit({type:'saveEventera',updatedEventera})
         },
     },
 }

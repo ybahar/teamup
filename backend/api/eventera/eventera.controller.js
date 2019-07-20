@@ -67,7 +67,7 @@ async function updateEventera(req,res){
 
 async function joinEventera(req,res){
     try{
-        let {_id} =  req.body;
+        let _id =  req.params.id;
         let user = req.session.user
         let updateEventera = await eventeraService.join(_id,user);
         res.json(updateEventera)

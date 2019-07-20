@@ -125,8 +125,12 @@ async function join(_id,user){
             mvpVoteCount:0,
         }
         eventera.members.push(member)
-        let updatedEventera = await update(eventera)
-        return updatedEventera
+        delete eventera._id;
+        const collection = await dbService.getCollection(COLLECTION_KEY)
+        await collection.updateOne({ "_id": ObjectId(_id) }, { $set: eventera })
+        console.log(eventera,'in join debugg' , _id);
+        eventera._id = _id;
+        return eventera
     } catch(err){
         logger.error(`${err} in join eventera.service`)
     }

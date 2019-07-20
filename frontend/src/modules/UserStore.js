@@ -54,6 +54,7 @@ export default {
                 {
                     try {
                         const user = await userService.getLoggedUser();
+                        console.log('in loadLoggedUser',user);
                         if (user) context.commit({ type: 'setLoggedUser', user });
                     } catch (err) {
                         console.log('had problems loadLoggedUser', err);
