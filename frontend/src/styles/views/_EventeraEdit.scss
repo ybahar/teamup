@@ -1,15 +1,130 @@
-.eventera-edit{
-    width: 100vw;
-    height: 80vh;
-    background-color: $clr1;
-  form{
-      width: 100%;
-      display: flex;
-      flex-direction: column;
- input,button{
-     max-width: 50%;
-     padding: 15px;
- }
-    } 
-  
+
+input[type="date"].date::-webkit-inner-spin-button {
+    display: none;
+}
+input[type="time"].time::-webkit-inner-spin-button {
+    display: none;
+}
+
+* {
+	padding:0;
+	margin:0;
+}
+.bg_img {
+	background:url('../../imgs/fireworks.jpg') no-repeat center;
+	background-size:cover;
+	background-attachment:fixed;
+	filter: blur(8px);
+	position:absolute;
+	top:0;
+	left:0;
+	height:100%;
+	width:100%;
+	z-index:-50;
+}
+.clearfix:after {
+	content: "";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	height: 0;
+}
+.form_wrapper {
+	background: $clr1;
+	width: 800px;
+	max-width:100%;
+	box-sizing:border-box;
+	padding:15px;
+	margin:10% auto 0;
+	position:relative;
+	z-index:1;
+	box-shadow:0 23px 4px -21px rgba(0, 0, 0, 0.9);
+}
+.form_container {
+	padding:15px;
+}
+.form_wrapper h2 {
+	font-size:1.5em;
+	line-height:1.5em;
+	margin:0;
+}
+.form_wrapper .title_container {
+	text-align:center;
+	margin:-15px -15px 15px;
+	padding:15px 0;
+}
+.form_wrapper h3 {
+	font-size:1.1em;
+	font-weight:normal;
+	line-height:1.5em;
+	margin:0;
+}
+.form_wrapper .row {
+	margin:10px -15px;
+}
+.form_wrapper .row > div {
+	padding:0 15px;
+	box-sizing:border-box;
+}
+.form_wrapper .col_half {
+	width:50%;
+	float:left;
+}
+.form_wrapper label {
+	display:block;
+	margin:0 0 5px;
+}
+.form_wrapper .input_field, .form_wrapper .textarea_field {
+	position:relative;
+}
+// used to be with spans here
+
+.form_wrapper input[type="text"], .form_wrapper input[type="number"], .form_wrapper input[type="date"], .form_wrapper input[type="time"], textarea {
+	width:100%;
+	padding:10px 10px 10px 35px;
+	border:1px solid #ccc;
+	box-sizing:border-box;
+	outline:none;
+	transition: all 0.30s ease-in-out;
+}
+.form_wrapper textarea {
+	height:8em;
+}
+.form_wrapper input[type="text"]:focus, .form_wrapper input[type="email"]:focus, .form_wrapper input[type="tel"]:focus, textarea:focus {
+	border:1px solid $clr2;
+}
+.form_wrapper input[type="submit"] {
+	background: $clr4;
+	height:50px;
+	line-height:50px;
+	width:100%;
+	border:none;
+	outline:none;
+	cursor:pointer;
+	color: $clr1;
+	font-size:1.2em;
+	transition: all 0.30s ease-in-out;
+}
+.form_wrapper input[type="submit"]:hover, .form_wrapper input[type="submit"]:focus {
+	background: lighten($color:  $clr4 , $amount: 15%);
+}
+
+@media (max-width: 600px) {
+.form_wrapper .col_half {
+	width:100%;
+	float:none;
+}
+.form_wrapper label {
+	margin:10px 0;
+}
+}
+
+.GPS-pin:hover {
+    cursor: pointer;
+}
+
+
+.time, .date {
+    font-size: 15px;
+    font-weight: 700;
 }

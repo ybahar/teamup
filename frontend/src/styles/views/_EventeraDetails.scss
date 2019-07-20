@@ -112,8 +112,8 @@
 .chat-container {
   position: fixed;
   width: 33%;
-  height: 96vh;
-  top: 25px;
+  height: 56vh;
+  bottom: 20px;
   left: -1000px;
   background: darken($color: $clr2, $amount: 5%);
   &.chat {
