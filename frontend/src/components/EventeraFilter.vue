@@ -68,6 +68,10 @@ export default {
            this.$store.dispatch({type:'loadEventeras'})
         },500);
     },
+},
+created(){
+    let filterBy = this.$store.getters.filterBy
+    this.filterBy =JSON.parse(JSON.stringify(filterBy))
 }
 }
 </script>
