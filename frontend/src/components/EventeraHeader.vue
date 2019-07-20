@@ -6,7 +6,7 @@
       </div>
       <nav class="nav-container flex flex-center space-between" :class="mainClass" >
         <router-link class="router-categories" to="/eventera">Explore</router-link>
-        <a class="link-build">Plan event</a>
+        <router-link class="router-categories" to="/eventera/edit">Plan event</router-link>
         <router-link class="router-about" to="/about">Help</router-link>
         <a class="link-login">Log in</a>
         <a class="link-signup">Sign up</a>
@@ -32,7 +32,10 @@ export default {
   },
   computed: {
     mainClass() {
-      const isLanding = this.$route.path !== '/'
+      let isLanding = true
+      if(this.$route.path === "/" || this.$route.path === '/eventera/edit') {
+        isLanding = false;
+      }
       return {'isMain': isLanding}
     }
   },
