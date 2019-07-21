@@ -1,9 +1,38 @@
 .app-header {
     background: transparent;
     color: $clr1;
+
+    & .link-logout {
+        color: $clr1;
+    }
+
+    & a {
+        font-size: 18px;
+        padding: 10px;
+        font-weight: bold;
+        outline: none;
+        border-bottom: 1px solid transparent;
+
+        &:hover {
+            border-bottom: 1px solid $clr1;
+        }
+    }
 }
 
+.isMain {
+    color: black;
 
+    & .link-logout {
+        color: black;
+    }
+
+    & a:hover {
+        border-bottom: 1px solid black;
+
+        &:hover {}
+    }
+
+}
 
 .header {
     width: 100%;
@@ -15,7 +44,6 @@
 
 .nav-container {
     padding: 10px;
-    color: $clr1
 
 }
 
@@ -30,33 +58,5 @@
 
     &:hover {
         cursor: pointer;
-    }
-}
-
-.isMain {
-    color: black;
-    & .router-categories, .router-about, .link-login, .link-signup, .link-build {
-        &:hover {
-            border-bottom: 1px solid black;
-        }
-    }
-}
-
-
-.router-categories,
-.router-about,
-.link-login,
-.link-signup,
-.link-build,
-.link-logout,
-.user-greeting {
-    color: $clr1;
-    font-size: 18px;
-    padding: 10px;
-    font-weight: bold;
-    outline: none;
-
-    &:hover {
-        border-bottom: 1px solid $clr1
     }
 }
