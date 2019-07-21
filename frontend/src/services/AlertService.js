@@ -1,5 +1,5 @@
 import Vue from 'vue';
-
+// reference: https://www.npmjs.com/package/vue-notification
 // THIS SERVICE CAN BE MADE A BIT MORE MAINTAINABLE, 
 // BUT I'M NOT MAKING A LIBRARY
 // AN EXAMPLE - 
