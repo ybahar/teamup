@@ -22,7 +22,7 @@ async function query(filterBy = {}) {
         const regex = new RegExp(filterBy.txt)
         criteria.name = { $regex: regex, $options: 'i' }
     }
-    if (filterBy.category !== 'General') {
+    if (filterBy.category && filterBy.category !== 'General') {
         criteria.categories = { $all: [filterBy.category] };
     }
     let $gt = (filterBy.showClosed === 'true') ? 0 : Date.now()

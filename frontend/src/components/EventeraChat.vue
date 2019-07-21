@@ -12,7 +12,10 @@
           </p>
         </section>
       </section>
-      <input type="text" class="chat-input" />
+      <form @submit.prevent="sendMsg">
+        <input type="text" class="chat-input" v-model="msg.txt" />
+        <button>send</button>
+      </form>
     </div>
   </section>
 </template>
@@ -20,19 +23,22 @@
 export default {
   data() {
     return {
+        msg : {
+         senderName : '',
+         txt : '',
+        },
       isChat: false
     };
   },
   computed: {
     msgs() {
-      let msgs = [
-        { senderName: "koko", txt: "kokos msg" , sentAt:6844684684864},
-        { senderName: "momo", txt: "momos msg" , sentAt:5466468465846}
-      ];
-      return msgs;
+      return this.$store.getters.chatMsgs
     }
   },
   methods: {
+    sendMsg() {
+        this.$store.dispatch('sendMsg',this.msg)
+    },
     closeChat() {
       this.isChat = false;
     },

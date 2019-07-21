@@ -3,18 +3,27 @@
 
 module.exports = {
     joinRoom,
+    setMsg,
 }
 const gRooms = [];
+function getRoomById(_id){
+    return gRooms.find(room => _id === room._id)
+    
+}
 function joinRoom(_id){
-      let room = gRooms.find(room => _id === room._id)
-      if (!room) room = createRoom(_id)
-      return room;
-    }
-
+    let room = getRoomById(_id);
+    if (!room) room = createRoom(_id)
+    return room;
+}
+function setMsg(msg,roomId){
+    let room = getRoomById(roomId);
+    room.pastMsgs.push(msg)
+    
+}
   function createRoom(_id){
     let room =  {
           _id,
-          history:[],
+          pastMsgs:[],
       }
       gRooms.push(room);
       return room;

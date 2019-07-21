@@ -60,6 +60,10 @@ export default {
     this.eventera = eventera;
     this.$store.dispatch({type:'joinEventeraChat',_id})
   },
+  async destroyed(){
+    let _id = this.$route.params.id;
+    this.$store.dispatch({type:'leaveEventeraChat',_id})
+  },
   computed: {
     isOpen() {
       return (

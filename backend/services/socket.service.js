@@ -7,16 +7,21 @@ var activeUsersCount = 0;
 
 function setup(http) {
     io = socketIO(http);
+    const sessionMiddleware = require('../server')
+  io.use(function(socket, next) {
+        sessionMiddleware(socket.request, {}, next);
+    });
     io.on('connection', function (socket) {
+        let user = socket.request.session.user
         console.log('a user connected');
         let roomId;
         activeUsersCount++;
         socket.on('join', async (id) => {
             socket.join(id);
             roomId = id; 
-            let {history} = await roomService.joinRoom(id)
+            let {pastMsgs} = await roomService.joinRoom(id)
             console.log('in join',id);
-            socket.emit('msgs',history)
+            socket.emit('msgs-history',pastMsgs)
         })
         socket.on('disconnect', () => {
             console.log('user disconnected');
@@ -28,8 +33,9 @@ function setup(http) {
         });
 
         socket.on('chat msg', (msg) => {
-            console.log('message: ' + msg);
-            io.to(roomId).emit('chat newMsg', msg);
+            console.log('message: ' , msg);
+            roomService.setMsg(msg , roomId);
+            io.to(roomId).emit('msg', msg);
         });
     });
 
