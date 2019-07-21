@@ -10,7 +10,7 @@ export default {
 
 
 function uploadMedia(files) {
-    let imgUrls =  files.map(file => {
+    let imgUrls =  files.map( file => {
         let form = new FormData()
         form.append('imgUpload', file[0])
         return httpService.post(URL_ENDING, form)

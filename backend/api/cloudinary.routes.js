@@ -14,7 +14,6 @@ cloudinary.config(cloudinaryConfig)
 module.exports =  router
 
 router.post('/', upload.single('imgUpload'), (req, res) => {
-    console.log(req.file)
     cloudinary.uploader.upload(req.file.path, 
         function (error, result) {
             res.json(result)
