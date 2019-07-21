@@ -3,11 +3,11 @@
     <div class="bg-container"></div>
     <EventeraQuickstart @buildEventera="buildEventera" @searchEventeras="searchEventeras"/>
     <section class="carousel-container">
-      <!-- <span>{{due}}</span> -->
+      <span>{{due}}</span>
       <h1 class="carousel-header">Hottest Events:</h1>
       <carousel
         class="carousel"
-        :per-page="1"
+        :per-page="3"
         :mouse-drag="true"
         :autoplay="true"
         :loop="true"
@@ -57,6 +57,9 @@ export default {
     };
   },
   computed: {
+    due() {
+      this.dueEventeras = this.$store.getters.eventerasForDisplay
+    }
   },
   methods: {
     loadEventeras() {
