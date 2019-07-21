@@ -1,15 +1,32 @@
-
 .eventera-list-container {
     margin: 0 auto;
-    border-bottom: 1px solid rgb(235,235,235);
+    border-bottom: 1px solid rgb(235, 235, 235);
     padding-bottom: rem(20px);
 }
+
 .eventera-list {
     margin: 0 12px;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr;
+
+    @include two-in-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include three-in-row {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+
+    @include four-in-row {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+
     justify-content: flex-start;
-    
+
 }
+
 .eventera-list-container:last-child {
     hr {
         display: none;

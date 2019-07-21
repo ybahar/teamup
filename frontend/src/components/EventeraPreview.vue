@@ -22,13 +22,14 @@ export default {
       return `/eventera/${this.eventera._id}`;
     },
     distance() {
-      const loggedUserLoc = this.$store.getters.loc;
-      if (loggedUserLoc) {
+      if(!this.$store.getters.loggedUser || !this.$store.getters.loggedUser.loc){
+        return ''
+      }
+      const {loc} = this.$store.getters.loggedUser
+      const {geo} = loc;
         const eventeraGeo = this.eventera.loc.geo;
         if (!eventeraGeo) return "";
-        const distance = getDistance(eventeraGeo, loggedUserLoc.geo);
-        return distance;
-      }
+        return getDistance(eventeraGeo, geo);
     }
   }
 };

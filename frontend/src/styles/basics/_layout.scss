@@ -4,6 +4,10 @@ $mobile-breakpoint: 460px;
 $narrow-breakpoint: 660px;
 $normal-breakpoint: 790px;
 
+$two-previews-width: 560px;
+$three-previews-width: 800px;
+$four-previews-width: 1080px;
+
 @mixin for-mobile-layout {
     @media (max-width: $mobile-breakpoint) {
         @content;
@@ -24,6 +28,25 @@ $normal-breakpoint: 790px;
 
 @mixin for-wide-layout {
     @media (min-width: $normal-breakpoint) {
+        @content;
+    }
+
+}
+
+@mixin two-in-row {
+    @media (min-width: $two-previews-width) {
+        @content;
+    }
+}
+
+@mixin three-in-row {
+    @media (min-width: $three-previews-width) {
+        @content;
+    }
+}
+
+@mixin four-in-row {
+    @media (min-width: $four-previews-width) {
         @content;
     }
 }
