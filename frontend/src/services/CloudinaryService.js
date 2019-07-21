@@ -9,11 +9,13 @@ export default {
 }
 
 
-function uploadMedia(files) {
-    let imgUrls =  files.map(file => {
+async function uploadMedia(files) {
+    let imgUrls = await Promise.all(files.map(async (file) => {
         let form = new FormData()
         form.append('imgUpload', file[0])
-        return httpService.post(URL_ENDING, form)
-    })
+        let res = await httpService.post(URL_ENDING, form)
+        return res 
+    }))
+    console.log('imgurls ', imgUrls)
     return imgUrls
 }
