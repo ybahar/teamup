@@ -27,5 +27,4 @@ function remove(_id) {
 function add(eventera) {
     return httpService.post(URL_ENDING, eventera)
     
-
 }

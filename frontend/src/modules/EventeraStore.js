@@ -1,4 +1,5 @@
 import eventeraService from '@/services/EventeraService'
+import cloudinaryService from '@/services/CloudinaryService'
 
 
 export default {
@@ -90,9 +91,13 @@ export default {
         // this should be 'loadEventeraById'  
         // and the evetnteraDetails should take it with a getter
         async getEventeraById(context, { _id }) {
-
             let eventera = await eventeraService.getById(_id);
             return eventera;
+        },
+
+        async uploadToCloud(context, files) {
+            let imgUrls = await cloudinaryService.uploadMedia(files)
+            console.log('inside the store after uploading:', imgUrls);
         },
         async setFilter(context, { filterBy }) {
             return context.commit({ type: 'setFilter', filterBy })

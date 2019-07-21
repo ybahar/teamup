@@ -17,6 +17,8 @@ async function ajax(endpoint, method = 'get', data = null, params = null) {
             data,
             params
         })
+        console.log('inside http:',res.data);
+        
         return res.data;
     } catch (err) {
         console.warn('in httpservice : ', err)
