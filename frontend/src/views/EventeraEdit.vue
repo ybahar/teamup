@@ -1,17 +1,6 @@
 <template>
   <section class="eventera-edit">
     <form @submit.prevent="saveEventera">
-      <!-- <input type="text" v-model="eventera.name" placeholder="Title" />
-      <input type="text" v-model="eventera.loc.address" placeholder="Address"/>
-      <input type="text" v-model="eventera.loc.city" placeholder="City" />
-      <label> Event date and time
-      <input type="date" v-model="expireDate"  />
-      <input type="time" v-model="expireTime"  />
-      </label>
-      <button @click.prevent="getLocation">Use my current location</button>
-      <input type="number"  placeholder="Maximum number of particpiants" v-model="eventera.maxMembers">
-      <input type="text" v-model.number="categoryList" placeholder="Categories , saparated by ',''" />
-      <button type="submit">Save</button>-->
       <div class="bg_img"></div>
       <div class="form_wrapper">
         <div class="form_container">
@@ -29,14 +18,17 @@
                     placeholder="Title"
                     required
                   />
-                  <input
+                  <label class="file-input-label">
+                    Upload 3 images - 📁
+                    <input
                     type="file"
                     @change="handleUploadImage"
+                    id="img-input"
                     class="img-file"
                     placeholder="Title"
                     multiple
-                    required
                   />
+                  </label>
                 </div>
               </div>
               <div class="col_half">
@@ -125,7 +117,8 @@ export default {
           },
           city: "",
           address: ""
-        }
+        },
+        imgUrls: [],
       },
       categoryList: [],
       description: "",
@@ -140,7 +133,10 @@ export default {
             let res = Object.keys(fileObj).map(key => {
                 return [fileObj[key]];
             });
-            this.$store.dispatch("uploadToCloud", res);
+            
+            if(res.length > 3) res = res.splice(0, 3);
+            this.imgUrls =  this.$store.dispatch("uploadToCloud", res);
+           
         },
     getLocation() {
       if (!navigator || !navigator.geolocation) return;

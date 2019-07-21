@@ -9,8 +9,6 @@ const upload = multer({ dest: 'uploads/' })
 const cloudinaryConfig = require('../config/cloudinary.json').cloudinary
 cloudinary.config(cloudinaryConfig)
 
-// app.use(express.static('public'))
-
 module.exports =  router
 
 router.post('/', upload.single('imgUpload'), (req, res) => {

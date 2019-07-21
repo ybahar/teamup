@@ -1,5 +1,5 @@
 <template>
-  <header class="app-header flex-center space-between">
+  <header class="app-header" >
     <div class="header flex flex-center space-between">
       <div class="logo-container" @click="goToHome">
         <img class="logo-icon" src="../imgs/ee-logo.svg" />
