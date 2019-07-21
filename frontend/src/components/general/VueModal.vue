@@ -35,6 +35,13 @@ export default {
     }
   },
   created() {
+    // this.$notify({
+    //   group: "alerts",
+    //   title: "Important message",
+    //   position: ["right","bottom"],
+    //   type: "error", // "success", "warn" are all the possibilities
+    //   text: "Hello user!"
+    // });
     document.addEventListener("keyup", this.close);
   },
   mounted() {
@@ -53,7 +60,7 @@ export default {
 .modal-mask {
   color: black;
   position: fixed;
-  z-index: 9998;
+  z-index: 4999;
   top: 0;
   left: 0;
   width: 100%;

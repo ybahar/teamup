@@ -2,6 +2,7 @@
   <div id="app">
     <eventera-header></eventera-header>
     <router-view/>
+    <notifications group="alerts" position="bottom right" />
   </div>
 </template>
 
