@@ -1,5 +1,6 @@
 <template>
   <section v-if="eventeraByCategory" class="eventera-list-container max-width">
+    <div class="bg-container"></div>
     <h1>{{ eventeraByCategory.category | capitalize }}</h1>
     <ul class="eventera-list">
       <eventera-preview
@@ -8,6 +9,7 @@
         :eventera="eventera"
       ></eventera-preview>
     </ul>
+    
   </section>
 </template>
 

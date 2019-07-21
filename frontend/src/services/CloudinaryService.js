@@ -14,8 +14,7 @@ async function uploadMedia(files) {
         let form = new FormData()
         form.append('imgUpload', file[0])
         let res = await httpService.post(URL_ENDING, form)
-        return res 
+        return res.url
     }))
-    console.log('imgurls ', imgUrls)
     return imgUrls
 }

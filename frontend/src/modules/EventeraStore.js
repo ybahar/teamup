@@ -90,7 +90,7 @@ export default {
 
         async uploadToCloud(context, files) {
             let imgUrls = await cloudinaryService.uploadMedia(files)
-            console.log('inside the store after uploading:', imgUrls);
+            return imgUrls
         },
         async setFilter(context, { filterBy }) {
             return context.commit({ type: 'setFilter', filterBy })

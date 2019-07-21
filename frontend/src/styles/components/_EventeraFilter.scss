@@ -1,8 +1,37 @@
 .eventera-filter{
+    margin: 0 auto;
+    box-sizing:border-box;
+    box-shadow:0 10px 15px -18px rgba(0, 0, 0, 0.9);
+
     input.check-box{
         display: none;
     }
-    label>.check-box:checked+span{
+    label > .check-box:checked+p{
         font-weight: bold;
     }
+}
+
+.check-box:checked + p::after {
+  content: "✔️"
+}
+
+.full-filter, .closed-filter {
+    font-weight: 600;
+    text-decoration: underline;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.filter-form {
+    margin: 0 auto;
+}
+
+.search-name-input, .category-filter, .time-filter {
+    width:15%;
+	padding:10px 10px 10px 35px;
+	border:1px solid $clr2;
+	box-sizing:border-box;
+	outline:none;
+	transition: all 0.30s ease-in-out;
 }

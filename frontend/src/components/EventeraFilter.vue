@@ -1,16 +1,16 @@
 <template>
-  <section class="eventera-filter">
-    <form>
-      <input type="text" placeholder="Eventera name" v-model="filterBy.txt" @input="setFilter"/>
-      <select class="category" v-model="filterBy.category" @change="setFilter">
-        <option value="General">All</option>
+  <section class="eventera-filter max-width">
+    <form class="filter-form flex row space-between max-width">
+      <input class="search-name-input" type="text" placeholder="Eventera name" v-model="filterBy.txt" @input="setFilter"/>
+      <select class="category-filter" v-model="filterBy.category" @change="setFilter">
+        <option value="General"> Category: All</option>
         <option v-for="category in categories" :key="category" :value="category">{{category}}</option>
       </select>
       <label>
         <input class="about-to-close check-box" type="checkbox" v-model="filterBy.almostFull" @change="setFilter" />
-          <span>    
-        Almost full
-          </span>
+          <p class="full-filter">    
+            Almost full
+          </p>
       </label>
       <label>
         <input
@@ -19,12 +19,12 @@
           v-model="filterBy.showClosed"
           @change="setFilter"
         />
-          <span>
-        Show closed eventeras
-          </span>
+          <p class="closed-filter">
+            Closed
+          </p>
       </label>
-      <select class="time-search" v-model="filterBy.startingAt" @change="setFilter">
-        <option :value="timeValues.all">All</option>
+      <select class="time-filter" v-model="filterBy.startingAt" @change="setFilter">
+        <option :value="timeValues.all">Time: All</option>
         <option :value="timeValues.soon">Starting soon</option>
         <option :value="timeValues.fewDays">In the next couple of days</option>
         <option :value="timeValues.week">Upcoming week</option>

@@ -18,17 +18,22 @@
 }
 
 .carousel-header {
-	position: fixed;
-	bottom: 300px;
+	position: absolute;
+	bottom: 315px;
 	left: 45px;
 	text-decoration: underline;
 }
 .carousel-container {
+	background-color: $clr1;
 	position: absolute;
-	bottom: -450px;
+	bottom: -365px;
 	height: rem(360px);
 	width: 100%;
 	padding: 10px;
+}
+
+.carousel {
+	margin-top: 65px;
 }
 
 .carousel-slide {
