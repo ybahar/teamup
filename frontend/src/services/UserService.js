@@ -24,9 +24,9 @@ async function login({ username, password }) {
     }
 }
 
-async function signup({ username, password, fullName }) {
+async function signup({ username, password, name }) {
     try {
-        return await httpService.post(`auth/signup`, { username, password, fullName })
+        return await httpService.post(`auth/signup`, { username, password, name })
     } catch (err) {
         console.log('ERR: had problems with signup', err);
         throw err;

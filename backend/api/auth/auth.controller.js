@@ -21,9 +21,9 @@ async function login(req, res) {
 
 async function signup(req, res) {
     try {
-        const { password, username } = req.body
-        logger.debug(  username)
-        const user = await authService.signup(username, password)
+        const { password, username, name } = req.body
+        logger.debug(username)
+        const user = await authService.signup(username, password, name)
         logger.debug(`auth.route - new user created: ` + JSON.stringify(user))
         req.session.user = user
         res.status(200).send(user)
@@ -33,7 +33,7 @@ async function signup(req, res) {
     }
 }
 
-async function logout(req, res){
+async function logout(req, res) {
     try {
         req.session.destroy()
         res.send({ message: 'logged out successfully' })

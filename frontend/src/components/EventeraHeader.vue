@@ -8,9 +8,16 @@
         <router-link class="router-categories" to="/eventera">Explore</router-link>
         <button class="link-build">Plan event</button>
         <router-link class="router-about" to="/about">Help</router-link>
-        <div v-if="isUserLogged">
-          <img src="../imgs/user.png" height="65" width="65" />
-          <button class="link-logout">Logout</button>
+        <div class="user-greeting" v-if="loggedUser && loggedUser._id">
+          <img
+            v-if="loggedUser.profileImgUrl"
+            :src="loggedUser.profileImgUrl"
+            height="65"
+            width="65"
+          />
+          Hello, {{ loggedUser.name }}
+          <router-link to="/user">Profile page</router-link>
+          <button @click="logout" class="link-logout">Logout</button>
         </div>
         <div v-else>
           <button class="link-login" @click="showLoginForm">Log in</button>
@@ -37,7 +44,7 @@
             autocomplete
             placeholder="Password"
           />
-          <input type="text" v-model="formInput.fullName" required placeholder="Full Name" />
+          <input type="text" v-model="formInput.name" required placeholder="Full Name" />
           <div slot="footer">
             <button class="btn-action">Sign up</button>
           </div>
@@ -68,8 +75,11 @@
 
 <script>
 import VueModal from "@/components/general/VueModal";
-import userService from '@/services/UserService'
+import userService from "@/services/UserService";
 export default {
+  created() {
+    this.$store.dispatch({ type: "loadLoggedUser" });
+  },
   data() {
     return {
       isUserLogged: false,
@@ -78,14 +88,14 @@ export default {
       formInput: {
         username: "",
         password: "",
-        fullName: ""
+        name: ""
       },
       errMsg: ""
     };
   },
   computed: {
     loggedUser() {
-      this.$store.getters.loggedUser;
+      return this.$store.getters.loggedUser;
     }
   },
   methods: {
@@ -93,7 +103,7 @@ export default {
       this.formInput = {
         username: "",
         password: "",
-        fullName: ""
+        name: ""
       };
     },
     clearErr() {
@@ -108,6 +118,7 @@ export default {
         await userService.login(credentials);
         this.$store.dispatch({ type: "loadLoggedUser" });
         this.clearFormInput();
+        this.hideForms();
       } catch (err) {
         this.errMsg = err.message;
         setTimeout(this.clearErr, 5 * 1000);
@@ -118,11 +129,12 @@ export default {
         const credentials = {
           username: this.formInput.username,
           password: this.formInput.password,
-          fullName: this.formInput.fullName
+          name: this.formInput.name
         };
         await userService.signup(credentials);
         this.$store.dispatch({ type: "loadLoggedUser" });
-        this.clearCredentials();
+        this.clearFormInput();
+        this.hideForms();
       } catch (err) {
         this.errMsg = err.message;
         setTimeout(this.clearErr, 6000);
@@ -132,7 +144,6 @@ export default {
       userService.logout();
       if (this.$route.path.includes("/user")) this.$router.push("/");
       this.$store.commit({ type: "setLoggedUser", user: { _id: "" } });
-      this.clear();
     },
     goToHome() {
       this.$router.push("/");
