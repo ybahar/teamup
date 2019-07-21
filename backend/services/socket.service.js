@@ -11,7 +11,10 @@ function setup(http) {
         console.log('a user connected');
         var room;
         activeUsersCount++;
-
+        socket.on('join',() => {
+            console.log('in join');
+            
+        })
         socket.on('disconnect', () => {
             console.log('user disconnected');
             activeUsersCount--;

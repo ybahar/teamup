@@ -1,0 +1,54 @@
+.chat-icon {
+    background: url('../../imgs/chat.svg');
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    height: 65px;
+    width: 65px;
+    &:hover {
+      cursor: pointer;
+      background: url('../../imgs/chat-hover.svg');
+      transition: 0.3;
+    }
+  }
+  
+  .chat-container {
+    position: fixed;
+    width: 33%;
+    height: 56vh;
+    bottom: 20px;
+    left: -1000px;
+    background: darken($color: $clr2, $amount: 5%);
+    &.chat {
+      left: 0;
+      transition: 0.3s;
+    }
+  }
+  
+  .chat-input {
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+      width: 100%;
+      height: 50px;
+      outline: none;
+      background-color: $clr1;
+      color: black;
+      padding: rem(8px);
+      border: 1px solid $clr2;
+  }
+  
+  .chat-close-btn{
+      position: absolute;
+      right: 5px;
+      top: 5px;
+  }
+
+  .chat-msgs{
+      .chat-msg{
+          background: darken($color: $clr2, $amount: 20%);
+          &:nth-child(odd){
+            background: lighten($color: $clr2, $amount: 20%);
+        }
+      }
+  }

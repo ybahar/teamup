@@ -33,11 +33,12 @@
         <h3>About me: former proffessional player</h3>
         <p>Our goal is to create the best event possible of playing football</p>
       </div>
-      <span class="chat-icon" @click.stop="openChat"></span>
+      <eventera-chat></eventera-chat>
+      <!-- <span class="chat-icon" @click.stop="openChat"></span>
       <div class="chat-container flex column space-between" @click.stop :class="{chat: isChat}">
         <h1>members chat</h1>
         <input type="text" class="chat-input">
-      </div>
+      </div> -->
     </section>
   </section>
 </template>
@@ -45,7 +46,7 @@
 <script>
 import EventeraImages from '@/components/EventeraImages'
 import EventeraMap from '@/components/EventeraMap';
-import userService from '@/services/UserService';
+import EventeraChat from '@/components/EventeraChat';
 export default {
   data() {
     return {
@@ -57,6 +58,7 @@ export default {
     let _id = this.$route.params.id;
     let eventera = await this.$store.dispatch({ type: "getEventeraById", _id });
     this.eventera = eventera;
+    this.$store.dispatch({type:'joinEventeraChat',_id})
   },
   computed: {
     isOpen() {
@@ -87,7 +89,8 @@ export default {
   },
   components:{
     EventeraImages,
-    EventeraMap
+    EventeraMap,
+    EventeraChat
   }
 };
 </script>
