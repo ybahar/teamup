@@ -1,16 +1,15 @@
 
 const socketIO = require('socket.io');
 const roomService = require('./room-service');
-
 var io;
 var activeUsersCount = 0;
 
 function setup(http) {
     io = socketIO(http);
     const sessionMiddleware = require('../server')
-  io.use(function(socket, next) {
-        sessionMiddleware(socket.request, {}, next);
-    });
+//   io.use(function(socket, next) {
+//         sessionMiddleware(socket.handshake, {}, next);
+//     });
     io.on('connection', function (socket) {
         console.log('a user connected');
         let roomId;
@@ -31,10 +30,8 @@ function setup(http) {
             roomId = '';
         });
         
-        socket.on('chat msg', (txt) => {
-            console.log('message: ' , txt);
-            let {username} = socket.request.session.user
-            let msg = {sender:username , txt , sentAt : Date.now()}
+        socket.on('chat msg', (msg) => {
+            console.log('message: ' , msg);
             roomService.setMsg(msg , roomId);
             io.to(roomId).emit('msg', msg);
         });
