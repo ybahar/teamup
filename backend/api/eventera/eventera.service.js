@@ -9,6 +9,7 @@ module.exports = {
     update,
     remove,
     getById,
+    join
 
 }
 
@@ -107,4 +108,30 @@ async function remove(eventeraId, user) {
             throw err;
         }
     } else return Promise.reject('Not the event creator')
+}
+
+async function join(_id,user){
+    try{
+        const eventera = await getById(_id);
+        if(eventera.members.length >= eventera.maxMembers || eventera.expireAt < Date.now()) {
+            return Promise.reject('Eventera is closed')
+        }
+        let idx = eventera.members.findIndex(member => member._id === user._id);
+        if(idx !== -1) return Promise.reject('Already joined this eventera')
+        const member = {
+            _id : user._id,
+            name :user.name,
+            profileImgUrl:user.profileImgUrl,
+            mvpVoteCount:0,
+        }
+        eventera.members.push(member)
+        delete eventera._id;
+        const collection = await dbService.getCollection(COLLECTION_KEY)
+        await collection.updateOne({ "_id": ObjectId(_id) }, { $set: eventera })
+        console.log(eventera,'in join debugg' , _id);
+        eventera._id = _id;
+        return eventera
+    } catch(err){
+        logger.error(`${err} in join eventera.service`)
+    }
 }

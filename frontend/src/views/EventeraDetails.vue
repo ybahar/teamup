@@ -45,6 +45,7 @@
 <script>
 import EventeraImages from '@/components/EventeraImages'
 import EventeraMap from '@/components/EventeraMap';
+import userService from '@/services/UserService';
 export default {
   data() {
     return {
@@ -76,16 +77,13 @@ export default {
       this.isChat = !this.isChat
     },
     joinEventera() {
-      console.log("Need store user data , Function currently is noted  ");
       //TODO : GET USER FROM STORE
-      //         let member = {
-      //     _id : user._id,
-      //     name : user.name,
-      //     role: null,
-      //     mvpVoteCount:0
-      // }
-      // this.eventera.members.push(member)
-    }
+      let user = this.$store.getters.loggedUser
+      if(user && user._id){
+        this.$store.dispatch({type:'joinEventera',_id:this.eventera._id})
+      } else console.log('not logged in')
+            
+}
   },
   components:{
     EventeraImages,

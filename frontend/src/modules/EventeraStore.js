@@ -61,15 +61,7 @@ export default {
         filterBy(state){
              return state.filterBy;
         },
-        // getAlmostExpired(state) {
-        //     console.log('inside the filter:', state.eventeras)
-        //     let almostExpired = state.eventeras.filter(eventera => {
-        //         (eventera.expireAt - eventera.createdAt) < 172800000
-        //     })
-        //     return almostExpired
-
-        // }
-    },
+            },
     actions: {
         async saveEventera(context, eventera) {
             let updatedEventera;
@@ -79,7 +71,6 @@ export default {
                 eventera.createdAt = Date.now();
                 updatedEventera = await eventeraService.add(eventera)
             }
-            console.log(eventera)
             context.commit({ type: 'saveEventera', eventera: updatedEventera, _id: eventera._id })
             return updatedEventera
         },
@@ -88,11 +79,13 @@ export default {
             const eventeras = await eventeraService.query(filterBy)
             context.commit({ type: 'setEventeras', eventeras })
         },
-        // this should be 'loadEventeraById'  
-        // and the evetnteraDetails should take it with a getter
         async getEventeraById(context, { _id }) {
-            let eventera = await eventeraService.getById(_id);
-            return eventera;
+              try{
+                  let eventera = await eventeraService.getById(_id);
+                  return eventera;
+                } catch (err ){
+                    console.log(err);
+                }
         },
 
         async uploadToCloud(context, files) {
@@ -101,6 +94,10 @@ export default {
         },
         async setFilter(context, { filterBy }) {
             return context.commit({ type: 'setFilter', filterBy })
+        },
+        async joinEventera(context ,{_id}){
+            let updatedEventera = await eventeraService.join(_id);
+            context.commit({type:'saveEventera',updatedEventera})
         },
     },
 }
