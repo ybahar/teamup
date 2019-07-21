@@ -1,25 +1,13 @@
 .eventera-preview {
+    text-align: left;
+    margin-bottom: 10px;
     & img {
         margin-bottom: 5px;
     }
-    @include for-mobile-layout {
-        // background-color: #fff; 
-    }
-    @include for-narrow-layout {
-        // background-color: #aaa;
-    }
-    @include for-normal-layout {
-        // background-color: #666;
-    }
-    
-    @include for-wide-layout {
-        min-width: 246px;
-        // min-height: 266px;
-        margin: 5px;
-        align-items: flex-start;
-        // padding: 5px;
-        // border-radius: 20px;
-    }
+    margin: 5px;
+    align-items: flex-start;
+    min-width: 246px; 
+
     cursor:pointer;
     background-color: transparent;
 }

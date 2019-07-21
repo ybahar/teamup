@@ -17,11 +17,11 @@
           />
           Hello, {{ loggedUser.name }}
           <router-link to="/user">Profile page</router-link>
-          <button @click="logout" class="link-logout">Logout</button>
+          <button @click="logout" class="router-logout">Logout</button>
         </div>
         <div v-else>
-          <button class="link-login" @click="showLoginForm">Log in</button>
-          <button class="link-signup" @click="showSignupForm">Sign up</button>
+          <button class="router-login" @click="showLoginForm">Login</button>
+          <button class="router-signup" @click="showSignupForm">Sign up</button>
         </div>
       </nav>
     </div>

@@ -1,9 +1,35 @@
 .app-header {
     background: transparent;
-    // color: $clr1;
+    color: $clr1;
+
+    & .router-signup, .router-logout, .router-login  {
+        color: $clr1;
+    }
+
+    & a {
+        font-size: 18px;
+        padding: 10px;
+        font-weight: bold;
+        outline: none;
+        border-bottom: 1px solid transparent;
+
+        &:hover {
+            border-bottom: 1px solid $clr1;
+        }
+    }
 }
 
+.isMain {
+    color: black;
 
+    & .router-signup, .router-logout, .router-login  {
+        color: black;
+    }
+
+    & a:hover {
+        border-bottom: 1px solid black;
+    }
+}
 
 .header {
     width: 100%;
@@ -16,7 +42,6 @@
 
 .nav-container {
     padding: 10px;
-    color: $clr1
 
 }
 
@@ -32,6 +57,7 @@
     &:hover {
         cursor: pointer;
     }
+<<<<<<< HEAD
 }
 
 
@@ -61,4 +87,6 @@
             border-bottom: 1px solid black;
         }
     }
+=======
+>>>>>>> 0af822eaff1eda77fb9227b52fff3d27df488647
 }
