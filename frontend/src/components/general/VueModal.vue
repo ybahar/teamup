@@ -7,7 +7,7 @@
           <div class="modal-header">
             <slot name="header">default header</slot>
           </div>
-          <div class="modal-body">
+          <div class="modal-body" ref="modalBody">
             <slot name="body">default body</slot>
           </div>
           <div class="modal-footer">
@@ -37,6 +37,12 @@ export default {
   created() {
     document.addEventListener("keyup", this.close);
   },
+  mounted() {
+    // just mounted() isn't enough.
+    this.$nextTick(() => {
+      this.$refs.modalBody.querySelector("input").focus();
+    });
+  },
   destroyed() {
     document.removeEventListener("keyup", this.close);
   }
@@ -45,6 +51,7 @@ export default {
 
 <style>
 .modal-mask {
+  color: black;
   position: fixed;
   z-index: 9998;
   top: 0;
@@ -62,7 +69,7 @@ export default {
 
 .modal-container {
   width: 300px;
-  height: 580px;
+  /* height: 580px; */
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;

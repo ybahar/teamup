@@ -2,7 +2,7 @@
     background: transparent;
     color: $clr1;
 
-    & .link-logout {
+    & .router-signup, .router-logout, .router-login  {
         color: $clr1;
     }
 
@@ -22,16 +22,13 @@
 .isMain {
     color: black;
 
-    & .link-logout {
+    & .router-signup, .router-logout, .router-login  {
         color: black;
     }
 
     & a:hover {
         border-bottom: 1px solid black;
-
-        &:hover {}
     }
-
 }
 
 .header {
