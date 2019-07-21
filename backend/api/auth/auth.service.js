@@ -16,17 +16,17 @@ async function login(username, password) {
     return user;
 }
 
-async function signup(username, password) {
+async function signup(username, password, name) {
     logger.debug(`auth.service - signup with username: ${username}`)
-    if (!password || !username) return Promise.reject('username and password are required!')
+    if (!password || !username || !name) return Promise.reject('username and password are required!')
     let user = await userService.getByUsername(username)
-    if(user) return Promise.reject('Username already exists')
-    
+    if (user) return Promise.reject('Username already exists')
+
     const hash = await bcrypt.hash(password, saltRounds)
-     user = await userService.add({ password: hash, username})
+    user = await userService.add({ password: hash, username, name })
     delete user.password;
     return user;
-    
+
 }
 
 module.exports = {

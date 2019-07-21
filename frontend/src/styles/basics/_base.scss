@@ -30,12 +30,23 @@ h2 {
 }
 
 input {
-    border: none;
+    outline: none;
+    padding: 5px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(200, 200, 200, 0.2);
+    margin-bottom: 10px;
+    &:focus {        
+        border-color: rgba(0, 132, 137, 0.3);
+
+    }
 }
+
+
 
 button {
     cursor: pointer;
-    background:transparent;
+    background: transparent;
     box-sizing: border-box;
     font: inherit;
     border: none;
