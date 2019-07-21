@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import VueCarousel from 'vue-carousel'
+
 import * as VueGoogleMaps from 'vue2-google-maps'
 import {LOC_API_KEY} from '@/services/loc/LocService.js';
 import './registerServiceWorker'

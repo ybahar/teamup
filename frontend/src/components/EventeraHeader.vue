@@ -2,35 +2,157 @@
   <header class="app-header flex-center space-between">
     <div class="header flex flex-center space-between">
       <div class="logo-container" @click="goToHome">
-        <img class="logo-icon" src="../imgs/ee-logo.svg">
+        <img class="logo-icon" src="../imgs/ee-logo.svg" />
       </div>
-      <nav class="nav-container flex flex-center space-between" >
+      <nav class="nav-container flex flex-center space-between">
         <router-link class="router-categories" to="/eventera">Explore</router-link>
         <button class="link-build">Plan event</button>
         <router-link class="router-about" to="/about">Help</router-link>
-        <button class="link-login">Log in</button>
-        <button class="link-signup">Sign up</button>
-        <img v-if="isUserLogged" src="../imgs/user.png" height="65" width="65" />
+        <div v-if="isUserLogged">
+          <img src="../imgs/user.png" height="65" width="65" />
+          <button class="link-logout">Logout</button>
+        </div>
+        <div v-else>
+          <button class="link-login" @click="showLoginForm">Log in</button>
+          <button class="link-signup" @click="showSignupForm">Sign up</button>
+        </div>
       </nav>
     </div>
+    <VueModal @close="hideForms" @click.native="hideForms" v-if="isLoginForm || isSignupForm">
+      <h1 slot="header" v-if="isSignupForm">Signup</h1>
+      <h1 slot="header" v-else>Login</h1>
+      <div slot="body">
+        <form @submit.prevent="signup" v-if="isSignupForm">
+          <input
+            type="username"
+            v-model="formInput.username"
+            required
+            autocomplete
+            placeholder="Username"
+          />
+          <input
+            type="password"
+            v-model="formInput.password"
+            required
+            autocomplete
+            placeholder="Password"
+          />
+          <input type="text" v-model="formInput.fullName" required placeholder="Full Name" />
+          <div slot="footer">
+            <button class="btn-action">Sign up</button>
+          </div>
+        </form>
+        <form @submit.prevent="login" v-else>
+          <input
+            type="username"
+            v-model="formInput.username"
+            required
+            autocomplete
+            placeholder="Username"
+          />
+          <input
+            type="password"
+            v-model="formInput.password"
+            required
+            autocomplete
+            placeholder="Password"
+          />
+          <div slot="footer">
+            <button class="btn-action">Login</button>
+          </div>
+        </form>
+      </div>
+    </VueModal>
   </header>
 </template>
 
-
 <script>
+import VueModal from "@/components/general/VueModal";
+import userService from '@/services/UserService'
 export default {
   data() {
     return {
       isUserLogged: false,
+      isLoginForm: false,
+      isSignupForm: false,
+      formInput: {
+        username: "",
+        password: "",
+        fullName: ""
+      },
+      errMsg: ""
     };
   },
-
+  computed: {
+    loggedUser() {
+      this.$store.getters.loggedUser;
+    }
+  },
   methods: {
+    clearFormInput() {
+      this.formInput = {
+        username: "",
+        password: "",
+        fullName: ""
+      };
+    },
+    clearErr() {
+      this.errMsg = "";
+    },
+    async login() {
+      try {
+        const credentials = {
+          username: this.formInput.username,
+          password: this.formInput.password
+        };
+        await userService.login(credentials);
+        this.$store.dispatch({ type: "loadLoggedUser" });
+        this.clearFormInput();
+      } catch (err) {
+        this.errMsg = err.message;
+        setTimeout(this.clearErr, 5 * 1000);
+      }
+    },
+    async signup() {
+      try {
+        const credentials = {
+          username: this.formInput.username,
+          password: this.formInput.password,
+          fullName: this.formInput.fullName
+        };
+        await userService.signup(credentials);
+        this.$store.dispatch({ type: "loadLoggedUser" });
+        this.clearCredentials();
+      } catch (err) {
+        this.errMsg = err.message;
+        setTimeout(this.clearErr, 6000);
+      }
+    },
+    logout() {
+      userService.logout();
+      if (this.$route.path.includes("/user")) this.$router.push("/");
+      this.$store.commit({ type: "setLoggedUser", user: { _id: "" } });
+      this.clear();
+    },
     goToHome() {
       this.$router.push("/");
     },
+    showLoginForm() {
+      this.isSignupForm = false;
+      this.isLoginForm = true;
+    },
+    showSignupForm() {
+      this.isLoginForm = false;
+      this.isSignupForm = true;
+    },
+    hideForms() {
+      this.isLoginForm = false;
+      this.isSignupForm = false;
+      this.clearFormInput();
+    }
   },
   components: {
+    VueModal
   }
 };
 </script>
