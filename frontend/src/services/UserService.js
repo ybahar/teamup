@@ -15,6 +15,7 @@ export default {
 
 
 async function login({ username, password }) {
+    console.log('login called');
     try {
         return await httpService.post(`auth/login`, { username, password })
     } catch (err) {
@@ -23,9 +24,9 @@ async function login({ username, password }) {
     }
 }
 
-async function signup({ username, password }) {
+async function signup({ username, password, name }) {
     try {
-        return await httpService.post(`auth/signup`, { username, password })
+        return await httpService.post(`auth/signup`, { username, password, name })
     } catch (err) {
         console.log('ERR: had problems with signup', err);
         throw err;

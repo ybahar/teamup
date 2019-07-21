@@ -11,6 +11,7 @@ const http = require('http').createServer(app);
 const authRoutes = require('./api/auth/auth.routes')
 const userRoutes = require('./api/user/user.routes')
 const eventeraRoutes = require('./api/eventera/eventera.routes')
+const cloudinaryRoutes = require('./api/cloudinary.routes')
 
 const logger = require('./services/logger.service')
 const socketService = require('./services/socket.service')
@@ -39,6 +40,7 @@ if (process.env.NODE_ENV !== 'production') {
 app.use('/api/auth', authRoutes)
 app.use('/api/user', userRoutes)
 app.use('/api/eventera', eventeraRoutes)
+app.use('/api/upload/cloudinary', cloudinaryRoutes)
 socketService.setup(http);
 
 if (process.env.NODE_ENV === 'production') {
@@ -48,6 +50,6 @@ if (process.env.NODE_ENV === 'production') {
 
 const port = process.env.PORT || 3000;
 http.listen(port, () => {
-    logger.info('Server is running on port !!!: ' + port)
+    logger.info('Server is running on port: ' + port)
 });
 
