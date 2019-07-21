@@ -50,16 +50,15 @@ export default {
             }
         },
         async loadLoggedUser(context) {
+            console.log('loadLoggedUser called');
             if (!context.getters.loggedUser._id) {
-                {
-                    try {
-                        const user = await userService.getLoggedUser();
-                        console.log('in loadLoggedUser',user);
-                        if (user) context.commit({ type: 'setLoggedUser', user });
-                    } catch (err) {
-                        console.log('had problems loadLoggedUser', err);
-                    }
+                try {
+                    const user = await userService.getLoggedUser();
+                    if (user) context.commit({ type: 'setLoggedUser', user });
+                } catch (err) {
+                    console.log('had problems loadLoggedUser', err);
                 }
+
             }
         },
         async updateLocation(context, { loc }) {

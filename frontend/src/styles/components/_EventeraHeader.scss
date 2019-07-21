@@ -1,4 +1,3 @@
-
 .app-header {
     background: transparent;
     color: $clr1;
@@ -25,9 +24,11 @@
 .logo-container {
     width: rem(70px);
     height: rem(70px);
+
     & .logo-icon {
         font-size: rem(25px);
     }
+
     &:hover {
         cursor: pointer;
     }
@@ -43,16 +44,20 @@
 }
 
 
-.router-categories, .router-about, .link-login, .link-signup, .link-build {
-  color: inherit;
-  font-size: 18px;
-  padding: 10px;
-  font-weight: bold;
-  outline: none;
-  &:hover {
-     border-bottom: 1px solid $clr1;
-     cursor: pointer;
-  }
+.router-categories,
+.router-about,
+.link-login,
+.link-signup,
+.link-build,
+.link-logout,
+.user-greeting {
+    color: $clr1;
+    font-size: 18px;
+    padding: 10px;
+    font-weight: bold;
+    outline: none;
+
+    &:hover {
+        border-bottom: 1px solid $clr1
+    }
 }
-
-
