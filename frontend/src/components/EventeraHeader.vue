@@ -1,5 +1,5 @@
 <template>
-  <header class="app-header" >
+  <header class="app-header">
     <div class="header flex flex-center space-between">
       <div class="logo-container" @click="goToHome">
         <img class="logo-icon" src="../imgs/ee-logo.svg" />
@@ -76,6 +76,7 @@
 <script>
 import VueModal from "@/components/general/VueModal";
 import userService from "@/services/UserService";
+import eventBus, { ALERT_SUCCESS, ALERT_WARN, ALERT_ERR} from '@/EventBus'
 export default {
   created() {
     this.$store.dispatch({ type: "loadLoggedUser" });
@@ -126,6 +127,7 @@ export default {
         this.$store.dispatch({ type: "loadLoggedUser" });
         this.clearFormInput();
         this.hideForms();
+        eventBus.$emit(ALERT_SUCCESS, 'Login', 'Successfuly logged in!');
       } catch (err) {
         this.errMsg = err.message;
         setTimeout(this.clearErr, 5 * 1000);

@@ -21,12 +21,12 @@
 </template>
 
 <script>
+import eventBus, {ALERT_SUCCESS} from '@/EventBus' 
 export default {
   methods: {
     beforeOpen() {
       document.addEventListener("keyup", this.close);
     },
-
     beforeClose() {
       document.removeEventListener("keyup", this.close);
     },
@@ -35,13 +35,6 @@ export default {
     }
   },
   created() {
-    // this.$notify({
-    //   group: "alerts",
-    //   title: "Important message",
-    //   position: ["right","bottom"],
-    //   type: "error", // "success", "warn" are all the possibilities
-    //   text: "Hello user!"
-    // });
     document.addEventListener("keyup", this.close);
   },
   mounted() {
