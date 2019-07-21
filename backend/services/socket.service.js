@@ -9,26 +9,27 @@ function setup(http) {
     io = socketIO(http);
     io.on('connection', function (socket) {
         console.log('a user connected');
-        var room;
+        let roomId;
         activeUsersCount++;
-        socket.on('join',() => {
-            console.log('in join');
-            
+        socket.on('join', async (id) => {
+            socket.join(id);
+            roomId = id; 
+            let {history} = await roomService.joinRoom(id)
+            console.log('in join',id);
+            socket.emit('msgs',history)
         })
         socket.on('disconnect', () => {
             console.log('user disconnected');
             activeUsersCount--;
         });
-
-        socket.on('chat join', (user) => {
-            room = roomService.placeInRoom(user)
-            console.log('Placed', user, 'in room:', room);
-            socket.join(room.id);
+        socket.on('leave', () => {
+            socket.leave(roomId);
+            roomId = '';
         });
 
         socket.on('chat msg', (msg) => {
             console.log('message: ' + msg);
-            io.to(room.id).emit('chat newMsg', msg);
+            io.to(roomId).emit('chat newMsg', msg);
         });
     });
 
