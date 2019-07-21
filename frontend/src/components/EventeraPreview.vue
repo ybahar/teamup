@@ -7,6 +7,10 @@
         <span v-if="distance">{{ distance | meterToKM }}</span>
       </div>
       <h2>{{eventera.name}}</h2>
+      <div class="secondary">
+        <div>{{ eventera.expireAt | timeAgo }}</div>
+        <div>{{ spacesRemain }}</div>
+      </div>
     </section>
   </router-link>
 </template>
@@ -22,14 +26,23 @@ export default {
       return `/eventera/${this.eventera._id}`;
     },
     distance() {
-      if(!this.$store.getters.loggedUser || !this.$store.getters.loggedUser.loc){
-        return ''
+      if (
+        !this.$store.getters.loggedUser ||
+        !this.$store.getters.loggedUser.loc
+      ) {
+        return "";
       }
-      const {loc} = this.$store.getters.loggedUser
-      const {geo} = loc;
-        const eventeraGeo = this.eventera.loc.geo;
-        if (!eventeraGeo) return "";
-        return getDistance(eventeraGeo, geo);
+      const { loc } = this.$store.getters.loggedUser;
+      const { geo } = loc;
+      const eventeraGeo = this.eventera.loc.geo;
+      if (!eventeraGeo) return "";
+      return getDistance(eventeraGeo, geo);
+    },
+    spacesRemain() {
+      const spacesRemain =
+        this.eventera.maxMembers - this.eventera.members.length;
+      if (!spacesRemain) return "No spaces remain";
+      return `${spacesRemain} Spaces remain`;
     }
   }
 };
