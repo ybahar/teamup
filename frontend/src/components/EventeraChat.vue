@@ -13,7 +13,7 @@
         </section>
       </section>
       <form @submit.prevent="sendMsg">
-        <input type="text" class="chat-input" v-model="msg.txt" />
+        <input type="text" class="chat-input" v-model="msg" />
         <button>send</button>
       </form>
     </div>
@@ -23,10 +23,7 @@
 export default {
   data() {
     return {
-        msg : {
-         senderName : '',
-         txt : '',
-        },
+        msg : '',
       isChat: false
     };
   },

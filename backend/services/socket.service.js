@@ -12,7 +12,6 @@ function setup(http) {
         sessionMiddleware(socket.request, {}, next);
     });
     io.on('connection', function (socket) {
-        let user = socket.request.session.user
         console.log('a user connected');
         let roomId;
         activeUsersCount++;
@@ -31,9 +30,11 @@ function setup(http) {
             socket.leave(roomId);
             roomId = '';
         });
-
-        socket.on('chat msg', (msg) => {
-            console.log('message: ' , msg);
+        
+        socket.on('chat msg', (txt) => {
+            console.log('message: ' , txt);
+            let {username} = socket.request.session.user
+            let msg = {sender:username , txt , sentAt : Date.now()}
             roomService.setMsg(msg , roomId);
             io.to(roomId).emit('msg', msg);
         });
