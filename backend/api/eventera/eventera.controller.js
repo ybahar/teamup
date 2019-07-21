@@ -23,6 +23,7 @@ async function getEventeras(req, res) {
 }
 async function getEventeraById(req, res) {
     let id = req.params.id;
+    console.log(req.session)
     try {
         let eventera = await eventeraService.getById(id);
         res.json(eventera)
