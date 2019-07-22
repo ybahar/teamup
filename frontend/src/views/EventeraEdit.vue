@@ -1,13 +1,12 @@
 <template>
   <section class="eventera-edit">
-    <form @submit.prevent="saveEventera">
       <div class="bg_img"></div>
       <div class="form_wrapper">
         <div class="form_container">
           <div class="title_container">
             <h2>Plan your event</h2>
           </div>
-          <form>
+          <form @submit.prevent="saveEventera">
             <div class="row clearfix">
               <div class="col_half">
                 <label>Title</label>
@@ -100,7 +99,6 @@
           </form>
         </div>
       </div>
-    </form>
   </section>
 </template>
 
