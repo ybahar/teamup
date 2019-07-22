@@ -56,12 +56,7 @@
                 <label>Categories</label>
                 <div class="input_field">
                   <select class="category-select" v-model="categoryList" multiple required>
-                    <option value="Sport">Sport</option>
-                    <option value="Date">Date</option>
-                    <option value="Movie">Movie</option>
-                    <option value="Music">Music</option>
-                    <option value="School">School</option>
-                    <option value="Job">Job</option>
+                   <option v-for="category in categories" :key="category" :value="category">{{category}}</option>
                   </select>
                   <input
                     class="input-number"
@@ -103,6 +98,7 @@
 </template>
 
 <script>
+import alertService from '@/services/AlertService'
 export default {
   data() {
     return {
@@ -124,6 +120,11 @@ export default {
       expireDate: "",
       maxMembers: 0
     };
+  },
+  computed:{
+    categories(){
+      return this.$store.getters.categories
+    }
   },
   methods: {
      handleUploadImage(ev) {
@@ -149,10 +150,12 @@ export default {
       this.eventera.loc.geo.lng = coords.longitude;
     },
     saveEventera() {
-      this.eventera.categories = this.categoryList.split(",");
-      this.eventera.expireAt = new Date(
+      this.eventera.categories = this.categoryList;
+      let expireAt = new Date(
         this.expireDate + ":" + this.expireTime
       ).getTime();
+      if(expireAt < Date.now()) return alertService.err('Invalid time','Please input a date in the future')
+      this.eventera.expireAt = expireAt;
       this.$store.dispatch("saveEventera", this.eventera);
     },
     setTimes(date) {

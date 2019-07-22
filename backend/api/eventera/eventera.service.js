@@ -58,8 +58,8 @@ async function add(newEventera, user) {
     }]
     const collection = await dbService.getCollection(COLLECTION_KEY)
     try {
-        newEventera = await collection.insertOne(newEventera);
-        console.log(newEventera);
+        await collection.insertOne(newEventera);
+        console.log('in add', newEventera);
         return newEventera;
     } catch (err) {
         logger.error(`ERROR: cannot insert Eventera`, err)

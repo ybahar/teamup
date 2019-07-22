@@ -6,7 +6,7 @@ import { stat } from 'fs';
 export default {
     state: {
         eventeras: [],
-        newEventera: {name},
+        newEventera: { name },
         filterBy: {
             txt: '',
             category: 'General',
@@ -18,6 +18,7 @@ export default {
     },
     mutations: {
         saveEventera(state, { eventera, _id }) {
+            console.log(_id);
             if (_id) {
                 let idx = state.eventeras.findIndex((currEventera) => currEventera._id === _id)
                 state.eventeras.splice(idx, 1, eventera)
@@ -33,7 +34,7 @@ export default {
     },
     getters: {
         eventerasForDisplay(state) {
-           return state.eventeras
+            return state.eventeras
         },
         getNewEventera(state) {
             return state.newEventera
@@ -42,12 +43,14 @@ export default {
             // each object in the array holds {category: 'cat', eventeras: [...]}
             // this is pre - mongo. post-mongo should just make 3 finds with all filters
             if (state.eventeras) {
-            return state.categories.map(category => {
-                let eventerasByCategory = {};
-                eventerasByCategory.category = category;
-                let filteredEventeras =
-                [...state.eventeras.filter(e =>
-                    e.categories.filter(c => c === category).length !== 0)];
+                console.log('before');
+                return state.categories.map(category => {
+                    let eventerasByCategory = {};
+                    eventerasByCategory.category = category;
+                    let filteredEventeras =
+                        [...state.eventeras.filter(e =>
+                            e.categories.filter(c => c === category).length !== 0)];
+                    console.log('after');
                     eventerasByCategory.eventeras = filteredEventeras;
                     return eventerasByCategory
                 });
@@ -56,13 +59,13 @@ export default {
         categories(state) {
             return state.categories;
         },
-        selectedCategory(state){
-             return state.filterBy.category;
+        selectedCategory(state) {
+            return state.filterBy.category;
         },
-        filterBy(state){
-             return state.filterBy;
+        filterBy(state) {
+            return state.filterBy;
         },
-            },
+    },
     actions: {
         async saveEventera(context, eventera) {
             let updatedEventera;
@@ -81,12 +84,12 @@ export default {
             context.commit({ type: 'setEventeras', eventeras })
         },
         async getEventeraById(context, { _id }) {
-              try{
-                  let eventera = await eventeraService.getById(_id);
-                  return eventera;
-                } catch (err ){
-                    console.log(err);
-                }
+            try {
+                let eventera = await eventeraService.getById(_id);
+                return eventera;
+            } catch (err) {
+                console.log(err);
+            }
         },
 
         async uploadToCloud(context, files) {
@@ -96,9 +99,9 @@ export default {
         async setFilter(context, { filterBy }) {
             return context.commit({ type: 'setFilter', filterBy })
         },
-        async joinEventera(context ,{_id}){
+        async joinEventera(context, { _id }) {
             let updatedEventera = await eventeraService.join(_id);
-            context.commit({type:'saveEventera',eventera:updatedEventera , _id})
+            context.commit({ type: 'saveEventera', eventera: updatedEventera, _id })
             return updatedEventera
         },
     },

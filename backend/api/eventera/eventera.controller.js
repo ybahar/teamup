@@ -46,11 +46,13 @@ async function removeEventera(req,res){
 
 async function addEventera(req,res){
     let eventera = req.body;
+    let user = req.session.user
     try{
-        let eventeraWithId = await eventeraService.add(eventera)
+        let eventeraWithId = await eventeraService.add(eventera,user)
         res.json(eventeraWithId)
     } catch(err){
         logger.error('[Eventera add]',err);
+        console.log(err)
         res.status('403').send({error : 'forbidden'})
     }
 }
