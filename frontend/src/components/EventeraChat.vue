@@ -54,7 +54,7 @@ export default {
           let msg = { sender: this.username, txt: this.txt, sentAt: Date.now() };
       this.$store.dispatch("sendMsg", msg);
       this.txt = '';
-        this.$refs.myref.scrollTop = this.$refs.myref.scrollHeight +60
+        this.$refs.myref.scrollTop = this.$refs.myref.scrollHeight
     },
     closeChat() {
       this.isChat = false;

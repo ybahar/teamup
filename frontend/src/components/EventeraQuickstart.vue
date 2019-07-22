@@ -13,10 +13,14 @@ export default {
   data() {
     return {
       filterBy: {
-        txt: ""
-      },
+            txt: '',
+            category: 'General',
+            almostFull: false,
+            startingAt: 0,
+            showClosed: false,
+        },
     };
-  },
+  },  
   methods: {
     emitSearch() {
       if (!this.filterBy.txt) return

@@ -35,7 +35,7 @@ async function query(filterBy = {}) {
         let filteredEventeras = eventeras
             .filter(eventera => {
                return ((filterBy.showClosed === 'true' || eventera.maxMembers > eventera.members.length) &&
-                    (filterBy.almostFull !== 'true') || eventera.maxMembers - eventera.members.length <= 2)
+                    ((filterBy.almostFull !== 'true') || eventera.maxMembers - eventera.members.length <= 2))
             })
         console.log(filteredEventeras.length)
         return filteredEventeras

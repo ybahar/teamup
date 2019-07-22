@@ -20,7 +20,7 @@
       </div>
       <div class="eventera-status flex flex-center space-around">
         <h2 class="members">{{eventera.members.length}} / {{eventera.maxMembers}}</h2>
-        <button class="join-btn" @click="joinEventera">Join</button>
+        <button class="join-btn" @click="joinEventera" :disabled="!isOpen">{{joinBtnTxt}}</button>
       </div>
       <div class="members-list flex column space-around">
         <h1>Members list</h1>
@@ -82,11 +82,11 @@ export default {
     openChat() {
       this.isChat = !this.isChat
     },
-    joinEventera() {
-      //TODO : GET USER FROM STORE
+    async joinEventera() {
       let user = this.$store.getters.loggedUser
       if(user && user._id){
-        this.$store.dispatch({type:'joinEventera',_id:this.eventera._id})
+       let eventera =  await this.$store.dispatch({type:'joinEventera',_id:this.eventera._id})
+        this.eventera = eventera;
       } else console.log('not logged in')
             
 }

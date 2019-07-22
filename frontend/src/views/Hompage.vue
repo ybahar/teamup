@@ -10,7 +10,7 @@
         :per-page="1"
         :mouse-drag="true"
         :autoplay="true"
-        :loop="true"
+        :loop="true" 
         :paginationEnabled="false"
         :speed="1000"
       >
@@ -66,7 +66,7 @@ export default {
       console.log("inside click on slide:", dataset.name);
     },
     searchEventeras(filterBy) {
-      this.$store.commit("setFilter", filterBy);
+      this.$store.dispatch({type:"setFilter", filterBy});
       this.$router.push('/eventera')
     },
     buildEventera(newEventera) {
