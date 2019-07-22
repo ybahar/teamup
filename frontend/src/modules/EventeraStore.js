@@ -1,5 +1,6 @@
 import eventeraService from '@/services/EventeraService'
 import cloudinaryService from '@/services/CloudinaryService'
+import { stat } from 'fs';
 
 
 export default {
@@ -32,7 +33,7 @@ export default {
     },
     getters: {
         eventerasForDisplay(state) {
-            return state.eventeras
+           return state.eventeras
         },
         getNewEventera(state) {
             return state.newEventera
@@ -97,7 +98,6 @@ export default {
         },
         async joinEventera(context ,{_id}){
             let updatedEventera = await eventeraService.join(_id);
-            console.log('eventera joined' , updatedEventera)
             context.commit({type:'saveEventera',eventera:updatedEventera , _id})
             return updatedEventera
         },

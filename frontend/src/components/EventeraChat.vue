@@ -7,10 +7,10 @@
       <section class="chat-msgs" ref="myref">
         <section class="chat-msg" :class="{'user-msg' : msg.sender === username}" 
         v-for="msg in msgs" :key="msg.sentAt">
-          <p>
-            <span>{{msg.sender}}</span> :
-            <span>{{msg.txt}}</span>
+            <span class="sender">{{msg.sender}}</span> 
+          <p class="msg-body">{{msg.txt}}
           </p>
+          <span class="sent-at">{{msg.sentAt | timeAgo}}</span>
         </section>
       </section>
       <form @submit.prevent="sendMsg">
@@ -21,7 +21,7 @@
           :disabled="!isLoggedIn"
           :placeholder="placeholder"
         />
-        <button>send</button>
+        <button class="send-btn">></button>
       </form>
     </div>
   </section>

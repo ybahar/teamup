@@ -36,6 +36,7 @@
   color: black;
   padding: rem(8px);
   border: 1px solid $clr2;
+  margin-bottom: 0;
 }
 
 .chat-close-btn {
@@ -45,13 +46,53 @@
 }
 
 .chat-msgs {
-    height: calc(56vh - 90px);
-    overflow: scroll;
+  height: calc(56vh - 90px);
+  overflow: scroll;
+  
   .chat-msg {
-      background: darken($color: $clr1, $amount: 5%);
-      padding: 5px;
-      &.user-msg {
+    background: darken($color: $clr2, $amount: 10%);
+    border: 1px solid lighten($color: $clr2, $amount: 30%);
+    padding: 5px;
+    position: relative;
+    &.user-msg {
         background: lighten($color: $clr2, $amount: 20%);
+        border: 1px solid darken($color: $clr2, $amount: 30%);
     }
-  }
+    .sender {
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        font-size: 0.9rem;
+    }
+    .msg-body {
+        text-align: left;
+        padding: 5px;
+    }
+    .sent-at {
+        font-size: 0.7rem;
+        position: absolute;
+        bottom: 5px;
+        right: 10px;
+    }
+}
+scrollbar-color: lighten($color: $clr4,$amount : 20%) $clr2;
+scrollbar-width: thin;
+  &::-webkit-scrollbar {
+          width: 5px;
+    }
+  /* Track */
+  &::-webkit-scrollbar-track {
+      background: $clr2;
+    }
+  
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: lighten($color: $clr4,$amount : 20%);
+    }
+  
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background:$clr4;
+
+    }
 }
