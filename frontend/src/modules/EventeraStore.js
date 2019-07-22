@@ -104,5 +104,10 @@ export default {
             context.commit({ type: 'saveEventera', eventera: updatedEventera, _id })
             return updatedEventera
         },
+        async joinEventera(context, { _id }) {
+            let updatedEventera = await eventeraService.leave(_id);
+            context.commit({ type: 'saveEventera', eventera: updatedEventera, _id })
+            return updatedEventera
+        },
     },
 }

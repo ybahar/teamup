@@ -122,19 +122,46 @@ export default {
     },
     async joinEventera() {
       let user = this.$store.getters.loggedUser;
-      if (user && user._id) {
-        let eventera = await this.$store.dispatch({
-          type: "joinEventera",
-          _id: this.eventera._id
-        });
-        this.eventera = eventera;
-      } else {
+      let userType = this.userType;
+      let eventera;
+      switch (userType) {
+        case "guest":
         eventBus.$emit(OPEN_LOGIN);
         alertService.err(
           "Not logged in",
-          "Please login in order to join eventeras"
-        );
-      }
+          "Please login in order to join eventeras")
+          break;
+        case "creator":
+         let url = `/eventera/edit/${this.eventera._id}`
+          break;
+        case "member":
+           eventera = await this.$store.dispatch({
+           type: "leaveEventera",
+           _id: this.eventera._id
+          })
+          this.eventera = eventera;
+          break;
+        case "user":
+          eventera = await this.$store.dispatch({
+          type: "joinEventera",
+          _id: this.eventera._id
+         })
+         this.eventera = eventera;
+
+          break;
+      // if (user && user._id) {
+      //   let eventera = await this.$store.dispatch({
+      //     type: "joinEventera",
+      //     _id: this.eventera._id
+      //   });
+      //   this.eventera = eventera;
+      // } else {
+      //   eventBus.$emit(OPEN_LOGIN);
+      //   alertService.err(
+      //     "Not logged in",
+      //     "Please login in order to join eventeras"
+      //   );
+      // }
     }
   },
   components: {
@@ -142,7 +169,8 @@ export default {
     EventeraMap,
     EventeraChat
   }
-};
+}
+}
 </script>
 
 <style lang="scss" scoped src="@/styles/views/_EventeraDetails.scss"></style>

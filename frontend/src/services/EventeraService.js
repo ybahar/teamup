@@ -9,6 +9,7 @@ export default {
     add,
     remove,
     join,
+    leave,
 }
 
 function query(filterBy) {
@@ -31,4 +32,7 @@ function add(eventera) {
 }
 function join(_id) {
     return httpService.put(`${URL_ENDING}/join/${_id}`)
+}
+function leave(_id) {
+    return httpService.put(`${URL_ENDING}/leave/${_id}`)
 }

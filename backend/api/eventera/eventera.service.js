@@ -17,7 +17,6 @@ async function query(filterBy = {}) {
 
     let criteria = {}
     if (filterBy.txt) {
-        // criteria.name = filterBy.txt;
         const regex = new RegExp(filterBy.txt)
         criteria.name = { $regex: regex, $options: 'i' }
     }
@@ -59,7 +58,6 @@ async function add(newEventera, user) {
     const collection = await dbService.getCollection(COLLECTION_KEY)
     try {
         await collection.insertOne(newEventera);
-        console.log('in add', newEventera);
         return newEventera;
     } catch (err) {
         logger.error(`ERROR: cannot insert Eventera`, err)
@@ -130,4 +128,20 @@ async function join(_id,user){
     } catch(err){
         logger.error(`${err} in join eventera.service`)
     }
+}
+
+async function leave(_id,user){
+    try{
+        const eventera = await getById(_id);
+        let idx = eventera.members.findIndex(member => member._id === user._id);
+        if(idx !== -1){
+            eventera.members.splice(idx,1);
+            const collection = await dbService.getCollection(COLLECTION_KEY)
+            await collection.updateOne({ "_id": ObjectId(_id) }, { $set: eventera })
+            eventera._id = _id;
+            return eventera
+        } else return Promise.reject('not a member');   
+         } catch(err){
+             logger.error(err)
+         }
 }
