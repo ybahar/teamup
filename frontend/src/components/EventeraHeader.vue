@@ -83,7 +83,6 @@ export default {
   },
   data() {
     return {
-      isUserLogged: false,
       isLoginForm: false,
       isSignupForm: false,
       formInput: {
