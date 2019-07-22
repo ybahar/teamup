@@ -76,14 +76,20 @@
 <script>
 import VueModal from "@/components/general/VueModal";
 import userService from "@/services/UserService";
-import eventBus, { ALERT_SUCCESS, ALERT_WARN, ALERT_ERR} from '@/EventBus'
+import eventBus, { ALERT_SUCCESS, ALERT_WARN, ALERT_ERR, OPEN_LOGIN, OPEN_SIGNUP} from '@/EventBus'
+
 export default {
   created() {
     this.$store.dispatch({ type: "loadLoggedUser" });
+  eventBus.$on(OPEN_LOGIN, this.showLoginForm);
+  eventBus.$on(OPEN_SIGNUP, this.showSignupForm);
+  },
+  destroyed() {
+    eventBus.$off(OPEN_LOGIN, this.showLoginForm);
+    eventBus.$off(OPEN_SIGNUP, this.showSignupForm);
   },
   data() {
     return {
-      isUserLogged: false,
       isLoginForm: false,
       isSignupForm: false,
       formInput: {

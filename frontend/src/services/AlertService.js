@@ -19,7 +19,7 @@ function success(title, msg) {
         group: "alerts",
         title,
         position: ["right", "bottom"],
-        type: "success", // "success", "warn" are all the possibilities
+        type: "success", // "success", "warn" and "error"
         text: msg
     })
 }

@@ -55,6 +55,9 @@
 import EventeraImages from "@/components/EventeraImages";
 import EventeraMap from "@/components/EventeraMap";
 import EventeraChat from "@/components/EventeraChat";
+import eventBus, { OPEN_LOGIN } from "@/EventBus";
+import alertService from "@/services/AlertService";
+
 export default {
   data() {
     return {
@@ -125,7 +128,13 @@ export default {
           _id: this.eventera._id
         });
         this.eventera = eventera;
-      } else console.log("not logged in");
+      } else {
+        eventBus.$emit(OPEN_LOGIN);
+        alertService.err(
+          "Not logged in",
+          "Please login in order to join eventeras"
+        );
+      }
     }
   },
   components: {
