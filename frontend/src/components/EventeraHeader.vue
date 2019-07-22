@@ -2,28 +2,35 @@
   <header class="app-header">
     <div class="header flex flex-center space-between">
       <div class="logo-container" @click="goToHome">
-        <img class="logo-icon" src="../imgs/ee-logo.svg" />
+        <img class="logo-icon" src="../imgs/logo-trans.png" />
       </div>
-      <nav class="nav-container flex flex-center space-between" :class="mainClass">
-        <router-link class="router-categories" to="/eventera">Explore</router-link>
-        <router-link class="router-categories" to="/eventera/edit">Plan event</router-link>
-        <router-link class="router-about" to="/about">Help</router-link>
-        <div class="user-greeting" v-if="loggedUser && loggedUser._id">
-          <img
-            v-if="loggedUser.profileImgUrl"
-            :src="loggedUser.profileImgUrl"
-            height="65"
-            width="65"
-          />
-          Hello, {{ loggedUser.name }}
-          <router-link to="/user">Profile page</router-link>
-          <button @click="logout" class="router-logout">Logout</button>
-        </div>
-        <div v-else>
-          <button class="router-login" @click="showLoginForm">Login</button>
-          <button class="router-signup" @click="showSignupForm">Sign up</button>
-        </div>
-      </nav>
+      <div class="mobile-container" :class="{open : isOpen}">
+        <nav class="nav-container flex flex-center space-between" :class="mainClass">
+          <router-link @click.native="routeChange" class="router-categories" to="/eventera">Explore</router-link>
+          <router-link @click.native="routeChange" class="router-categories" to="/eventera/edit">Plan event</router-link>
+          <router-link @click.native="routeChange" class="router-about" to="/about">Help</router-link>
+          <div class="user-greeting" v-if="loggedUser && loggedUser._id">
+            <img
+              v-if="loggedUser.profileImgUrl"
+              :src="loggedUser.profileImgUrl"
+              height="65"
+              width="65"
+            />
+            Hello, {{ loggedUser.name }}
+            <router-link to="/user">Profile page</router-link>
+            <button @click="logout" class="router-logout">Logout</button>
+          </div>
+          <div class="user-action" v-else>
+            <button class="router-login" @click="showLoginForm">Login</button>
+            <button class="router-signup" @click="showSignupForm">Sign up</button>
+          </div>
+        </nav>
+      </div>
+      <div class="hamb-container" @click="toggleNav()" :class="{nav : isSpanX}">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </div>
     </div>
     <VueModal @close="hideForms" @click.native="hideForms" v-if="isLoginForm || isSignupForm">
       <h1 slot="header" v-if="isSignupForm">Signup</h1>
@@ -92,6 +99,9 @@ export default {
     return {
       isLoginForm: false,
       isSignupForm: false,
+      isSpanX: false,
+      isOpen: false,
+      routeListen: null,
       formInput: {
         username: "",
         password: "",
@@ -111,8 +121,16 @@ export default {
       }
       return { isMain: isLanding };
     }
+
   },
   methods: {
+    toggleNav() {
+      this.isSpanX = !this.isSpanX
+      this.isOpen = !this.isOpen;
+    },
+    routeChange() {
+        if(this.routerListes !== this.$route.path && this.isOpen === true) this.toggleNav();
+    },
     clearFormInput() {
       this.formInput = {
         username: "",
@@ -176,6 +194,9 @@ export default {
       this.isSignupForm = false;
       this.clearFormInput();
     }
+  },
+  created() {
+    this.routeListen = this.$route.path
   },
   components: {
     VueModal
