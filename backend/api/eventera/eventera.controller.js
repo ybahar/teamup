@@ -88,6 +88,7 @@ async function leaveEventera(req, res) {
         res.json(updateEventera)
     } catch (err) {
         logger.error('[Eventera leave]', err)
+        logger.error( err)
         res.status('401').send({ error: 'no logged in user' })
     }
 

@@ -9,7 +9,8 @@ module.exports = {
     update,
     remove,
     getById,
-    join
+    join,
+    leave
 
 }
 

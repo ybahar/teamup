@@ -142,34 +142,22 @@ export default {
           this.eventera = eventera;
           break;
         case "user":
+          console.log('user')
           eventera = await this.$store.dispatch({
           type: "joinEventera",
           _id: this.eventera._id
          })
          this.eventera = eventera;
-
           break;
-      // if (user && user._id) {
-      //   let eventera = await this.$store.dispatch({
-      //     type: "joinEventera",
-      //     _id: this.eventera._id
-      //   });
-      //   this.eventera = eventera;
-      // } else {
-      //   eventBus.$emit(OPEN_LOGIN);
-      //   alertService.err(
-      //     "Not logged in",
-      //     "Please login in order to join eventeras"
-      //   );
-      // }
     }
+  },
   },
   components: {
     EventeraImages,
     EventeraMap,
     EventeraChat
   }
-}
+
 }
 </script>
 

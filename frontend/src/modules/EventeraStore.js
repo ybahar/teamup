@@ -43,14 +43,12 @@ export default {
             // each object in the array holds {category: 'cat', eventeras: [...]}
             // this is pre - mongo. post-mongo should just make 3 finds with all filters
             if (state.eventeras) {
-                console.log('before');
                 return state.categories.map(category => {
                     let eventerasByCategory = {};
                     eventerasByCategory.category = category;
                     let filteredEventeras =
                         [...state.eventeras.filter(e =>
                             e.categories.filter(c => c === category).length !== 0)];
-                    console.log('after');
                     eventerasByCategory.eventeras = filteredEventeras;
                     return eventerasByCategory
                 });
@@ -104,7 +102,7 @@ export default {
             context.commit({ type: 'saveEventera', eventera: updatedEventera, _id })
             return updatedEventera
         },
-        async joinEventera(context, { _id }) {
+        async leaveEventera(context, { _id }) {
             let updatedEventera = await eventeraService.leave(_id);
             context.commit({ type: 'saveEventera', eventera: updatedEventera, _id })
             return updatedEventera
