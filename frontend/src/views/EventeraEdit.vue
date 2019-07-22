@@ -134,7 +134,7 @@ export default {
             });
             
             if(res.length > 3) res = res.splice(0, 3);
-            this.imgUrls =  this.$store.dispatch("uploadToCloud", res);
+            this.eventera.imgUrls =  this.$store.dispatch("uploadToCloud", res);
            
         },
     getLocation() {
