@@ -34,18 +34,12 @@
 }
 
 .bg-container {
-    // background:url('../../imgs/beach-sunset.png') no-repeat center;
-    background: linear-gradient(45deg, $clr1 80%, $clr4 20%);
-	// background-size:cover;
-	// background-attachment:fixed;
-	position:absolute;
+    background: linear-gradient(45deg, transparent 80%, $clr4 20%);
+    position:absolute;
+    display: fixed;
 	top:0;
 	left:0;
-	height:100vh;
-	width:100vw;
+	height:100%;
+	width:100%;
 	z-index:-10;
-}
-
-#app {
-    background-color: $clr1;
 }

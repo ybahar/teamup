@@ -1,8 +1,8 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
-    <eventera-images></eventera-images>
-    <eventera-map></eventera-map>
+    <h1>This is an about page - under construction</h1>
+    <!-- <eventera-images></eventera-images> -->
+    <!-- <eventera-map></eventera-map> -->
   </div>
 </template>
 
