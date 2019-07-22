@@ -2,30 +2,38 @@
   <section class="details-container" @click="closeChat" v-if="eventera">
     <section class="gallery-contianer">
       <div class="img-container-one">
-        <img class="gallery-img" src="../imgs/sport-default.jpg"/>
+        <img class="gallery-img" src="../imgs/sport-default.jpg" />
       </div>
       <div class="img-container-two">
-        <img class="gallery-img" src="../imgs/Football.jpg"/>
+        <img class="gallery-img" src="../imgs/Football.jpg" />
       </div>
       <div class="img-container-three">
-        <img class="gallery-img" src="../imgs/Basketball.jpg"/>
+        <img class="gallery-img" src="../imgs/Basketball.jpg" />
       </div>
     </section>
     <section class="desc-container max-width">
       <div class="text-container flex flex-center space-around">
         <h1>{{eventera.name}}</h1>
-        <img v-if="eventera.creator.profileImgUrl" 
-        :src="`../${eventera.creator.profileImgUrl}`" width="65px" height="65px">
-        <img v-else src="../imgs/user.png" width="65px" height="65px">
+        <img
+          v-if="eventera.creator.profileImgUrl"
+          :src="`../${eventera.creator.profileImgUrl}`"
+          width="65px"
+          height="65px"
+        />
+        <img v-else src="../imgs/user.png" width="65px" height="65px" />
       </div>
       <div class="eventera-status flex flex-center space-around">
         <h2 class="members">{{eventera.members.length}} / {{eventera.maxMembers}}</h2>
-        <button class="join-btn" @click="joinEventera" :disabled="!isOpen">{{joinBtnTxt}}</button>
+        <button class="join-btn" @click="joinEventera" :disabled="!isOpen">{{controlBtnTxt}}</button>
       </div>
       <div class="members-list flex column space-around">
         <h1>Members list</h1>
         <ul>
-          <li v-for="(member,index) in eventera.members" :key="index" class="member-item">{{member.name}}</li>
+          <li
+            v-for="(member,index) in eventera.members"
+            :key="index"
+            class="member-item"
+          >{{member.name}}</li>
         </ul>
       </div>
       <div class="eventera-creator-text flex column">
@@ -38,31 +46,31 @@
       <div class="chat-container flex column space-between" @click.stop :class="{chat: isChat}">
         <h1>members chat</h1>
         <input type="text" class="chat-input">
-      </div> -->
+      </div>-->
     </section>
   </section>
 </template>
 
 <script>
-import EventeraImages from '@/components/EventeraImages'
-import EventeraMap from '@/components/EventeraMap';
-import EventeraChat from '@/components/EventeraChat';
+import EventeraImages from "@/components/EventeraImages";
+import EventeraMap from "@/components/EventeraMap";
+import EventeraChat from "@/components/EventeraChat";
 export default {
   data() {
     return {
       isChat: false,
-      eventera: null,
+      eventera: null
     };
   },
   async created() {
     let _id = this.$route.params.id;
     let eventera = await this.$store.dispatch({ type: "getEventeraById", _id });
     this.eventera = eventera;
-    this.$store.dispatch({type:'joinEventeraChat',_id})
+    this.$store.dispatch({ type: "joinEventeraChat", _id });
   },
-  async destroyed(){
+  async destroyed() {
     let _id = this.$route.params.id;
-    this.$store.dispatch({type:'leaveEventeraChat',_id})
+    this.$store.dispatch({ type: "leaveEventeraChat", _id });
   },
   computed: {
     isOpen() {
@@ -71,8 +79,35 @@ export default {
         this.eventera.members.length < this.eventera.maxMembers
       );
     },
-    joinBtnTxt() {
-      return this.isOpen ? "Join" : "Closed";
+    userType() {
+      let user = this.$store.getters.loggedUser;
+      let eventera = this.eventera;
+      if (!user || !user._id) return "guest";
+      else {
+        if (user._id === eventera.creator._id) return "creator";
+        else {
+          let member = eventera.members.find(member => member._id === user._id);
+          if (member) return "member";
+          else return "user";
+        }
+      }
+    },
+    controlBtnTxt() {
+      let userType = this.userType;
+      switch (userType) {
+        case "guest":
+          return "Login";
+          break;
+        case "creator":
+          return "Edit";
+          break;
+        case "member":
+          return "Leave";
+          break;
+        case "user":
+          return "Join";
+          break;
+      }
     }
   },
   methods: {
@@ -80,18 +115,20 @@ export default {
       this.isChat = false;
     },
     openChat() {
-      this.isChat = !this.isChat
+      this.isChat = !this.isChat;
     },
     async joinEventera() {
-      let user = this.$store.getters.loggedUser
-      if(user && user._id){
-       let eventera =  await this.$store.dispatch({type:'joinEventera',_id:this.eventera._id})
+      let user = this.$store.getters.loggedUser;
+      if (user && user._id) {
+        let eventera = await this.$store.dispatch({
+          type: "joinEventera",
+          _id: this.eventera._id
+        });
         this.eventera = eventera;
-      } else console.log('not logged in')
-            
-}
+      } else console.log("not logged in");
+    }
   },
-  components:{
+  components: {
     EventeraImages,
     EventeraMap,
     EventeraChat
