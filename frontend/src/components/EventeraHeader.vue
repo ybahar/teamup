@@ -2,7 +2,7 @@
   <header class="app-header">
     <div class="header flex flex-center space-between">
       <div class="logo-container" @click="goToHome">
-        <img class="logo-icon" src="../imgs/ee-logo.svg" />
+        <img class="logo-icon" src="../imgs/logo-trans.png" />
       </div>
       <div class="mobile-container" :class="{open : isOpen}">
         <nav class="nav-container flex flex-center space-between" :class="mainClass">

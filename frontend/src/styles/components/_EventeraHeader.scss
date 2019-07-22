@@ -87,11 +87,12 @@
 
 
 .logo-container {
-    width: rem(70px);
-    height: rem(70px);
+    width: rem(100px);
+    height: rem(80px);
 
     & .logo-icon {
-        font-size: rem(25px);
+        width: 100%;
+        height: 100%;
     }
 
     &:hover {
