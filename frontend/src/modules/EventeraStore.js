@@ -1,6 +1,5 @@
 import eventeraService from '@/services/EventeraService'
 import cloudinaryService from '@/services/CloudinaryService'
-import { stat } from 'fs';
 
 
 export default {

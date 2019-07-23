@@ -1,7 +1,7 @@
 <template>
   <router-link tag="div" :to="detailsUrl">
     <section class="eventera-preview flex column">
-      <img :src="eventera.imgUrls[0]" alt width="250px" height="170px"/>
+      <img class="prev-image" :src="eventera.imgUrls[0]" alt width="250px" height="170px" />
       <div class="secondary">
         <span>{{eventera.categories[0] | capitalize }}</span>&nbsp
         <span v-if="distance">{{ distance | meterToKM }}</span>
@@ -10,6 +10,27 @@
       <div class="secondary">
         <div>{{ eventera.expireAt | timeAgo }}</div>
         <div>{{ spacesRemain }}</div>
+      </div>
+      <div class="carousel">
+        <carousel
+          :per-page="3"
+          :mouse-drag="true"
+          :autoplay="false"
+          :loop="true"
+          :paginationEnabled="false"
+          :speed="1000"
+
+        >
+          <slide
+            @slideclick.stop="handleClick"
+            data-name="1"
+            v-for="user in eventera.members" :key="user._id"
+            class="carousel-slide"
+             >
+            <img v-if="user.profileImgUrl" class="user-img-carousel" :src="user.profileImgUrl" />
+            <img v-else class="user-img-carousel" src="../imgs/user.png" />
+          </slide>
+        </carousel>
       </div>
     </section>
   </router-link>
