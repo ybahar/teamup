@@ -34,7 +34,7 @@
 }
 
 .bg-container {
-    background: linear-gradient(45deg, transparent 80%, $clr4 20%);
+    background: linear-gradient(-45deg, transparent 80%, $clr4 20%);
     position:absolute;
     display: fixed;
 	top:0;
