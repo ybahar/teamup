@@ -1,6 +1,6 @@
 <template>
   <section v-if="eventeraByCategory" class="eventera-list-container max-width">
-    <div class="bg-container-list" :class="home"></div>
+    <div class="bg-container-list"></div>
     <h1 class="category-header">{{ eventeraByCategory.category | capitalize }}</h1>
     <ul class="eventera-list">
       <eventera-preview
@@ -10,6 +10,7 @@
       ></eventera-preview>
     </ul>
     
+    <button @click="emitCategory" class="show-more-btn">Show more</button>
   </section>
 </template>
 
@@ -21,16 +22,14 @@ export default {
     }
   },
   computed: {
-    home() {
-      let isHome = true;
-      if (this.$route.path !== "/") {
-          isHome = false
-      }
-      return { home: isHome }
-    }
   },
   props: {
     eventeraByCategory: Object
+  },
+  methods: {
+    emitCategory() {
+      this.$emit('showMore', this.eventeraByCategory.category);
+    }
   },
   components: {
     EventeraPreview

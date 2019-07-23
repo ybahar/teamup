@@ -9,7 +9,7 @@
     background: $clr1;
     opacity: 0.9;
     position: absolute;
-    top: calc(100vh - 600px);
+    top: calc(100vh - 550px);
     left: rem(65px);
     & h1 {
        font-size: 25px;
@@ -54,17 +54,11 @@
 }
 
 .search-eventeras {
+    @include btn;
     width: rem(95px);
     height: rem(45px);
-    background-color: $clr3;
-    border-radius: 2px;
-    font-weight: bold;
-    color: $clr1;
     margin-left: 65%;
     @media screen and (max-width: 600px) {
         margin-left: 59%;
-       }
-    &:hover {
-        background-color: darken($clr3, 10%);
     }
 }

@@ -24,15 +24,12 @@
         grid-template-columns: repeat(4, 1fr);
     }
 
-
-    justify-content: flex-start;
-
 }
 
 .category-header {
     text-align: left;
     text-decoration: underline;
-    padding-left: 10px;
+    padding: 10px;
 }
 
 .eventera-list-container:last-child {
@@ -41,16 +38,19 @@
     }
 }
 
+.show-more-btn {
+    @include btn;
+    padding: 5px;
+    margin-left: 85%;
+    margin-top: 3%;
+}
+
 .bg-container-list {
     background: $clr1;
-    position:absolute;
-    display: fixed;
+    position: fixed;
 	top:0;
 	left:0;
 	height:100%;
 	width:100%;
-    z-index:-10;
-    &.home {
-        top: 100vh;
-    }
+    z-index:-20;
 }

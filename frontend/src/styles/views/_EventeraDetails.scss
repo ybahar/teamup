@@ -135,13 +135,10 @@
 }
 
 .join-btn {
+  @include btn;
   width: rem(95px);
-    height: rem(35px);
-    background-color: $clr3;
-    padding: 10px 10px;
-    border-radius: 2px;
-    font-weight: bold;
-    color: $clr1;
+  height: rem(35px);
+  padding: 10px 10px;
     &:hover {
         background-color: darken($clr3, 10%);
         // transition: 0.3s;

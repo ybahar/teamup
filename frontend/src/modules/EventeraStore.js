@@ -30,6 +30,12 @@ export default {
         setFilter(state, { filterBy }) {
             state.filterBy = filterBy;
         },
+        setFilterCategory(state, category) {
+            // category = category.charAt(0).toUpperCase()
+            state.filterBy.category = category;
+            console.log('inside store:', state.filterBy.category );
+            
+        },
     },
     getters: {
         eventerasForDisplay(state) {

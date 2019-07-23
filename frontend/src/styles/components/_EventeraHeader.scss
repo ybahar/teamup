@@ -83,7 +83,7 @@
 .mobile-container {
     @media screen and (max-width: 600px) {
         position: absolute;
-        right: -600px;
+        left: -600px;
         height: 300px;
         padding: 5px 0
     }
@@ -93,6 +93,7 @@
         width: 190px;
         height: 52vh;
         top: 20px;
+        left: unset;
         right: 10px;
         background: lighten($color: $clr4, $amount: 10%);
         box-shadow: 18px 0px 50px 5px rgba(0, 0, 0, 0.9);

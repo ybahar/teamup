@@ -1,6 +1,6 @@
 <template>
   <router-link tag="div" :to="detailsUrl">
-    <section class="eventera-preview flex column">
+    <section class="eventera-preview flex column space-around">
       <img class="prev-image" :src="eventera.imgUrls[0]" alt width="250px" height="170px" />
       <div class="secondary">
         <span>{{eventera.categories[0] | capitalize }}</span>&nbsp
@@ -11,24 +11,23 @@
         <div>{{ eventera.expireAt | timeAgo }}</div>
         <div>{{ spacesRemain }}</div>
       </div>
-      <div class="carousel">
+      <div class="carousel" @click.stop>
         <carousel
           :per-page="3"
           :mouse-drag="true"
           :autoplay="false"
-          :loop="true"
+          :loop="false"
           :paginationEnabled="false"
-          :speed="1000"
+          :speed="8000"
 
         >
           <slide
-            @slideclick.stop="handleClick"
             data-name="1"
             v-for="user in eventera.members" :key="user._id"
             class="carousel-slide"
              >
             <img v-if="user.profileImgUrl" class="user-img-carousel" :src="user.profileImgUrl" />
-            <img v-else class="user-img-carousel" src="../imgs/user.png" />
+            <!-- <img v-else class="user-img-carousel" src="../imgs/user.png" /> -->
           </slide>
         </carousel>
       </div>
