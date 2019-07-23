@@ -82,7 +82,7 @@
                   <textarea
                     cols="46"
                     rows="3"
-                    v-model="description"
+                    v-model="eventera.description"
                     name="comments"
                     maxlength="400"
                     placeholder="Not required"
@@ -113,9 +113,9 @@ export default {
           address: ""
         },
         imgUrls: [],
+      description: "",
       },
       categoryList: [],
-      description: "",
       expireTime: "",
       expireDate: "",
       maxMembers: 0
@@ -124,18 +124,22 @@ export default {
   computed:{
     categories(){
       return this.$store.getters.categories
+    },
+    isLoading(){
+      return this.$store.getters.isLoading
     }
   },
   methods: {
-     handleUploadImage(ev) {
+    async handleUploadImage(ev) {
+            this.$store.dispatch('toggleLoading')
             let fileObj = ev.target.files
             let res = Object.keys(fileObj).map(key => {
                 return [fileObj[key]];
             });
             
             if(res.length > 3) res = res.splice(0, 3);
-            this.eventera.imgUrls =  this.$store.dispatch("uploadToCloud", res);
-           
+            this.eventera.imgUrls = await  this.$store.dispatch("uploadToCloud", res);
+            this.$store.dispatch('toggleLoading')
         },
     getLocation() {
       if (!navigator || !navigator.geolocation) return;
@@ -149,14 +153,16 @@ export default {
       this.eventera.loc.geo.lat = coords.latitude;
       this.eventera.loc.geo.lng = coords.longitude;
     },
-    saveEventera() {
+    async saveEventera() {
+      if(this.isLoading) return setTimeout(this.saveEventera,1000)
       this.eventera.categories = this.categoryList;
       let expireAt = new Date(
         this.expireDate + ":" + this.expireTime
       ).getTime();
       if(expireAt < Date.now()) return alertService.err('Invalid time','Please input a date in the future')
       this.eventera.expireAt = expireAt;
-      this.$store.dispatch("saveEventera", this.eventera);
+      let {_id} = await this.$store.dispatch("saveEventera", this.eventera);
+      this.$router.push(`/eventera/${_id}`)
     },
     setTimes(date) {
       //format time and date strings to confirm to input rules

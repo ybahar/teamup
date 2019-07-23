@@ -2,13 +2,13 @@
   <section class="details-container" @click="closeChat" v-if="eventera">
     <section class="gallery-contianer">
       <div class="img-container-one">
-        <img class="gallery-img" src="../imgs/sport-default.jpg" />
+        <img class="gallery-img" :src="`${imgs[0]}`" />
       </div>
       <div class="img-container-two">
-        <img class="gallery-img" src="../imgs/Football.jpg" />
+        <img class="gallery-img" :src="`${imgs[1]}`" />
       </div>
       <div class="img-container-three">
-        <img class="gallery-img" src="../imgs/Basketball.jpg" />
+        <img class="gallery-img" :src="`${imgs[2]}`" />
       </div>
     </section>
     <section class="desc-container max-width">
@@ -24,22 +24,27 @@
       </div>
       <div class="eventera-status flex flex-center space-around">
         <h2 class="members">{{eventera.members.length}} / {{eventera.maxMembers}}</h2>
-        <button class="join-btn" @click="eventeraControls" :disabled="!isOpen">{{controlBtnTxt}}</button>
+        <button class="join-btn" @click="eventeraControls" >{{controlBtnTxt}}</button>
       </div>
       <div class="members-list flex column space-around">
         <h1>Members list</h1>
-        <ul>
-          <li
-            v-for="(member,index) in eventera.members"
-            :key="index"
-            class="member-item"
-          >{{member.name}}</li>
+        <ul v-for="member in eventera.members" :key="member._id">
+          <li class="member-item">
+            <span class="member-name">{{member.name}}</span>
+            <span class="member-img">
+              <img
+                v-if="member.profileImgUrl"
+                :src="`../${member.profileImgUrl}`"
+                width="65px"
+                height="65px"
+              />
+            </span>
+          </li>
         </ul>
       </div>
       <div class="eventera-creator-text flex column">
-        <h2>Looking for: 10 players to play football</h2>
-        <h3>About me: former proffessional player</h3>
-        <p>Our goal is to create the best event possible of playing football</p>
+        <h2>{{eventera.expireAt | moment("dddd, MMMM Do YYYY, h:mm a")}}</h2>
+        <p>{{eventera.description}}</p>
       </div>
       <eventera-chat></eventera-chat>
       <!-- <span class="chat-icon" @click.stop="openChat"></span>
@@ -104,12 +109,25 @@ export default {
         case "member":
           return "Leave";
           break;
-         default:
-          return "Join";
+        default:
+          if (this.isOpen) {
+            return "Join";
+          } else return "Closed";
           break;
       }
+    },
+    imgs() {
+      let urls = this.eventera.imgUrls.map(url => {
+        if (!url.includes("http")) url = "../" + url;
+        return url;
+      });
+      while (urls.length < 3) {
+        urls.push(urls[0]);
+      }
+      return urls;
     }
   },
+
   methods: {
     closeChat() {
       this.isChat = false;
@@ -121,42 +139,48 @@ export default {
       // let user = this.$store.getters.loggedUser;
       let userType = this.userType;
       let eventera;
+      console.log(userType);
       switch (userType) {
         case "guest":
-        eventBus.$emit(OPEN_LOGIN);
-        alertService.err(
-          "Not logged in",
-          "Please login in order to join eventeras")
+          eventBus.$emit(OPEN_LOGIN);
+          alertService.err(
+            "Not logged in",
+            "Please login in order to join eventeras"
+          );
           break;
         case "creator":
-         let url = `/eventera/edit/${this.eventera._id}`
-         this.$router.push(url)
-         break;
+          let url = `/eventera/edit/${this.eventera._id}`;
+          this.$router.push(url);
+          break;
         case "member":
-           eventera = await this.$store.dispatch({
-           type: "leaveEventera",
-           _id: this.eventera._id
-          })
+          console.log("in leave");
+          eventera = await this.$store.dispatch({
+            type: "leaveEventera",
+            _id: this.eventera._id
+          });
           this.eventera = eventera;
           break;
         case "user":
-          console.log('user')
-          eventera = await this.$store.dispatch({
-          type: "joinEventera",
-          _id: this.eventera._id
-         })
-         this.eventera = eventera;
+          if (this.isOpen) {
+            eventera = await this.$store.dispatch({
+              type: "joinEventera",
+              _id: this.eventera._id
+            });
+          } else  alertService.err(
+            "This EventEra is closed",
+            "Please select another eventera to join"
+          );
+          this.eventera = eventera;
           break;
+      }
     }
-  },
   },
   components: {
     EventeraImages,
     EventeraMap,
     EventeraChat
   }
-
-}
+};
 </script>
 
 <style lang="scss" scoped src="@/styles/views/_EventeraDetails.scss"></style>

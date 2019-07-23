@@ -13,14 +13,22 @@ export default new Vuex.Store({
     SocketStore
   },
   state: {
+    isLoading: false
   },
   mutations: {
-    setLoggedUser(state, { user }) {
-      state.loggedUser = user;
+    toggleLoading(state) {
+      state.isLoading = !state.isLoading
     }
   },
   actions: {
-
+    toggleLoading(context) {
+      context.commit('toggleLoading')
+    }
   },
+  getters: {
+    isLoading(state) {
+      return state.isLoading
+    }
+  }
 
 })

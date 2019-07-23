@@ -7,7 +7,7 @@
 <script>
 // @ is an alias to /src
 
-import Homepage from "../views/Hompage";
+import Homepage from "../views/HomePage";
 
 export default {
   name: "home",

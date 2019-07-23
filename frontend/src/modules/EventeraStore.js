@@ -103,6 +103,7 @@ export default {
             return updatedEventera
         },
         async leaveEventera(context, { _id }) {
+            console.log(_id);
             let updatedEventera = await eventeraService.leave(_id);
             context.commit({ type: 'saveEventera', eventera: updatedEventera, _id })
             return updatedEventera

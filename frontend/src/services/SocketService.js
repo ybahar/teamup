@@ -11,6 +11,7 @@ let socket;
     try {
         if (process.env.NODE_ENV === 'production') {
             socket = await io()
+            console.log('bobo')
         } else socket = await io('//localhost:3000')
         socket.on('msgs-history', setMsgs)
         socket.on('msg', setMsg)
