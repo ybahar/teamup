@@ -1,5 +1,6 @@
 <template>
   <header class="app-header">
+    <VueResize :ranges="rangesForHamburger" @resize="handleResizeEvent"></VueResize>
     <div class="header flex flex-center space-between">
       <div class="logo-container" @click="goToHome">
         <img class="logo-icon" src="../imgs/logo-trans.png" />
@@ -7,18 +8,14 @@
       <div class="mobile-container" :class="{open : isOpen}">
         <nav class="nav-container flex flex-center space-between" :class="mainClass">
           <router-link @click.native="routeChange" class="router-categories" to="/eventera">Explore</router-link>
-          <router-link @click.native="routeChange" class="router-categories" to="/eventera/edit">Plan event</router-link>
+          <router-link
+            @click.native="routeChange"
+            class="router-categories"
+            to="/eventera/edit"
+          >Plan event</router-link>
           <router-link @click.native="routeChange" class="router-about" to="/about">Help</router-link>
           <div class="user-greeting" v-if="loggedUser && loggedUser._id">
-            <img
-              v-if="loggedUser.profileImgUrl"
-              :src="loggedUser.profileImgUrl"
-              height="65"
-              width="65"
-            />
-            Hello, {{ loggedUser.name }}
-            <router-link to="/user">Profile page</router-link>
-            <button @click="logout" class="router-logout">Logout</button>
+            <loggedUser @logout="logout" />
           </div>
           <div class="user-action" v-else>
             <button class="router-login" @click="showLoginForm">Login</button>
@@ -71,11 +68,10 @@
             autocomplete
             placeholder="Password"
           />
-          <div slot="footer">
-            <button class="btn-action">Login</button>
-          </div>
+          <button class="btn-action">Login</button>
         </form>
       </div>
+      <div slot="footer"></div>
     </VueModal>
   </header>
 </template>
@@ -83,13 +79,21 @@
 <script>
 import VueModal from "@/components/general/VueModal";
 import userService from "@/services/UserService";
-import eventBus, { ALERT_SUCCESS, ALERT_WARN, ALERT_ERR, OPEN_LOGIN, OPEN_SIGNUP} from '@/EventBus'
+import eventBus, {
+  ALERT_SUCCESS,
+  ALERT_WARN,
+  ALERT_ERR,
+  OPEN_LOGIN,
+  OPEN_SIGNUP
+} from "@/EventBus";
+import VueResize from "@/components/general/VueResize";
+import loggedUser from "@/components/user/LoggedUser";
 export default {
   created() {
     this.$store.dispatch({ type: "loadLoggedUser" });
-  eventBus.$on(OPEN_LOGIN, this.showLoginForm);
-  eventBus.$on(OPEN_SIGNUP, this.showSignupForm);
-    this.routeListen = this.$route.path
+    eventBus.$on(OPEN_LOGIN, this.showLoginForm);
+    eventBus.$on(OPEN_SIGNUP, this.showSignupForm);
+    this.routeListen = this.$route.path;
   },
   destroyed() {
     eventBus.$off(OPEN_LOGIN, this.showLoginForm);
@@ -107,7 +111,11 @@ export default {
         password: "",
         name: ""
       },
-      errMsg: ""
+      errMsg: "",
+      rangesForHamburger: [
+        { min: 0, max: 600, name: "mobile" },
+        { min: 601, max: 10000, name: "regular" }
+      ]
     };
   },
   computed: {
@@ -121,15 +129,24 @@ export default {
       }
       return { isMain: isLanding };
     }
-
   },
   methods: {
+    handleResizeEvent(sizeName) {
+      if (sizeName === "mobile") {
+        this.closeNav();
+      }
+    },
     toggleNav() {
-      this.isSpanX = !this.isSpanX
+      this.isSpanX = !this.isSpanX;
       this.isOpen = !this.isOpen;
     },
+    closeNav() {
+      this.isSpanX = false;
+      this.isOpen = false;
+    },
     routeChange() {
-      if(this.routerListes !== this.$route.path && this.isOpen === true) this.toggleNav();
+      if (this.routerListes !== this.$route.path && this.isOpen === true)
+        this.toggleNav();
     },
     clearFormInput() {
       this.formInput = {
@@ -151,7 +168,7 @@ export default {
         this.$store.dispatch({ type: "loadLoggedUser" });
         this.clearFormInput();
         this.hideForms();
-        eventBus.$emit(ALERT_SUCCESS, 'Login', 'Successfuly logged in!');
+        eventBus.$emit(ALERT_SUCCESS, "Login", "Successfuly logged in!");
       } catch (err) {
         this.errMsg = err.message;
         setTimeout(this.clearErr, 5 * 1000);
@@ -182,12 +199,12 @@ export default {
       this.$router.push("/");
     },
     showLoginForm() {
-      console.log('in show')
+      console.log("in show");
       this.isSignupForm = false;
       this.isLoginForm = true;
     },
     showSignupForm() {
-      console.log('in show')
+      console.log("in show");
       this.isLoginForm = false;
       this.isSignupForm = true;
     },
@@ -198,7 +215,9 @@ export default {
     }
   },
   components: {
-    VueModal
+    VueModal,
+    VueResize,
+    loggedUser
   }
 };
 </script>

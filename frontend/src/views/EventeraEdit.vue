@@ -188,7 +188,7 @@ export default {
         _id
       });
       this.eventera = eventera;
-      this.categoryList = eventera.categories.join(",");
+      this.categoryList = eventera.categories;
       let expirationDate = new Date(eventera.expireAt);
       this.setTimes(expirationDate);
     } else {

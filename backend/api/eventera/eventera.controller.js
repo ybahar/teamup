@@ -24,7 +24,6 @@ async function getEventeras(req, res) {
 }
 async function getEventeraById(req, res) {
     let id = req.params.id;
-    console.log(req.session)
     try {
         let eventera = await eventeraService.getById(id);
         res.json(eventera)
@@ -53,18 +52,19 @@ async function addEventera(req, res) {
         res.json(eventeraWithId)
     } catch (err) {
         logger.error('[Eventera add]', err);
-        console.log(err)
         res.status('403').send({ error: 'forbidden' })
     }
 }
 
 async function updateEventera(req, res) {
     let eventera = req.body
+    let user = req.session.user
     try {
-        let updatedEventera = await eventeraService.update(eventera);
+        let updatedEventera = await eventeraService.update(eventera,user);
         res.json(updatedEventera);
     } catch (err) {
         logger.error('[Eventera update]', err);
+        console.log(err)
         res.status('403').send({ error: 'forbidden' })
     }
 }
