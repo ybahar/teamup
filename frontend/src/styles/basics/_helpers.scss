@@ -59,6 +59,10 @@
     max-width: 1080px;
 }
 
+.max-width-narrow {
+    max-width: 860px;
+}
+
 .btn-action {
     padding: 10px 10px;
     background-color: $clr3;
@@ -69,6 +73,26 @@
         background-color: darken($clr3, 10%);
     }
 }
+
 .vue-notification {
     background-color: #000;
+}
+
+
+.file-input-label {
+    font-weight: 700;
+
+    &:hover {
+        cursor: pointer;
+        box-shadow: 0 23px 4px -21px rgba(0, 0, 0, 0.9);
+        text-decoration: underline;
+    }
+}
+
+.circle {
+    border-radius: 50%;
+}
+
+.pointer {
+    cursor: pointer; 
 }

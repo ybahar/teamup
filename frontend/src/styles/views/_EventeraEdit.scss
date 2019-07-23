@@ -128,15 +128,6 @@ input[type="time"].time::-webkit-inner-spin-button {
 	display: none;
 }
 
-.file-input-label {
-	font-weight: 700;
-	&:hover {
-		cursor: pointer;
-		box-shadow: 0 23px 4px -21px rgba(0, 0, 0, 0.9);
-		text-decoration: underline;
-	}
-}
-
 
 .time, .date {
     font-size: 15px;

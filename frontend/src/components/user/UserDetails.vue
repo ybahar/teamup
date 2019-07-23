@@ -1,9 +1,12 @@
 <template>
   <section>
-    <div class="main-box">
+    <div class="main-box max-width-narrow">
       <div class="flex">
         <div class="side-bar">
-          <div class="profile-pic flex-center">{{userInitials}}</div>
+          <div class="profile-pic flex flex-center">
+            <img v-if="user.profileImgUrl" class="circle" :src="user.profileImgUrl" />
+            <div v-else>{{nameInitials}}</div>
+          </div>
           <h2>{{ user.name }}</h2>
           <router-link to="/user/basics">Basics</router-link>
           <router-link to="/user/picture">Profile Pictue</router-link>
@@ -19,25 +22,26 @@
 </template>
 
 <script>
-import EventeraHeader from '@/components/EventeraHeader.vue';
+import EventeraHeader from "@/components/EventeraHeader.vue";
 export default {
   data() {
     return {
       user: {
         _id: "",
-        name: ""
+        name: "",
+        profileImgUrl: ""
       }
     };
   },
   async created() {
     await this.$store.dispatch({ type: "loadLoggedUser" });
-    const { _id, name } = this.$store.getters.loggedUser;
+    const { _id, name, profileImgUrl } = this.$store.getters.loggedUser;
 
     if (!_id) this.$router.push("/");
-    this.user = { _id, name };
+    this.user = { _id, name, profileImgUrl };
   },
   computed: {
-    userInitials() {
+    nameInitials() {
       if (!this.user.name) return "";
       let words = this.user.name.split(" ");
 
@@ -78,9 +82,11 @@ export default {
   border-right: 1px solid rgba(0.5, 0.5, 0.5, 0.3);
 }
 .profile-pic {
-  width: 260px;
-  height: 260px;
-  font-size: 4rem;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  width: 118px;
+  height: 118px;
+  font-size: rem(44px);
   color: #fff;
   border-radius: 50%;
   background: #ccc;
