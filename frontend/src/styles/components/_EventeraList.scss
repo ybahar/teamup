@@ -2,6 +2,9 @@
     margin: 0 auto;
     border-bottom: 1px solid rgb(235, 235, 235);
     padding-bottom: rem(20px);
+    @media screen and (max-width:560px) {
+        margin: 10px 20px;
+       }
 }
 
 .eventera-list {
@@ -16,7 +19,6 @@
     @include three-in-row {
         grid-template-columns: repeat(3, 1fr);
     }
-
  
     @include four-in-row {
         grid-template-columns: repeat(4, 1fr);
@@ -27,19 +29,28 @@
 
 }
 
+.category-header {
+    text-align: left;
+    text-decoration: underline;
+    padding-left: 10px;
+}
+
 .eventera-list-container:last-child {
     hr {
         display: none;
     }
 }
 
-.bg-container {
-    background: linear-gradient(-45deg, transparent 80%, $clr4 20%);
+.bg-container-list {
+    background: $clr1;
     position:absolute;
     display: fixed;
 	top:0;
 	left:0;
 	height:100%;
 	width:100%;
-	z-index:-10;
+    z-index:-10;
+    &.home {
+        top: 100vh;
+    }
 }

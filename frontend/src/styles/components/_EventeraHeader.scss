@@ -76,7 +76,6 @@
         height: 52vh;
         top: 20px;
         right: 10px;
-        // background:url('../../imgs/nav-background.jpg');
         background:lighten($color: $clr4, $amount: 10%);
         box-shadow:18px 0px 50px 5px rgba(0, 0, 0, 0.9);
         border-radius: 5px;
@@ -87,9 +86,9 @@
 
 
 .logo-container {
-    width: rem(100px);
+    width: rem(120px);
     height: rem(80px);
-
+    padding-left: 10px;
     & .logo-icon {
         width: 100%;
         height: 100%;
