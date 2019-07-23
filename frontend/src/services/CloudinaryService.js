@@ -1,13 +1,10 @@
 import httpService from './HttpService'
 
-
 const URL_ENDING = 'upload/cloudinary'
-
 
 export default {
     uploadMedia
 }
-
 
 async function uploadMedia(files) {
     let imgUrls = await Promise.all(files.map(async (file) => {

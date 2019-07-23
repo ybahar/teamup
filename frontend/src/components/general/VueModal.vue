@@ -3,7 +3,10 @@
     <div class="modal-mask">
       <div class="modal-wrapper">
         <div @click.stop class="modal-container">
-          <button class="modal-default-button" @click="$emit('close')">X</button>
+          <div class="btn-quit" @click="$emit('close')">
+            <span>X</span>
+          </div>
+          <!-- <button class="modal-default-button" @click="$emit('close')">X</button> -->
           <div class="modal-header">
             <slot name="header">default header</slot>
           </div>
@@ -11,7 +14,7 @@
             <slot name="body">default body</slot>
           </div>
           <div class="modal-footer">
-            <slot name="footer"></slot>
+            <slot name="footer">default footer</slot>
           </div>
         </div>
       </div>
@@ -21,15 +24,9 @@
 </template>
 
 <script>
-import eventBus, {ALERT_SUCCESS} from '@/EventBus' 
+import eventBus, { ALERT_SUCCESS } from "@/EventBus";
 export default {
   methods: {
-    beforeOpen() {
-      document.addEventListener("keyup", this.close);
-    },
-    beforeClose() {
-      document.removeEventListener("keyup", this.close);
-    },
     close(e) {
       if (e.keyCode === 27) this.$emit("close");
     }
@@ -37,19 +34,45 @@ export default {
   created() {
     document.addEventListener("keyup", this.close);
   },
-  mounted() {
-    // just mounted() isn't enough.
-    this.$nextTick(() => {
-      this.$refs.modalBody.querySelector("input").focus();
-    });
-  },
   destroyed() {
     document.removeEventListener("keyup", this.close);
+  },
+  mounted() {
+    // just mounted() isn't enough.
+    this.$nextTick(() => this.$refs.modalBody.querySelector("input").focus());
   }
 };
 </script>
 
 <style>
+.btn-quit {
+  box-shadow: 0 0 2px black;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  /* margin: 5px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: transparent;
+  color: buttontext;
+  display: block;
+  /* height: 16px;
+  width: 16px; */
+  display: block;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+.btn-quit > * {
+  position: relative;
+  top: 10px;
+  /* left: 2px; */
+  line-height: 20px;
+  font-size: 20px;
+}
+
 .modal-mask {
   color: black;
   position: fixed;
@@ -68,10 +91,11 @@ export default {
 }
 
 .modal-container {
+  position: relative;
   width: 300px;
   /* height: 580px; */
   margin: 0px auto;
-  padding: 20px 30px;
+  padding: 15px 30px;
   background-color: #fff;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
@@ -86,7 +110,7 @@ export default {
 }
 
 .modal-body {
-  margin: 20px 0;
+  margin-top: 20px;
 }
 
 .modal-default-button {

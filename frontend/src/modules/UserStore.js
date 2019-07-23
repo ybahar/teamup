@@ -49,8 +49,19 @@ export default {
                 console.log('had problems saveUserBasics', err);
             }
         },
+        async saveUserProfileImg(context, { profileImgUrl }) {
+            try {
+                console.log('saveUserProfileImg called got:', profileImgUrl)
+                let user = Object.assign({}, context.getters.loggedUser);
+                user.profileImgUrl = profileImgUrl;
+                console.log(user);
+                user = await userService.update(user);
+                context.commit({ type: 'setLoggedUser', user });
+            } catch (err) {
+                console.log('had problems saveUserProfileImg    ', err);
+            }
+        },
         async loadLoggedUser(context) {
-            console.log('loadLoggedUser called');
             if (!context.getters.loggedUser._id) {
                 try {
                     const user = await userService.getLoggedUser();

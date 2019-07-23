@@ -2,12 +2,15 @@
     background: transparent;
     color: $clr1;
 
-    & .router-signup, .router-logout, .router-login  {
+    & .router-signup,
+    .router-logout,
+    .router-login {
         color: $clr1;
         font-size: 18px;
         padding: 10px;
         font-weight: bold;
         outline: none;
+
         &:hover {
             border-bottom: 1px solid $clr1;
         }
@@ -26,11 +29,23 @@
     }
 }
 
+.user-action {
+    &>* {
+        border-bottom: 1px solid transparent;
+        &:hover {
+            border-bottom: 1px solid $clr1;
+        }
+    }
+}
+
 .isMain {
     color: black;
 
-    & .router-signup, .router-logout, .router-login  {
+    & .router-signup,
+    .router-logout,
+    .router-login {
         color: black;
+
         &:hover {
             border-bottom: 1px solid black;
         }
@@ -48,19 +63,21 @@
     text-align: left;
     outline: none;
     font-size: rem(15px);
-   
+
 }
 
 .nav-container {
     padding: 10px;
+
     @media screen and (max-width: 600px) {
         flex-direction: column;
         margin-top: 50px;
+
         & .user-action {
             display: flex;
             flex-direction: column;
         }
-      }
+    }
 }
 
 .mobile-container {
@@ -70,6 +87,7 @@
         height: 300px;
         padding: 5px 0
     }
+
     &.open {
         transition: 0.4s;
         width: 190px;
@@ -77,8 +95,8 @@
         top: 20px;
         right: 10px;
         // background:url('../../imgs/nav-background.jpg');
-        background:lighten($color: $clr4, $amount: 10%);
-        box-shadow:18px 0px 50px 5px rgba(0, 0, 0, 0.9);
+        background: lighten($color: $clr4, $amount: 10%);
+        box-shadow: 18px 0px 50px 5px rgba(0, 0, 0, 0.9);
         border-radius: 5px;
         opacity: 0.9;
         z-index: 2;
@@ -104,27 +122,32 @@
     display: none;
     cursor: pointer;
     z-index: 4;
+
     @media screen and (max-width: 600px) {
-       display: block;
-       margin-right: 25px;
-       padding: 10px;
-      }
+        display: block;
+        margin-right: 25px;
+        padding: 10px;
+    }
 }
-  
-.bar1, .bar2, .bar3 {
+
+.bar1,
+.bar2,
+.bar3 {
     width: 35px;
     height: 5px;
     background-color: $clr3;
     margin: 6px 0;
     transition: 0.4s;
 }
-  
+
 .nav .bar1 {
     transform: rotate(-45deg) translate(-9px, 6px);
 }
-  
-.nav .bar2 {opacity: 0;}
-  
+
+.nav .bar2 {
+    opacity: 0;
+}
+
 .nav .bar3 {
     transform: rotate(45deg) translate(-8px, -8px);
 }

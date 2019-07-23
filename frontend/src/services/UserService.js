@@ -15,7 +15,6 @@ export default {
 
 
 async function login({ username, password }) {
-    console.log('login called');
     try {
         return await httpService.post(`auth/login`, { username, password })
     } catch (err) {
