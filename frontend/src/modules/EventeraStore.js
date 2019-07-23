@@ -1,11 +1,12 @@
 import eventeraService from '@/services/EventeraService'
 import cloudinaryService from '@/services/CloudinaryService'
+import { stat } from 'fs';
 
 
 export default {
     state: {
         eventeras: [],
-        newEventera: {name},
+        newEventera: { name },
         filterBy: {
             txt: '',
             category: 'General',
@@ -17,6 +18,7 @@ export default {
     },
     mutations: {
         saveEventera(state, { eventera, _id }) {
+            console.log(_id);
             if (_id) {
                 let idx = state.eventeras.findIndex((currEventera) => currEventera._id === _id)
                 state.eventeras.splice(idx, 1, eventera)
@@ -55,13 +57,13 @@ export default {
         categories(state) {
             return state.categories;
         },
-        selectedCategory(state){
-             return state.filterBy.category;
+        selectedCategory(state) {
+            return state.filterBy.category;
         },
-        filterBy(state){
-             return state.filterBy;
+        filterBy(state) {
+            return state.filterBy;
         },
-            },
+    },
     actions: {
         async saveEventera(context, eventera) {
             let updatedEventera;
@@ -80,12 +82,12 @@ export default {
             context.commit({ type: 'setEventeras', eventeras })
         },
         async getEventeraById(context, { _id }) {
-              try{
-                  let eventera = await eventeraService.getById(_id);
-                  return eventera;
-                } catch (err ){
-                    console.log(err);
-                }
+            try {
+                let eventera = await eventeraService.getById(_id);
+                return eventera;
+            } catch (err) {
+                console.log(err);
+            }
         },
 
         async uploadToCloud(context, files) {
@@ -95,9 +97,15 @@ export default {
         async setFilter(context, { filterBy }) {
             return context.commit({ type: 'setFilter', filterBy })
         },
-        async joinEventera(context ,{_id}){
+        async joinEventera(context, { _id }) {
             let updatedEventera = await eventeraService.join(_id);
-            context.commit({type:'saveEventera',updatedEventera})
+            context.commit({ type: 'saveEventera', eventera: updatedEventera, _id })
+            return updatedEventera
+        },
+        async leaveEventera(context, { _id }) {
+            let updatedEventera = await eventeraService.leave(_id);
+            context.commit({ type: 'saveEventera', eventera: updatedEventera, _id })
+            return updatedEventera
         },
     },
 }

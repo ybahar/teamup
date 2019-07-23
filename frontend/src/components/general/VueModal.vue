@@ -21,12 +21,12 @@
 </template>
 
 <script>
+import eventBus, {ALERT_SUCCESS} from '@/EventBus' 
 export default {
   methods: {
     beforeOpen() {
       document.addEventListener("keyup", this.close);
     },
-
     beforeClose() {
       document.removeEventListener("keyup", this.close);
     },
@@ -53,7 +53,7 @@ export default {
 .modal-mask {
   color: black;
   position: fixed;
-  z-index: 9998;
+  z-index: 4999;
   top: 0;
   left: 0;
   width: 100%;

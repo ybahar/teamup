@@ -9,20 +9,19 @@ module.exports = {
     update,
     remove,
     getById,
-    join
+    join,
+    leave
 
 }
 
 async function query(filterBy = {}) {
 
-    console.log('checkiong filter ', filterBy)
     let criteria = {}
     if (filterBy.txt) {
-        // criteria.name = filterBy.txt;
         const regex = new RegExp(filterBy.txt)
         criteria.name = { $regex: regex, $options: 'i' }
     }
-    if (filterBy.category !== 'General') {
+    if (filterBy.category && filterBy.category !== 'General') {
         criteria.categories = { $all: [filterBy.category] };
     }
     let $gt = (filterBy.showClosed === 'true') ? 0 : Date.now()
@@ -36,10 +35,9 @@ async function query(filterBy = {}) {
         let filteredEventeras = eventeras
             .filter(eventera => {
                return ((filterBy.showClosed === 'true' || eventera.maxMembers > eventera.members.length) &&
-                    (filterBy.almostFull !== 'true') || eventera.maxMembers - eventera.members.length <= 2)
+                    ((filterBy.almostFull !== 'true') || eventera.maxMembers - eventera.members.length <= 2))
             })
         console.log(filteredEventeras.length)
-        console.log('checking query ', criteria)
         return filteredEventeras
     } catch (err) {
         logger.error(`ERROR: cannot get Eventeras ${err}`)
@@ -60,8 +58,7 @@ async function add(newEventera, user) {
     }]
     const collection = await dbService.getCollection(COLLECTION_KEY)
     try {
-        newEventera = await collection.insertOne(newEventera);
-        console.log(newEventera);
+        await collection.insertOne(newEventera);
         return newEventera;
     } catch (err) {
         logger.error(`ERROR: cannot insert Eventera`, err)
@@ -88,7 +85,6 @@ async function getById(eventeraId) {
     const collection = await dbService.getCollection(COLLECTION_KEY)
     try {
         const eventera = await collection.findOne({ "_id": ObjectId(eventeraId) })
-        console.log(eventera);
         return eventera
     } catch (err) {
         logger.error(`ERROR: cannot get Eventera ${eventeraId}`, err)
@@ -128,10 +124,25 @@ async function join(_id,user){
         delete eventera._id;
         const collection = await dbService.getCollection(COLLECTION_KEY)
         await collection.updateOne({ "_id": ObjectId(_id) }, { $set: eventera })
-        console.log(eventera,'in join debugg' , _id);
         eventera._id = _id;
         return eventera
     } catch(err){
         logger.error(`${err} in join eventera.service`)
     }
+}
+
+async function leave(_id,user){
+    try{
+        const eventera = await getById(_id);
+        let idx = eventera.members.findIndex(member => member._id === user._id);
+        if(idx !== -1){
+            eventera.members.splice(idx,1);
+            const collection = await dbService.getCollection(COLLECTION_KEY)
+            await collection.updateOne({ "_id": ObjectId(_id) }, { $set: eventera })
+            eventera._id = _id;
+            return eventera
+        } else return Promise.reject('not a member');   
+         } catch(err){
+             logger.error(err)
+         }
 }

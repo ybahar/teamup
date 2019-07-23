@@ -17,7 +17,7 @@
         grid-template-columns: repeat(3, 1fr);
     }
 
-
+ 
     @include four-in-row {
         grid-template-columns: repeat(4, 1fr);
     }

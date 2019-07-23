@@ -1,8 +1,9 @@
 <template>
-    <section>
+    <section class="eventera-list-container max-width">
+      <div class="bg-container"></div>
     <h1>{{category | capitalize }}</h1>
 
-    <section class="eventera-list-category">
+    <section class="eventera-list">
       <eventera-preview
         v-for="eventera in eventeras"
         :key="eventera._id"
@@ -29,7 +30,7 @@ export default {
 </script>
 
 
-<style lang="scss" scoped src="@/styles/components/_EventeraCategory.scss">
+<style lang="scss" scoped src="@/styles/components/_EventeraList.scss">
 </style>
 
 

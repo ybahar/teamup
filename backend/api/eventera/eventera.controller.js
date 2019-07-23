@@ -8,6 +8,7 @@ module.exports = {
     addEventera,
     updateEventera,
     joinEventera,
+    leaveEventera
 }
 
 async function getEventeras(req, res) {
@@ -19,61 +20,76 @@ async function getEventeras(req, res) {
         logger.error('[Eventera query]', err)
         res.status('500').send({ error: 'could not get eventera list' })
     }
-    
+
 }
 async function getEventeraById(req, res) {
     let id = req.params.id;
+    console.log(req.session)
     try {
         let eventera = await eventeraService.getById(id);
         res.json(eventera)
-    } catch (err){
-        logger.error('[Eventera getById ]',err)
-        res.status('500').send({ error: 'Eventera not found' })        
+    } catch (err) {
+        logger.error('[Eventera getById ]', err)
+        res.status('500').send({ error: 'Eventera not found' })
     }
-} 
+}
 
-async function removeEventera(req,res){
+async function removeEventera(req, res) {
     let id = req.params.id;
     try {
         await eventeraService.remove(id);
         res.json({});
-    } catch (err){
-        logger.error('[Eventera Remove]',err);
-        res.status('403').send({error : 'forbidden'})
+    } catch (err) {
+        logger.error('[Eventera Remove]', err);
+        res.status('403').send({ error: 'forbidden' })
     }
 }
 
-async function addEventera(req,res){
+async function addEventera(req, res) {
     let eventera = req.body;
-    try{
-        let eventeraWithId = await eventeraService.add(eventera)
+    let user = req.session.user
+    try {
+        let eventeraWithId = await eventeraService.add(eventera, user)
         res.json(eventeraWithId)
-    } catch(err){
-        logger.error('[Eventera add]',err);
-        res.status('403').send({error : 'forbidden'})
+    } catch (err) {
+        logger.error('[Eventera add]', err);
+        console.log(err)
+        res.status('403').send({ error: 'forbidden' })
     }
 }
 
-async function updateEventera(req,res){
+async function updateEventera(req, res) {
     let eventera = req.body
-    try{
-        let updatedEventera =  await eventeraService.update(eventera);
+    try {
+        let updatedEventera = await eventeraService.update(eventera);
         res.json(updatedEventera);
-    } catch(err){
-        logger.error('[Eventera update]',err);
-        res.status('403').send({error : 'forbidden'})
+    } catch (err) {
+        logger.error('[Eventera update]', err);
+        res.status('403').send({ error: 'forbidden' })
     }
 }
 
-async function joinEventera(req,res){
-    try{
-        let _id =  req.params.id;
+async function joinEventera(req, res) {
+    try {
+        let _id = req.params.id;
         let user = req.session.user
-        let updateEventera = await eventeraService.join(_id,user);
+        let updateEventera = await eventeraService.join(_id, user);
         res.json(updateEventera)
-    } catch(err) {
-        logger.error('[Eventera join]',err)
-        res.status('401').send({error:'no logged in user'})
+    } catch (err) {
+        logger.error('[Eventera join]', err)
+        res.status('401').send({ error: 'no logged in user' })
+    }
+}
+async function leaveEventera(req, res) {
+    try {
+        let _id = req.params.id;
+        let user = req.session.user
+        let updateEventera = await eventeraService.leave(_id, user);
+        res.json(updateEventera)
+    } catch (err) {
+        logger.error('[Eventera leave]', err)
+        logger.error( err)
+        res.status('401').send({ error: 'no logged in user' })
     }
 
 }

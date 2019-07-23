@@ -1,13 +1,12 @@
 <template>
   <section class="eventera-edit">
-    <form @submit.prevent="saveEventera">
       <div class="bg_img"></div>
       <div class="form_wrapper">
         <div class="form_container">
           <div class="title_container">
             <h2>Plan your event</h2>
           </div>
-          <form>
+          <form @submit.prevent="saveEventera">
             <div class="row clearfix">
               <div class="col_half">
                 <label>Title</label>
@@ -57,12 +56,7 @@
                 <label>Categories</label>
                 <div class="input_field">
                   <select class="category-select" v-model="categoryList" multiple required>
-                    <option value="Sport">Sport</option>
-                    <option value="Date">Date</option>
-                    <option value="Movie">Movie</option>
-                    <option value="Music">Music</option>
-                    <option value="School">School</option>
-                    <option value="Job">Job</option>
+                   <option v-for="category in categories" :key="category" :value="category">{{category}}</option>
                   </select>
                   <input
                     class="input-number"
@@ -100,11 +94,11 @@
           </form>
         </div>
       </div>
-    </form>
   </section>
 </template>
 
 <script>
+import alertService from '@/services/AlertService'
 export default {
   data() {
     return {
@@ -127,6 +121,11 @@ export default {
       maxMembers: 0
     };
   },
+  computed:{
+    categories(){
+      return this.$store.getters.categories
+    }
+  },
   methods: {
      handleUploadImage(ev) {
             let fileObj = ev.target.files
@@ -135,7 +134,7 @@ export default {
             });
             
             if(res.length > 3) res = res.splice(0, 3);
-            this.imgUrls =  this.$store.dispatch("uploadToCloud", res);
+            this.eventera.imgUrls =  this.$store.dispatch("uploadToCloud", res);
            
         },
     getLocation() {
@@ -151,10 +150,12 @@ export default {
       this.eventera.loc.geo.lng = coords.longitude;
     },
     saveEventera() {
-      this.eventera.categories = this.categoryList.split(",");
-      this.eventera.expireAt = new Date(
+      this.eventera.categories = this.categoryList;
+      let expireAt = new Date(
         this.expireDate + ":" + this.expireTime
       ).getTime();
+      if(expireAt < Date.now()) return alertService.err('Invalid time','Please input a date in the future')
+      this.eventera.expireAt = expireAt;
       this.$store.dispatch("saveEventera", this.eventera);
     },
     setTimes(date) {

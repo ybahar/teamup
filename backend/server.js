@@ -16,15 +16,16 @@ const cloudinaryRoutes = require('./api/cloudinary.routes')
 const logger = require('./services/logger.service')
 const socketService = require('./services/socket.service')
 
-
-app.use(cookieParser())
-app.use(bodyParser.json());
-app.use(session({
+const sessionMiddleware =  session({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false }
-  }))
+  })
+module.exports = sessionMiddleware
+  app.use(cookieParser())
+app.use(bodyParser.json());
+app.use(sessionMiddleware)
 
 
 if (process.env.NODE_ENV !== 'production') {

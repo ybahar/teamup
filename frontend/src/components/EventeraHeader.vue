@@ -83,13 +83,20 @@
 <script>
 import VueModal from "@/components/general/VueModal";
 import userService from "@/services/UserService";
+import eventBus, { ALERT_SUCCESS, ALERT_WARN, ALERT_ERR, OPEN_LOGIN, OPEN_SIGNUP} from '@/EventBus'
 export default {
   created() {
     this.$store.dispatch({ type: "loadLoggedUser" });
+  eventBus.$on(OPEN_LOGIN, this.showLoginForm);
+  eventBus.$on(OPEN_SIGNUP, this.showSignupForm);
+    this.routeListen = this.$route.path
+  },
+  destroyed() {
+    eventBus.$off(OPEN_LOGIN, this.showLoginForm);
+    eventBus.$off(OPEN_SIGNUP, this.showSignupForm);
   },
   data() {
     return {
-      isUserLogged: false,
       isLoginForm: false,
       isSignupForm: false,
       isSpanX: false,
@@ -122,7 +129,7 @@ export default {
       this.isOpen = !this.isOpen;
     },
     routeChange() {
-        if(this.routerListes !== this.$route.path && this.isOpen === true) this.toggleNav();
+      if(this.routerListes !== this.$route.path && this.isOpen === true) this.toggleNav();
     },
     clearFormInput() {
       this.formInput = {
@@ -144,6 +151,7 @@ export default {
         this.$store.dispatch({ type: "loadLoggedUser" });
         this.clearFormInput();
         this.hideForms();
+        eventBus.$emit(ALERT_SUCCESS, 'Login', 'Successfuly logged in!');
       } catch (err) {
         this.errMsg = err.message;
         setTimeout(this.clearErr, 5 * 1000);
@@ -174,10 +182,12 @@ export default {
       this.$router.push("/");
     },
     showLoginForm() {
+      console.log('in show')
       this.isSignupForm = false;
       this.isLoginForm = true;
     },
     showSignupForm() {
+      console.log('in show')
       this.isLoginForm = false;
       this.isSignupForm = true;
     },
@@ -186,9 +196,6 @@ export default {
       this.isSignupForm = false;
       this.clearFormInput();
     }
-  },
-  created() {
-    this.routeListen = this.$route.path
   },
   components: {
     VueModal

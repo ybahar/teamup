@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import VueCarousel from 'vue-carousel'
+import Notifications from 'vue-notification'
 
 import * as VueGoogleMaps from 'vue2-google-maps'
 import {LOC_API_KEY} from '@/services/loc/LocService.js';
@@ -13,6 +14,7 @@ import '@/filters.js';
 Vue.use(require('vue-moment'));
 Vue.config.productionTip = false
 Vue.use(VueCarousel);
+Vue.use(Notifications);
 Vue.use(VueGoogleMaps, {
   load: {
     key: LOC_API_KEY,

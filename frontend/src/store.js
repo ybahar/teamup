@@ -2,13 +2,15 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import eventeraStore from '@/modules/EventeraStore'
 import UserStore from '@/modules/UserStore'
+import SocketStore from '@/modules/SocketStore'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   strict: true,
   modules: {
     eventeraStore,
-    UserStore
+    UserStore,
+    SocketStore
   },
   state: {
   },
