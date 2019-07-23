@@ -98,16 +98,13 @@ export default {
     controlBtnTxt() {
       let userType = this.userType;
       switch (userType) {
-        case "guest":
-          return "Login";
-          break;
         case "creator":
           return "Edit";
           break;
         case "member":
           return "Leave";
           break;
-        case "user":
+         default:
           return "Join";
           break;
       }
@@ -121,7 +118,7 @@ export default {
       this.isChat = !this.isChat;
     },
     async eventeraControls() {
-      let user = this.$store.getters.loggedUser;
+      // let user = this.$store.getters.loggedUser;
       let userType = this.userType;
       let eventera;
       switch (userType) {
@@ -133,7 +130,8 @@ export default {
           break;
         case "creator":
          let url = `/eventera/edit/${this.eventera._id}`
-          break;
+         this.$router.push(url)
+         break;
         case "member":
            eventera = await this.$store.dispatch({
            type: "leaveEventera",

@@ -68,6 +68,7 @@ async function add(newEventera, user) {
 
 async function update(eventera, user) {
     if (eventera.creator._id !== user._id) return Promise.reject('Not authrized')
+    console.log(eventera);
     const collection = await dbService.getCollection(COLLECTION_KEY)
     let eventeraId = eventera._id;
     try {
@@ -91,6 +92,8 @@ async function getById(eventeraId) {
         throw err;
     }
 }
+
+
 
 async function remove(eventeraId, user) {
     let eventera = getById(eventeraId)
