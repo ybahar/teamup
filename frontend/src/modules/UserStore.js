@@ -87,9 +87,11 @@ export default {
             await userService.update(userCopy); // returns an updated user, not gonna use
         },
         async loadCurrUser(context, { id }) {
+            context.commit({type: "setLoading", isLoading: true})
             try {
                 const user =  await userService.getById(id);
                 context.commit({ type: "setCurrUser", user })
+                context.commit({type: "setLoading", isLoading: false})
             } catch (err) {
                 context.commit({ type: "setCurrUser", user: null })
                 throw err;

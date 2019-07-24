@@ -1,9 +1,13 @@
 <template>
-  <section class="details-container" @click="closeChat" v-if="eventera && !isLoading">
-    <VueModal @close="profileUserId = ''" v-if="profileUserId">
-      <div slot="header">my header</div>
-      <div slot="body">my body</div>
-      <div slot="footer">footer</div>
+  <section class="details-container" @click="closeChat" v-if="eventera">
+    <VueModal @close="handleModalClose" v-if="profileUserId && profileUser">
+      <h1 slot="header">{{ profileUser.name}}</h1>
+      <div slot="body">
+        <div class="profile-modal-body">
+          <img :src="`../${profileUser.profileImgUrl}`" />
+        </div>
+      </div>
+      <div slot="footer"></div>
     </VueModal>
     <section class="gallery-contianer">
       <div class="img-container-one">
@@ -29,14 +33,14 @@
       </div>
       <div class="eventera-status flex flex-center space-around">
         <h2 class="members">{{eventera.members.length}} / {{eventera.maxMembers}}</h2>
-        <button class="join-btn" @click="eventeraControls" >{{controlBtnTxt}}</button>
+        <button class="join-btn" @click="eventeraControls">{{controlBtnTxt}}</button>
       </div>
       <div class="members-list flex column space-around">
         <h1>Members list</h1>
         <ul v-for="member in eventera.members" :key="member._id">
           <li class="member-item">
             <span class="member-name">{{member.name}}</span>
-            <span class="member-img">
+            <span class="member-img" @click="loadUserProfile(member._id)">
               <img
                 v-if="member.profileImgUrl"
                 :src="`../${member.profileImgUrl}`"
@@ -73,7 +77,7 @@ export default {
     return {
       isChat: false,
       eventera: null,
-      profileUserId: "5d372735a28aa240a4a70093"
+      profileUserId: ""
     };
   },
   async created() {
@@ -85,10 +89,11 @@ export default {
   async destroyed() {
     let _id = this.$route.params.id;
     this.$store.dispatch({ type: "leaveEventeraChat", _id });
+    this.profileUserId = "";
   },
   computed: {
-    isLoading(){
-    return this.$store.getters.isLoading
+    isLoading() {
+      return this.$store.getters.isLoading;
     },
     isOpen() {
       return (
@@ -119,17 +124,14 @@ export default {
           return "Leave";
           break;
         default:
-          return "Join";
-          break;
-      }
-    },
-    profileUser() {
-      return this.$store.getters.currUser;
           if (this.isOpen) {
             return "Join";
           } else return "Closed";
           break;
       }
+    },
+    profileUser() {
+      return this.$store.getters.currUser;
     },
     imgs() {
       let urls = this.eventera.imgUrls.map(url => {
@@ -142,10 +144,13 @@ export default {
       return urls;
     }
   },
-
   methods: {
     // todo: fix incosistency with 'currUser' and 'userProfile'
-    loadUserProfile() {
+    handleModalClose() {
+      this.profileUserId = "";
+    },
+    loadUserProfile(userId) {
+      this.profileUserId = userId;
       this.$store.dispatch({ type: "loadCurrUser", id: this.profileUserId });
     },
     closeChat() {
@@ -184,10 +189,11 @@ export default {
               type: "joinEventera",
               _id: this.eventera._id
             });
-          } else  alertService.err(
-            "This EventEra is closed",
-            "Please select another eventera to join"
-          );
+          } else
+            alertService.err(
+              "This EventEra is closed",
+              "Please select another eventera to join"
+            );
           this.eventera = eventera;
           break;
       }
