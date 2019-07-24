@@ -6,11 +6,13 @@ import httpService from './HttpService'
 
 const URL_ENDING = 'user';
 export default {
+    getById,
     login,
     logout,
     signup,
     update,
     getLoggedUser // this can be removed when we get a backend
+
 }
 
 
@@ -59,5 +61,13 @@ function remove(_id) {
 }
 function add(eventera) {
     httpService.post(URL_ENDING, eventera)
+}
 
+async function getById(_id) {
+    try {
+        const user = await httpService.get(`${URL_ENDING}/${_id}`)
+        return user;
+    } catch (err) {
+        throw err
+    }
 }

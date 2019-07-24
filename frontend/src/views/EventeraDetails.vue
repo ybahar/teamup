@@ -1,5 +1,10 @@
 <template>
   <section class="details-container" @click="closeChat" v-if="eventera">
+    <VueModal @close="profileUserId = ''" v-if="profileUserId">
+      <div slot="header">my header</div>
+      <div slot="body">my body</div>
+      <div slot="footer">footer</div>
+    </VueModal>
     <section class="gallery-contianer">
       <div class="img-container-one">
         <img class="gallery-img" src="../imgs/sport-default.jpg" />
@@ -57,12 +62,13 @@ import EventeraMap from "@/components/EventeraMap";
 import EventeraChat from "@/components/EventeraChat";
 import eventBus, { OPEN_LOGIN } from "@/EventBus";
 import alertService from "@/services/AlertService";
-
+import VueModal from "@/components/general/VueModal";
 export default {
   data() {
     return {
       isChat: false,
-      eventera: null
+      eventera: null,
+      profileUserId: "5d372735a28aa240a4a70093"
     };
   },
   async created() {
@@ -104,13 +110,20 @@ export default {
         case "member":
           return "Leave";
           break;
-         default:
+        default:
           return "Join";
           break;
       }
+    },
+    profileUser() {
+      return this.$store.getters.currUser;
     }
   },
   methods: {
+    // todo: fix incosistency with 'currUser' and 'userProfile'
+    loadUserProfile() {
+      this.$store.dispatch({ type: "loadCurrUser", id: this.profileUserId });
+    },
     closeChat() {
       this.isChat = false;
     },
@@ -123,40 +136,41 @@ export default {
       let eventera;
       switch (userType) {
         case "guest":
-        eventBus.$emit(OPEN_LOGIN);
-        alertService.err(
-          "Not logged in",
-          "Please login in order to join eventeras")
+          eventBus.$emit(OPEN_LOGIN);
+          alertService.err(
+            "Not logged in",
+            "Please login in order to join eventeras"
+          );
           break;
         case "creator":
-         let url = `/eventera/edit/${this.eventera._id}`
-         this.$router.push(url)
-         break;
+          let url = `/eventera/edit/${this.eventera._id}`;
+          this.$router.push(url);
+          break;
         case "member":
-           eventera = await this.$store.dispatch({
-           type: "leaveEventera",
-           _id: this.eventera._id
-          })
+          eventera = await this.$store.dispatch({
+            type: "leaveEventera",
+            _id: this.eventera._id
+          });
           this.eventera = eventera;
           break;
         case "user":
-          console.log('user')
+          console.log("user");
           eventera = await this.$store.dispatch({
-          type: "joinEventera",
-          _id: this.eventera._id
-         })
-         this.eventera = eventera;
+            type: "joinEventera",
+            _id: this.eventera._id
+          });
+          this.eventera = eventera;
           break;
+      }
     }
-  },
   },
   components: {
     EventeraImages,
     EventeraMap,
-    EventeraChat
+    EventeraChat,
+    VueModal
   }
-
-}
+};
 </script>
 
 <style lang="scss" scoped src="@/styles/views/_EventeraDetails.scss"></style>

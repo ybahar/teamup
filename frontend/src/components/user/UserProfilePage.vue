@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="user-profile-section max-width">
     <div class="main-box max-width-narrow">
       <div class="flex">
         <div class="side-bar">
@@ -22,40 +22,29 @@
 </template>
 
 <script>
-import EventeraHeader from "@/components/EventeraHeader.vue";
+import alertService from "@/services/AlertService";
 export default {
-  data() {
-    return {
-      user: {
-        _id: "",
-        name: "",
-        profileImgUrl: ""
-      }
-    };
-  },
   async created() {
-    await this.$store.dispatch({ type: "loadLoggedUser" });
-    const { _id, name, profileImgUrl } = this.$store.getters.loggedUser;
-
-    if (!_id) this.$router.push("/");
-    this.user = { _id, name, profileImgUrl };
-  },
-  computed: {
-    nameInitials() {
-      if (!this.user.name) return "";
-      let words = this.user.name.split(" ");
-
-      let initials = words.reduce((acc, word) => {
-        return acc + word.charAt(0);
-      }, "");
-      return initials.slice(0, 3); // I don't want more than 3 initails.
+    try {
+      const { id } = this.$route.params;
+      await this.$store.dispatch({ type: "loadCurrUser", id });
+      if (!this.user) throw new Error("no user");
+    } catch (err) {
+      alertService.err("Page not found", ":(");
+      this.$router.push("/");
     }
   },
-  components: {
-    EventeraHeader
+  computed: {
+    user() {
+      return this.$store.getters.currUser;
+    }
   }
 };
 </script>
 
 
-<style lang="scss" scoped src="@/styles/views/user/_UserDetails.scss"></style>
+<style lang="scss" scoped>
+.user-profile-section {
+  margin: 0 auto;
+}
+</style>

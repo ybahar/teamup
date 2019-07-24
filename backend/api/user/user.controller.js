@@ -1,8 +1,13 @@
 const userService = require('./user.service')
 
 async function getUser(req, res) {
-    const user = await userService.getById(req.params.id)
-    res.json(user)
+    try {
+        const user = await userService.getById(req.params.id)
+        res.json(user)
+
+    } catch (err) {
+        return res.status(404).send('User not found');
+    }
 }
 
 async function getUsers(req, res) {
