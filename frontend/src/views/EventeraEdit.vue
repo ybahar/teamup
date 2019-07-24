@@ -18,7 +18,10 @@
                     required
                   />
                   <label class="file-input-label">
-                    Upload 3 images - 📁
+                    <span v-if="isLoading">Uploading</span>
+                    <span v-else>
+                      Upload 3 images - 📁
+                      </span> 
                     <input
                     type="file"
                     @change="handleUploadImage"
@@ -90,7 +93,7 @@
                 </div>
               </div>
             </div>
-            <input class="button" type="submit" value="Sumbit" />
+            <input class="button" :disabled="isLoading" type="submit" value="Sumbit" />
           </form>
         </div>
       </div>
@@ -131,7 +134,6 @@ export default {
   },
   methods: {
     async handleUploadImage(ev) {
-            this.$store.dispatch('toggleLoading')
             let fileObj = ev.target.files
             let res = Object.keys(fileObj).map(key => {
                 return [fileObj[key]];
@@ -139,7 +141,6 @@ export default {
             
             if(res.length > 3) res = res.splice(0, 3);
             this.eventera.imgUrls = await  this.$store.dispatch("uploadToCloud", res);
-            this.$store.dispatch('toggleLoading')
         },
     getLocation() {
       if (!navigator || !navigator.geolocation) return;

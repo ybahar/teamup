@@ -16,13 +16,13 @@ export default new Vuex.Store({
     isLoading: false
   },
   mutations: {
-    toggleLoading(state) {
-      state.isLoading = !state.isLoading
+    setLoading(state , {isLoading}) {
+      state.isLoading = isLoading
     }
   },
   actions: {
-    toggleLoading(context) {
-      context.commit('toggleLoading')
+    setLoading(context,payload) {
+      context.commit(payload)
     }
   },
   getters: {

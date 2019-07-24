@@ -72,6 +72,7 @@ export default {
     actions: {
         async saveEventera(context, eventera) {
             let updatedEventera;
+            context.commit({type:'setLoading',isLoading:true})
             if (eventera._id) {
                 updatedEventera = await eventeraService.update(eventera)
             } else {
@@ -79,27 +80,36 @@ export default {
                 updatedEventera = await eventeraService.add(eventera)
             }
             context.commit({ type: 'saveEventera', eventera: updatedEventera, _id: eventera._id })
+            context.commit({type:'setLoading',isLoading:false})
             return updatedEventera
         },
         async loadEventeras(context) {
+            context.commit({type:'setLoading',isLoading:true})
             const filterBy = context.state.filterBy;
             const eventeras = await eventeraService.query(filterBy)
+            context.commit({type:'setLoading',isLoading:false})
             context.commit({ type: 'setEventeras', eventeras })
         },
         async getEventeraById(context, { _id }) {
+            context.commit({type:'setLoading',isLoading:true})
             try {
                 let eventera = await eventeraService.getById(_id);
+                context.commit({type:'setLoading',isLoading:false})
                 return eventera;
             } catch (err) {
+                context.commit({type:'setLoading',isLoading:false})
                 console.log(err);
             }
         },
-
+        
         async uploadToCloud(context, files) {
+            context.commit({type:'setLoading',isLoading:true})
             let imgUrls = await cloudinaryService.uploadMedia(files)
+            context.commit({type:'setLoading',isLoading:false})
             return imgUrls
         },
         async setFilter(context, { filterBy }) {
+            context.commit({type:'setLoading',isLoading:true})
             return context.commit({ type: 'setFilter', filterBy })
         },
         async joinEventera(context, { _id }) {
@@ -108,7 +118,6 @@ export default {
             return updatedEventera
         },
         async leaveEventera(context, { _id }) {
-            console.log(_id);
             let updatedEventera = await eventeraService.leave(_id);
             context.commit({ type: 'saveEventera', eventera: updatedEventera, _id })
             return updatedEventera

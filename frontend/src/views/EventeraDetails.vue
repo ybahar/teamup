@@ -1,5 +1,5 @@
 <template>
-  <section class="details-container" @click="closeChat" v-if="eventera">
+  <section class="details-container" @click="closeChat" v-if="eventera && !isLoading">
     <section class="gallery-contianer">
       <div class="img-container-one">
         <img class="gallery-img" :src="`${imgs[0]}`" />
@@ -81,6 +81,9 @@ export default {
     this.$store.dispatch({ type: "leaveEventeraChat", _id });
   },
   computed: {
+    isLoading(){
+    return this.$store.getters.isLoading
+    },
     isOpen() {
       return (
         Date.now() < this.eventera.expireAt &&

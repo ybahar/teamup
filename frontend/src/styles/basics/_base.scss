@@ -66,3 +66,17 @@ button {
 ul {
     padding: 0;
 }
+
+.loading-container{
+    position: fixed;
+    top: calc(50vh - 300px);
+    left: calc(50vw - 300px);
+    height: 600px;
+    width: 600px;
+    border: none;
+    background-color: transparent;
+    z-index: 1000;
+    img{
+        width: 600px;
+    }
+}
