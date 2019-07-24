@@ -4,7 +4,7 @@
       <div class="bg-container"></div>
       <EventeraQuickstart @searchEventeras="searchEventeras" />
     </section>
-    <h1 class="list-header-home">Categories:</h1>
+    <h1 class="list-header-home">Find your event:</h1>
     <Eventera-list
       @showMore="setFilterCategory"
       :eventeraByCategory="eventerasByCategory"
