@@ -1,5 +1,5 @@
 <template>
-  <header class="app-header">
+  <header class="app-header" :class="mainClass">
     <VueResize :ranges="rangesForHamburger" @resize="handleResizeEvent"></VueResize>
     <div class="header flex flex-center space-between">
       <div class="logo-container" @click="goToHome">

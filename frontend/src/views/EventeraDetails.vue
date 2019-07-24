@@ -1,5 +1,6 @@
 <template>
   <section class="details-container" @click="closeChat" v-if="eventera">
+    <div class="bg-details-container"></div>
     <section class="gallery-contianer">
       <div class="img-container-one">
         <img class="gallery-img" src="../imgs/sport-default.jpg" />
@@ -20,7 +21,7 @@
           width="65px"
           height="65px"
         />
-        <img v-else src="../imgs/user.png" width="65px" height="65px" />
+        <!-- <img v-else src="../imgs/user.png" width="65px" height="65px" /> all users have pictures -->
       </div>
       <div class="eventera-status flex flex-center space-around">
         <h2 class="members">{{eventera.members.length}} / {{eventera.maxMembers}}</h2>
@@ -32,21 +33,16 @@
           <li
             v-for="(member,index) in eventera.members"
             :key="index"
-            class="member-item"
-          >{{member.name}}</li>
+            class="member-item flex space-between"
+          >{{member.name}}
+          <img :src="`../${member.profileImgUrl}`" alt="member"/>
+           </li>
         </ul>
       </div>
       <div class="eventera-creator-text flex column">
-        <h2>Looking for: 10 players to play football</h2>
-        <h3>About me: former proffessional player</h3>
-        <p>Our goal is to create the best event possible of playing football</p>
+        <p>{{eventera.description}}</p>
       </div>
       <eventera-chat></eventera-chat>
-      <!-- <span class="chat-icon" @click.stop="openChat"></span>
-      <div class="chat-container flex column space-between" @click.stop :class="{chat: isChat}">
-        <h1>members chat</h1>
-        <input type="text" class="chat-input">
-      </div>-->
     </section>
   </section>
 </template>

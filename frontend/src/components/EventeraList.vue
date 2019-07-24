@@ -1,7 +1,7 @@
 <template>
-  <section v-if="eventeraByCategory" class="eventera-list-container max-width">
-    <div class="bg-container-list"></div>
-    <h1 class="category-header">{{ eventeraByCategory.category | capitalize }}</h1>
+  <section v-if="eventeraByCategory.eventeras.length" class="eventera-list-container max-width">
+    <div class="bg-container-list" :class="mainClass"></div>
+    <h1  class="category-header">{{ eventeraByCategory.category | capitalize }}</h1>
     <ul class="eventera-list">
       <eventera-preview
         v-for="eventera in eventeraByCategory.eventeras.slice(0,4)"
@@ -10,7 +10,7 @@
       ></eventera-preview>
     </ul>
     
-    <button @click="emitCategory" class="show-more-btn">Show more</button>
+    <button v-if="eventeraByCategory.eventeras.length" @click="emitCategory" class="show-more-btn">Show more</button>
   </section>
 </template>
 
@@ -22,6 +22,13 @@ export default {
     }
   },
   computed: {
+      mainClass() {
+      let isLanding = true;
+      if (this.$route.path === "/") {
+        isLanding = false;
+      }
+      return { isntMain: isLanding };
+    }
   },
   props: {
     eventeraByCategory: Object

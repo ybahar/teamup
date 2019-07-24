@@ -1,0 +1,33 @@
+
+
+
+.about {
+    margin: 0 auto;
+    background: $clr1;
+    height: 100vh;
+    width: 100vw;
+    & h1 {
+        padding: 50px;
+    }
+}
+
+.matan, .yarin, .joni {
+    height: rem(500px);
+    width:  rem(350px);
+    border: 1px solid $clr2;
+    border-radius: 5px;
+    & img {
+        margin: 10px;
+        height: 250px;
+        width: 250px;
+        border-radius: 40%;
+    }
+    & p {
+        font-weight: 700;
+        line-height: 25px;
+        padding: 10px;
+        & span {
+           color: $clr2
+        }
+    }
+}

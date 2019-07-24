@@ -37,3 +37,18 @@
 	position: absolute;
 	background-color: transparent;
 }
+
+.event-sample-one {
+	position: absolute;
+	left: -200px;
+	top: 115vh;
+	width: 250px;
+	height: 170px;
+	border-radius: 5px;
+	& .sample-span {
+		height: 100%;
+		width: 55px;
+		background: black;
+		opacity: 0.7;
+	}
+}
