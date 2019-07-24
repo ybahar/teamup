@@ -19,13 +19,13 @@
           :loop="false"
           :paginationEnabled="false"
           :speed="8000"
-
         >
           <slide
             data-name="1"
-            v-for="user in eventera.members" :key="user._id"
+            v-for="user in eventera.members"
+            :key="user._id"
             class="carousel-slide"
-             >
+          >
             <img v-if="user.profileImgUrl" class="user-img-carousel" :src="user.profileImgUrl" />
             <!-- <img v-else class="user-img-carousel" src="../imgs/user.png" /> -->
           </slide>
@@ -61,8 +61,11 @@ export default {
     spacesRemain() {
       const spacesRemain =
         this.eventera.maxMembers - this.eventera.members.length;
-      if (!spacesRemain) return "No spaces remain";
-      return `${spacesRemain} Spaces remain`;
+      let res = `${spacesRemain} Spaces Remain`; // Default
+      if (!spacesRemain) res = `No spaces remain`;
+      if (spacesRemain === 1) res = "Last spot remaining";
+      
+      return `${res} (out of ${this.eventera.maxMembers})`;
     }
   }
 };
