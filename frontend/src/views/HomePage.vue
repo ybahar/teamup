@@ -6,18 +6,12 @@
     </section>
     <h1 class="list-header-home">Categories:</h1>
     <Eventera-list
+      @showMore="setFilterCategory"
       :eventeraByCategory="eventerasByCategory"
       v-for="eventerasByCategory in eventerasByCategories"
       :key="eventerasByCategory.category"
     />
 
-    <!-- <a
-      href="https://www.facebook.com/sharer/sharer.php?u=https://eventera.herokuapp.com/"
-      title="Share on Facebook"
-      target="_blank"
-    >
-      <img alt="Share on Facebook" src="../imgs/social img/Facebook.png" />
-    </a> -->
   </section>
 </template>
 
@@ -45,6 +39,10 @@ export default {
       this.$store.dispatch({ type: "setFilter", filterBy });
       this.$router.push("/eventera");
     },
+     setFilterCategory(category) {
+      this.$store.commit('setFilterCategory', category)
+       this.$router.push('/eventera')
+    }
   },
   created() {
     this.loadEventeras();

@@ -6,6 +6,7 @@
     </section>
     <section v-else>
       <eventera-list 
+        @showMore="setFilterCategory"
         :eventeraByCategory="eventerasByCategory"
         v-for="eventerasByCategory in eventerasByCategories"
         :key="eventerasByCategory.category"
@@ -36,6 +37,11 @@ export default {
     },
     eventerasForDisplay(){
       return this.$store.getters.eventerasForDisplay;
+    }
+  },
+  methods: {
+    setFilterCategory(category) {
+      this.$store.commit('setFilterCategory', category)
     }
   },
   components: {

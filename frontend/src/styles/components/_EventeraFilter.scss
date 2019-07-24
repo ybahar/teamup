@@ -28,10 +28,16 @@
 }
 
 .search-name-input, .category-filter, .time-filter {
-    width:15%;
-	padding:10px 10px 10px 35px;
+    width:13%;
+    max-height: 37px;
+	padding: 10px;
 	border:1px solid $clr2;
 	box-sizing:border-box;
 	outline:none;
-	transition: all 0.30s ease-in-out;
+    transition: all 0.30s ease-in-out;
+    margin: 0;
 }
+
+// .search-name-input {
+//     height: 37px;
+// }
