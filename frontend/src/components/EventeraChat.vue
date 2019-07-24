@@ -3,7 +3,7 @@
     <span class="chat-icon" @click.stop="openChat"></span>
     <div class="chat-container" @click.stop :class="{chat: isChat}">
       <button class="chat-close-btn btn" @click.stop="closeChat">X</button>
-      <h1>Members chat</h1>
+      <h1 class="chat-title">Members chat</h1>
       <section class="chat-msgs" ref="myref">
         <section class="chat-msg" :class="{'user-msg' : msg.sender === username}" 
         v-for="msg in msgs" :key="msg.sentAt">
@@ -21,7 +21,7 @@
           :disabled="!isLoggedIn"
           :placeholder="placeholder"
         />
-        <button class="send-btn">></button>
+        <button :disabled="!isLoggedIn" class="send-btn">></button>
       </form>
     </div>
   </section>
