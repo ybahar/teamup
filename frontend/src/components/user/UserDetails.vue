@@ -63,6 +63,7 @@ export default {
   color: inherit;
   text-decoration: inherit;
   padding: 5px 0;
+  height: auto;
 }
 .main-box a:hover {
   background-color: #a1a7b3;
@@ -84,8 +85,10 @@ export default {
 .profile-pic {
   margin: 0 auto;
   margin-bottom: 10px;
-  width: 118px;
-  height: 118px;
+  & img {
+    min-width: 118px;
+    min-height: 118px;
+  }
   font-size: rem(44px);
   color: #fff;
   border-radius: 50%;

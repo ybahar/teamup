@@ -14,7 +14,7 @@
         width="65"
       />
       <div v-if="isMenuEnabled && isMenuDisplayed" @mouseover="isMenuDisplayed = true" class="menu">
-        <router-link to="/user">Profile page</router-link>
+        <router-link class="menu-item" to="/user">Profile page</router-link>
         <div class="menu-item" @click="$emit('logout')">Logout</div>
       </div>
     </div>
@@ -72,6 +72,12 @@ export default {
 }
 .menu-item {
   cursor: pointer;
+  position: relative;
+    transition: left 0.2s;
+  &:hover {
+    transition: transform 0.2s;
+    transform: translateX(2px);
+  }
 }
 
 .isLanding {
