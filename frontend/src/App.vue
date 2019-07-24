@@ -3,6 +3,9 @@
     <eventera-header></eventera-header>
     <router-view/>
     <notifications group="alerts" position="bottom right" />
+    <section v-if="isLoading" class="loading-container">
+      <img src="@/imgs/loader.svg">
+    </section>
   </div>
 </template>
 
@@ -11,7 +14,12 @@ import EventeraHeader from '@/components/EventeraHeader'
 export default {
 components:{
   EventeraHeader 
-}  
+},
+computed:{
+  isLoading(){
+    return this.$store.getters.isLoading
+  }
+}, 
 }
 
 </script>

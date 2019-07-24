@@ -1,5 +1,5 @@
 <template>
-  <section v-if="eventeraByCategory" class="eventera-list-container max-width">
+  <section v-if="eventeraByCategory && !isLoading" class="eventera-list-container max-width">
     <div class="bg-container-list"></div>
     <h1 class="category-header">{{ eventeraByCategory.category | capitalize }}</h1>
     <ul class="eventera-list">
@@ -22,6 +22,9 @@ export default {
     }
   },
   computed: {
+    isLoading(){
+      return this.$store.getters.isLoading
+    }
   },
   props: {
     eventeraByCategory: Object

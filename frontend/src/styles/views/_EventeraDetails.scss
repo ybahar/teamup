@@ -51,6 +51,7 @@
 }
 
 .text-container {
+  height: 100px;
   grid-column-start: 1;
   grid-column-end: 1;
   grid-row-start: 1;
@@ -63,6 +64,7 @@
 }
 
 .eventera-status {
+  height: 100px;
   grid-column-start: 2;
   grid-column-end: 2;
   grid-row-start: 1;
@@ -83,6 +85,7 @@
       padding: 18px;
       font-weight: 700;
       text-align: left;
+      display: inline-block;
       &:nth-child(odd) {
         background: darken($color:$clr1, $amount: 10%);
       }

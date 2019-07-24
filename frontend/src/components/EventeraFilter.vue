@@ -66,7 +66,7 @@ export default {
           let filterBy = JSON.parse(JSON.stringify(this.filterBy))
            await this.$store.dispatch({type:'setFilter',filterBy})
            this.$store.dispatch({type:'loadEventeras'})
-        },500);
+        },400);
     },
 },
 created(){
