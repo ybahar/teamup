@@ -51,8 +51,11 @@
         </ul>
       </div>
       <div class="eventera-creator-text flex column">
-        <p>{{eventera.description}}</p>
-        <p>Date: {{ new Date(eventera.expireAt) | moment("dddd, MMMM Do YYYY, h:mm a") }}</p>
+        <h1>Date: {{ new Date(eventera.expireAt) | moment("dddd, MMMM Do YYYY, h:mm a") }}</h1>
+        <p>All my life, since watching the movie, i've wanted to play Footbag.
+            Anyone whose coming needs to know that stuff about to go down yo...
+        </p>
+
 
         
       </div>
