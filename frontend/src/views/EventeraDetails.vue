@@ -26,7 +26,7 @@
         <h1>{{eventera.name}}</h1>
         <img
           v-if="eventera.creator.profileImgUrl"
-          :src="`../${eventera.creator.profileImgUrl}`"
+          :src="creatorImg"
           width="65px"
           height="65px"
         />
@@ -43,18 +43,19 @@
             v-for="(member,index) in eventera.members"
             :key="index"
             class="member-item flex space-between"
-          >{{member.name}}
-          <img 
-           @click="loadUserProfile(member._id)"
-          :src="`../${member.profileImgUrl}`" alt="member"/>
-           </li>
+          >
+            {{member.name}}
+            <img
+              @click="loadUserProfile(member._id)"
+              :src="`../${member.profileImgUrl}`"
+              alt="member"
+            />
+          </li>
         </ul>
       </div>
       <div class="eventera-creator-text flex column">
         <p>{{eventera.description}}</p>
         <p>Date: {{ new Date(eventera.expireAt) | moment("dddd, MMMM Do YYYY, h:mm a") }}</p>
-
-        
       </div>
       <eventera-chat></eventera-chat>
     </section>
@@ -138,6 +139,11 @@ export default {
         urls.push(urls[0]);
       }
       return urls;
+    },
+    creatorImg() {
+      let url = this.eventera.creator.profileImgUrl
+      if (!url.includes("http")) url = "../" + url;
+      return url;
     }
   },
   methods: {
