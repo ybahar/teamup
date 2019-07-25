@@ -123,8 +123,21 @@
 }
 
 .eventera-creator-text {
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
+  padding: 20px;
+  & p {
+    // padding: 20px;
+    margin-top: 10px;
+    text-align: left;
+    font-size: 18px;
+    line-height: 3;
+    overflow: auto;
+    @media screen and (max-width:600px) {
+      line-height: 1;
+      font-size: 15px;
+     }
+  }
 }
 
 .chat-icon {

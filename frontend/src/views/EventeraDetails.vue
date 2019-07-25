@@ -24,12 +24,7 @@
     <section class="desc-container max-width">
       <div class="text-container flex flex-center space-around">
         <h1>{{eventera.name}}</h1>
-        <img
-          v-if="eventera.creator.profileImgUrl"
-          :src="creatorImg"
-          width="65px"
-          height="65px"
-        />
+        <img v-if="eventera.creator.profileImgUrl" :src="creatorImg" width="65px" height="65px" />
         <!-- <img v-else src="../imgs/user.png" width="65px" height="65px" /> all users have pictures -->
       </div>
       <div class="eventera-status flex flex-center space-around">
@@ -54,8 +49,8 @@
         </ul>
       </div>
       <div class="eventera-creator-text flex column">
+        <h1>Date: {{ new Date(eventera.expireAt) | moment("dddd, MMMM Do YYYY, h:mm a") }}</h1>
         <p>{{eventera.description}}</p>
-        <p>Date: {{ new Date(eventera.expireAt) | moment("dddd, MMMM Do YYYY, h:mm a") }}</p>
       </div>
       <eventera-chat></eventera-chat>
     </section>
@@ -141,7 +136,7 @@ export default {
       return urls;
     },
     creatorImg() {
-      let url = this.eventera.creator.profileImgUrl
+      let url = this.eventera.creator.profileImgUrl;
       if (!url.includes("http")) url = "../" + url;
       return url;
     }
