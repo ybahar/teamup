@@ -8,7 +8,6 @@
       <img
         @mouseover="isMenuDisplayed = true"
         @click="toggleMenu"
-        class="circle pointer"
         :src="user.profileImgUrl"
         height="65"
         width="65"
