@@ -1,5 +1,6 @@
 <template>
 <section>
+  <div class="bg-container-app"></div>
     <eventera-filter></eventera-filter>
   <section v-if="isCategorySelected">
     <eventera-category :eventeras="eventerasForDisplay" :category="selectedCategory"></eventera-category>
@@ -52,7 +53,11 @@ export default {
 };
 </script>
 
-<style scoped>
+
+
+
+<style lang="scss" scoped src="@/styles/views/_EventeraAppPage.scss">
 
 </style>
+
 

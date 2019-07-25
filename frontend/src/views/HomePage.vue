@@ -11,7 +11,6 @@
       v-for="eventerasByCategory in eventerasByCategories"
       :key="eventerasByCategory.category"
     />
-
   </section>
 </template>
 

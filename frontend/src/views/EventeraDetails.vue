@@ -9,6 +9,7 @@
       </div>
       <div slot="footer"></div>
     </VueModal>
+    <div class="bg-details-container"></div>
     <section class="gallery-contianer">
       <div class="img-container-one">
         <img class="gallery-img" :src="`${imgs[0]}`" />
@@ -29,7 +30,7 @@
           width="65px"
           height="65px"
         />
-        <img v-else src="../imgs/user.png" width="65px" height="65px" />
+        <!-- <img v-else src="../imgs/user.png" width="65px" height="65px" /> all users have pictures -->
       </div>
       <div class="eventera-status flex flex-center space-around">
         <h2 class="members">{{eventera.members.length}} / {{eventera.maxMembers}}</h2>
@@ -37,30 +38,25 @@
       </div>
       <div class="members-list flex column space-around">
         <h1>Members list</h1>
-        <ul v-for="member in eventera.members" :key="member._id">
-          <li class="member-item">
-            <span class="member-name">{{member.name}}</span>
-            <span class="member-img" @click="loadUserProfile(member._id)">
-              <img
-                v-if="member.profileImgUrl"
-                :src="`../${member.profileImgUrl}`"
-                width="65px"
-                height="65px"
-              />
-            </span>
-          </li>
+        <ul>
+          <li
+            v-for="(member,index) in eventera.members"
+            :key="index"
+            class="member-item flex space-between"
+          >{{member.name}}
+          <img 
+           @click="loadUserProfile(member._id)"
+          :src="`../${member.profileImgUrl}`" alt="member"/>
+           </li>
         </ul>
       </div>
       <div class="eventera-creator-text flex column">
-        <h2>{{eventera.expireAt | moment("dddd, MMMM Do YYYY, h:mm a")}}</h2>
         <p>{{eventera.description}}</p>
+        <p>Date: {{ new Date(eventera.expireAt) | moment("dddd, MMMM Do YYYY, h:mm a") }}</p>
+
+        
       </div>
       <eventera-chat></eventera-chat>
-      <!-- <span class="chat-icon" @click.stop="openChat"></span>
-      <div class="chat-container flex column space-between" @click.stop :class="{chat: isChat}">
-        <h1>members chat</h1>
-        <input type="text" class="chat-input">
-      </div>-->
     </section>
   </section>
 </template>

@@ -8,7 +8,16 @@
 .details-container {
   width: 100%;
   height: 100%;
-  background: $clr1;
+}
+
+.bg-details-container {
+  background:$clr1;
+  position: fixed;
+	top:0;
+	left:0;
+	height:100%;
+	width:100%;
+  z-index:-20;
 }
 
 .gallery-contianer {
@@ -64,6 +73,10 @@
   & h1 {
     display: inline-block;
   }
+  & img {
+    border-radius: 5px;
+    object-fit: cover;
+  }
 }
 
 .eventera-status {
@@ -81,16 +94,29 @@
   grid-row-start: 2;
   grid-row-end: 2;
   justify-content: left;
+  padding: 20px;
   & ul {
     list-style: none;
     & .member-item {
       width: 100%;      
       padding: 18px;
       font-weight: 700;
-      text-align: left;
-      display: inline-block;
+      align-items: center;
+      // current
+      // text-align: left;
+      // display: inline-block;
+      // -- current end
+      // incoming
+      border-radius: 2px;
+      // -- incoming end
       &:nth-child(odd) {
-        background: darken($color:$clr1, $amount: 10%);
+        background: darken($color:$clr1, $amount: 5%);
+      }
+      & img {
+        border-radius: 5px;
+        width: rem(48px);
+        height: rem(48px);
+        object-fit: cover;
       }
     }
   }
@@ -145,8 +171,4 @@
   width: rem(95px);
   height: rem(35px);
   padding: 10px 10px;
-    &:hover {
-        background-color: darken($clr3, 10%);
-        // transition: 0.3s;
-    }
 }
