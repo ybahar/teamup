@@ -52,6 +52,7 @@
       </div>
       <div class="eventera-creator-text flex column">
         <h1>Date: {{ new Date(eventera.expireAt) | moment("dddd, MMMM Do YYYY, h:mm a") }}</h1>
+        <h3>Location: {{eventera.loc.streetName}} {{eventera.loc.city}}</h3>
         <p>All my life, since watching the movie, i've wanted to play Footbag.
             Anyone whose coming needs to know that stuff about to go down yo...
         </p>

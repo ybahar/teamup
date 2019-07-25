@@ -21,9 +21,9 @@
 }
 
 .gallery-contianer {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(4, 75px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(4, 75px);
 }
 
 .gallery-img {
@@ -126,7 +126,11 @@
   justify-content: flex-start;
   align-items: flex-start;
   padding: 20px;
+  & h3 {
+    padding-top: 10px;
+  }
   & p {
+
     // padding: 20px;
     margin-top: 10px;
     text-align: left;
