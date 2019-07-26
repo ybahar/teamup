@@ -3,7 +3,7 @@
     <eventera-header></eventera-header>
     <router-view/>
     <notifications group="alerts" position="bottom right" />
-    <section v-if="isLoading" class="loading-container">
+    <section v-if="isLoading" class="loading-container" :class="loaderClass">
       <img src="@/imgs/loader.svg">
     </section>
   </div>
@@ -18,8 +18,17 @@ components:{
 computed:{
   isLoading(){
     return this.$store.getters.isLoading
+  },
+  loaderClass(){
+    let isHome = (this.$route.fullPath === '/');
+
+    return {
+      'homepage-loader' : isHome
+    }
   }
 }, 
+created(){
+}
 }
 
 </script>
@@ -32,5 +41,6 @@ computed:{
   text-align: center;
   color: #2c3e50;
 }
+
 
 </style>

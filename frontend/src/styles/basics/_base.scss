@@ -79,4 +79,8 @@ ul {
     img{
         width: 600px;
     }
+    &.homepage-loader{
+        position: absolute;
+        top : 90vh;
+    }
 }
