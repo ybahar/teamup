@@ -51,5 +51,6 @@ function err(title, msg) {
 
 export default {
     success,
-    warn, err
+    warn, 
+    err,
 }

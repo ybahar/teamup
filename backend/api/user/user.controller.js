@@ -24,7 +24,7 @@ async function deleteUser(req, res) {
 async function getLoggedInUser(req, res) {
     let user = req.session.user;
     if (user) res.json(user);
-    else res.status(401).send('Unautharized')
+    else res.json(null)
 }
 
 async function updateUser(req, res) {

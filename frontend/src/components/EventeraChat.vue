@@ -40,18 +40,21 @@ export default {
     },
     isLoggedIn() {
         let user = this.$store.getters.loggedUser;
-      return user && user._id;
+      return user;
     },
     placeholder() {
         return this.isLoggedIn ? "Your message" : "Must be logged in";
     },
     username() {
-        return this.$store.getters.loggedUser.username;
+       if(this.isLoggedIn){
+         return this.$store.getters.loggedUser.username;
+       } 
+       return null;
     }
   },
   methods: {
       sendMsg() {
-          let msg = { sender: this.username, txt: this.txt, sentAt: Date.now() };
+          let msg = { txt: this.txt };
       this.$store.dispatch("sendMsg", msg);
       this.txt = '';
         this.$refs.myref.scrollTop = this.$refs.myref.scrollHeight

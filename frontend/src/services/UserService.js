@@ -11,8 +11,7 @@ export default {
     logout,
     signup,
     update,
-    getLoggedUser // this can be removed when we get a backend
-
+    getLoggedUser, // this can be removed when we get a backend
 }
 
 
@@ -46,7 +45,9 @@ async function logout() {
 async function getLoggedUser() {
     try {
         const credentials = await httpService.get(`${URL_ENDING}/current`)
-        return httpService.get(`${URL_ENDING}/${credentials._id}`);
+        if(credentials){
+            return httpService.get(`${URL_ENDING}/${credentials._id}`);
+        } else return null;
     } catch (err) {
         console.log('No logged in user', err);
         throw err;
@@ -59,9 +60,6 @@ function update(user) {
 function remove(_id) {
     httpService.delete(`${URL_ENDING}/${_id}`)
 }
-function add(eventera) {
-    httpService.post(URL_ENDING, eventera)
-}
 
 async function getById(_id) {
     try {
@@ -71,3 +69,4 @@ async function getById(_id) {
         throw err
     }
 }
+

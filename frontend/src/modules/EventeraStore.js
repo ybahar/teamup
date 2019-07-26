@@ -1,5 +1,6 @@
 import eventeraService from '@/services/EventeraService'
 import cloudinaryService from '@/services/CloudinaryService'
+import AlertService from '../services/AlertService';
 
 
 export default {
@@ -113,14 +114,26 @@ export default {
             return context.commit({ type: 'setFilter', filterBy })
         },
         async joinEventera(context, { _id }) {
-            let updatedEventera = await eventeraService.join(_id);
-            context.commit({ type: 'saveEventera', eventera: updatedEventera, _id })
-            return updatedEventera
+            try{
+                let updatedEventera = await eventeraService.join(_id);
+                context.commit({ type: 'saveEventera', eventera: updatedEventera, _id })
+                context.dispatch({type:'eventeraNotification',eventera:updatedEventera,method:'join'})
+                console.log('after dispatch')
+                return updatedEventera
+            } catch(err){
+                AlertService.err('Failed to join' , 'please try again later')
+            }
         },
         async leaveEventera(context, { _id }) {
+         try{
             let updatedEventera = await eventeraService.leave(_id);
             context.commit({ type: 'saveEventera', eventera: updatedEventera, _id })
+            context.dispatch({type:'eventeraNotification',eventera:updatedEventera,method:'leave'})
+            console.log('after dispatch')
             return updatedEventera
+        }catch(err){
+                AlertService.err('Failed to leave' , 'please try again later')
+            }
         },
     },
 }

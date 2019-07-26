@@ -193,7 +193,9 @@ export default {
     logout() {
       userService.logout();
       if (this.$route.path.includes("/user")) this.$router.push("/");
-      this.$store.commit({ type: "setLoggedUser", user: { _id: "" } });
+      this.$store.commit({ type: "setLoggedUser", user: null })
+      this.$store.dispatch({ type: "disconnectSocket" })
+      ;
     },
     goToHome() {
       this.$router.push("/");

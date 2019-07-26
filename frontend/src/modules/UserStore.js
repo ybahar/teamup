@@ -3,23 +3,8 @@ import userService from '@/services/UserService'
 
 export default {
     state: {
-        loggedUser: {
-            _id: "",
-            // username: '',
-            // name: "",
-            // email: "",
-            // phone: "",
-            // loc: {
-            //     geo: {
-            //         lat: 59.3293,
-            //         lng: 18.0686
-            //     },
-            //     address: "",
-            //     city: "",
-            //     formatted_address: ""
-            // },
-        },
-        currUser: null
+        loggedUser: null,
+        currUser: null,
     },
     getters: {
         loggedUser(state) {
@@ -70,10 +55,13 @@ export default {
             }
         },
         async loadLoggedUser(context) {
-            if (!context.getters.loggedUser._id) {
+            if (!context.getters.loggedUser) {
                 try {
                     const user = await userService.getLoggedUser();
-                    if (user) context.commit({ type: 'setLoggedUser', user });
+                    if (user) {
+                        context.commit({ type: 'setLoggedUser', user });
+                        context.dispatch('socketInit')
+                    }
                 } catch (err) {
                     console.log('had problems loadLoggedUser', err);
                 }
@@ -87,11 +75,11 @@ export default {
             await userService.update(userCopy); // returns an updated user, not gonna use
         },
         async loadCurrUser(context, { id }) {
-            context.commit({type: "setLoading", isLoading: true})
+            context.commit({ type: "setLoading", isLoading: true })
             try {
-                const user =  await userService.getById(id);
+                const user = await userService.getById(id);
                 context.commit({ type: "setCurrUser", user })
-                context.commit({type: "setLoading", isLoading: false})
+                context.commit({ type: "setLoading", isLoading: false })
             } catch (err) {
                 context.commit({ type: "setCurrUser", user: null })
                 throw err;

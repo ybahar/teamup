@@ -10,7 +10,8 @@ module.exports = {
     remove,
     getById,
     join,
-    leave
+    leave,
+    eventerasByUser
 
 }
 
@@ -72,10 +73,8 @@ async function update(eventera, user) {
     const collection = await dbService.getCollection(COLLECTION_KEY)
     let eventeraId = eventera._id;
     try {
-        delete eventera._id;
-        await collection.updateOne({ "_id": ObjectId(eventeraId) }, { $set: eventera })
-        eventera._id = eventeraId;
-        return eventera
+        let updatedEventera = await _saveUpdateToMongo(eventeraId,eventera);
+            return updatedEventera;
     } catch (err) {
         logger.error(`ERROR: cannot update Eventera ${eventeraId} , err :${err}`)
         throw err;
@@ -115,20 +114,17 @@ async function join(_id,user){
         if(eventera.members.length >= eventera.maxMembers || eventera.expireAt < Date.now()) {
             return Promise.reject('Eventera is closed')
         }
-        let idx = eventera.members.findIndex(member => member._id === user._id);
+        let idx = eventera.members.findIndex(member => `${member._id}` === `${user._id}`);
         if(idx !== -1) return Promise.reject('Already joined this eventera')
         const member = {
-            _id : user._id,
+            _id : ObjectId(user._id),
             name :user.name,
             profileImgUrl:user.profileImgUrl,
             mvpVoteCount:0,
         }
         eventera.members.push(member)
-        delete eventera._id;
-        const collection = await dbService.getCollection(COLLECTION_KEY)
-        await collection.updateOne({ "_id": ObjectId(_id) }, { $set: eventera })
-        eventera._id = _id;
-        return eventera
+        let updatedEventera = await _saveUpdateToMongo(_id,eventera);
+            return updatedEventera;
     } catch(err){
         logger.error(`${err} in join eventera.service`)
     }
@@ -137,15 +133,29 @@ async function join(_id,user){
 async function leave(_id,user){
     try{
         const eventera = await getById(_id);
-        let idx = eventera.members.findIndex(member => member._id === user._id);
+        let idx = eventera.members.findIndex(member => { 
+            return `${member._id}` === `${user._id}`
+            });
         if(idx !== -1){
             eventera.members.splice(idx,1);
-            const collection = await dbService.getCollection(COLLECTION_KEY)
-            await collection.updateOne({ "_id": ObjectId(_id) }, { $set: eventera })
-            eventera._id = _id;
-            return eventera
+           let updatedEventera = await _saveUpdateToMongo(_id,eventera);
+            return updatedEventera;
         } else return Promise.reject('not a member');   
-         } catch(err){
-             logger.error(err)
-         }
+    } catch(err){
+        logger.error(err)
+    }
+}
+
+async function eventerasByUser(_id){
+    const collection = await dbService.getCollection(COLLECTION_KEY)
+    const eventeras = await collection.find({"members._id":ObjectId(_id)}).toArray();
+    return eventeras
+}
+
+async function _saveUpdateToMongo(_id, eventera){
+    delete eventera._id;
+    const collection = await dbService.getCollection(COLLECTION_KEY)
+    await collection.updateOne({ "_id": ObjectId(_id) }, { $set: eventera })
+    eventera._id = _id;
+    return eventera
 }

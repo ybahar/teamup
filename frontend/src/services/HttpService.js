@@ -1,3 +1,5 @@
+import store from '@/store'
+import alertService from '@/services/AlertService'
 
 const BASE_URL = process.env.NODE_ENV === 'production'
     ? '/api/'
@@ -20,6 +22,7 @@ async function ajax(endpoint, method = 'get', data = null, params = null) {
         return res.data;
     } catch (err) {
         console.warn('in httpservice : ', err)
+        if(err.response.status === 401) handleSessionTimeout();
         throw err;
     }
 }
@@ -38,4 +41,12 @@ export default {
         return ajax(endpoint, 'DELETE', data)
     }
 
+}
+
+export function handleSessionTimeout(){
+    let user = store.getters.loggedUser
+    if(user){
+        store.commit('setLoggedUser',{user:null});
+        alertService.err('Please login again','Session timed out')
+    } else alertService.err('Not logged in ','Please log in to preform this action')
 }
