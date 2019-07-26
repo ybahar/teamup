@@ -1,5 +1,15 @@
 <template>
-  <section class="details-container" @click="closeChat" v-if="eventera && !isLoading">
+  <section class="details-container" @click="closeChat" v-if="eventera">
+    <VueModal @close="handleModalClose" v-if="profileUserId && profileUser">
+      <h1 slot="header">{{ profileUser.name}}</h1>
+      <div slot="body">
+        <div class="profile-modal-body">
+          <img :src="`../${profileUser.profileImgUrl}`" />
+        </div>
+      </div>
+      <div slot="footer"></div>
+    </VueModal>
+    <div class="bg-details-container"></div>
     <section class="gallery-contianer">
       <div class="img-container-one">
         <img class="gallery-img" :src="`${imgs[0]}`" />
@@ -14,44 +24,36 @@
     <section class="desc-container max-width">
       <div class="text-container flex flex-center space-around">
         <h1>{{eventera.name}}</h1>
-        <img
-          v-if="eventera.creator.profileImgUrl"
-          :src="`../${eventera.creator.profileImgUrl}`"
-          width="65px"
-          height="65px"
-        />
-        <img v-else src="../imgs/user.png" width="65px" height="65px" />
+        <img v-if="eventera.creator.profileImgUrl" :src="creatorImg" width="65px" height="65px" />
+        <!-- <img v-else src="../imgs/user.png" width="65px" height="65px" /> all users have pictures -->
       </div>
       <div class="eventera-status flex flex-center space-around">
         <h2 class="members">{{eventera.members.length}} / {{eventera.maxMembers}}</h2>
-        <button class="join-btn" @click="eventeraControls" >{{controlBtnTxt}}</button>
+        <button class="join-btn" @click="eventeraControls">{{controlBtnTxt}}</button>
       </div>
       <div class="members-list flex column space-around">
         <h1>Members list</h1>
-        <ul v-for="member in eventera.members" :key="member._id">
-          <li class="member-item">
-            <span class="member-name">{{member.name}}</span>
-            <span class="member-img">
-              <img
-                v-if="member.profileImgUrl"
-                :src="`../${member.profileImgUrl}`"
-                width="65px"
-                height="65px"
-              />
-            </span>
+        <ul>
+          <li
+            v-for="(member,index) in eventera.members"
+            :key="index"
+            class="member-item flex space-between"
+          >
+            {{member.name}}
+            <img
+              @click="loadUserProfile(member._id)"
+              :src="`../${member.profileImgUrl}`"
+              alt="member"
+            />
           </li>
         </ul>
       </div>
       <div class="eventera-creator-text flex column">
-        <h2>{{eventera.expireAt | moment("dddd, MMMM Do YYYY, h:mm a")}}</h2>
+        <h1>Date: {{ new Date(eventera.expireAt) | moment("dddd, MMMM Do YYYY, h:mm a") }}</h1>
+         <h3>Location: {{eventera.loc.streetName}} {{eventera.loc.city}}</h3>
         <p>{{eventera.description}}</p>
       </div>
       <eventera-chat></eventera-chat>
-      <!-- <span class="chat-icon" @click.stop="openChat"></span>
-      <div class="chat-container flex column space-between" @click.stop :class="{chat: isChat}">
-        <h1>members chat</h1>
-        <input type="text" class="chat-input">
-      </div>-->
     </section>
   </section>
 </template>
@@ -62,12 +64,13 @@ import EventeraMap from "@/components/EventeraMap";
 import EventeraChat from "@/components/EventeraChat";
 import eventBus, { OPEN_LOGIN } from "@/EventBus";
 import alertService from "@/services/AlertService";
-
+import VueModal from "@/components/general/VueModal";
 export default {
   data() {
     return {
       isChat: false,
-      eventera: null
+      eventera: null,
+      profileUserId: ""
     };
   },
   async created() {
@@ -79,10 +82,11 @@ export default {
   async destroyed() {
     let _id = this.$route.params.id;
     this.$store.dispatch({ type: "leaveEventeraChat", _id });
+    this.profileUserId = "";
   },
   computed: {
-    isLoading(){
-    return this.$store.getters.isLoading
+    isLoading() {
+      return this.$store.getters.isLoading;
     },
     isOpen() {
       return (
@@ -119,6 +123,9 @@ export default {
           break;
       }
     },
+    profileUser() {
+      return this.$store.getters.currUser;
+    },
     imgs() {
       let urls = this.eventera.imgUrls.map(url => {
         if (!url.includes("http")) url = "../" + url;
@@ -128,10 +135,22 @@ export default {
         urls.push(urls[0]);
       }
       return urls;
+    },
+    creatorImg() {
+      let url = this.eventera.creator.profileImgUrl;
+      if (!url.includes("http")) url = "../" + url;
+      return url;
     }
   },
-
   methods: {
+    // todo: fix incosistency with 'currUser' and 'userProfile'
+    handleModalClose() {
+      this.profileUserId = "";
+    },
+    loadUserProfile(userId) {
+      this.profileUserId = userId;
+      this.$store.dispatch({ type: "loadCurrUser", id: this.profileUserId });
+    },
     closeChat() {
       this.isChat = false;
     },
@@ -156,7 +175,6 @@ export default {
           this.$router.push(url);
           break;
         case "member":
-          console.log("in leave");
           eventera = await this.$store.dispatch({
             type: "leaveEventera",
             _id: this.eventera._id
@@ -169,10 +187,11 @@ export default {
               type: "joinEventera",
               _id: this.eventera._id
             });
-          } else  alertService.err(
-            "This EventEra is closed",
-            "Please select another eventera to join"
-          );
+          } else
+            alertService.err(
+              "This EventEra is closed",
+              "Please select another eventera to join"
+            );
           this.eventera = eventera;
           break;
       }
@@ -181,7 +200,8 @@ export default {
   components: {
     EventeraImages,
     EventeraMap,
-    EventeraChat
+    EventeraChat,
+    VueModal
   }
 };
 </script>

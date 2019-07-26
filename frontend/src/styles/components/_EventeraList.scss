@@ -45,11 +45,14 @@
 }
 
 .bg-container-list {
-    background: $clr1;
-    position: fixed;
+    background:linear-gradient(to right, $clr4 0,  $clr4 3%, $clr1 3%, $clr1 97%, $clr4 97%, $clr4 100%);
+	position:fixed;
 	top:0;
 	left:0;
 	height:100%;
 	width:100%;
     z-index:-20;
+    &.isntMain {
+        background:$clr1
+    }
 }

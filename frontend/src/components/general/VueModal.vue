@@ -1,3 +1,4 @@
+
 <template>
   <transition name="modal">
     <div class="modal-mask">
@@ -24,6 +25,11 @@
 </template>
 
 <script>
+// TODO: 
+// j: currently the modal just pops without a small animation
+// with the current rendering - v-if - we can't implement an animation upon rendering
+// need to check vue animations before hand
+// mb check yaron's ppt 
 import eventBus, { ALERT_SUCCESS } from "@/EventBus";
 export default {
   methods: {
@@ -39,7 +45,10 @@ export default {
   },
   mounted() {
     // just mounted() isn't enough.
-    this.$nextTick(() => this.$refs.modalBody.querySelector("input").focus());
+    this.$nextTick(() => {
+      const firstInputEl = this.$refs.modalBody.querySelector("input")
+      if(firstInputEl) firstInputEl.focus()
+    });
   }
 };
 </script>

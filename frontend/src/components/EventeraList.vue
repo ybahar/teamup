@@ -1,6 +1,9 @@
 <template>
-  <section v-if="eventeraByCategory && !isLoading" class="eventera-list-container max-width">
-    <div class="bg-container-list"></div>
+  <section
+    v-if="eventeraByCategory.eventeras.length  && !isLoading"
+    class="eventera-list-container max-width"
+  >
+    <div class="bg-container-list" :class="mainClass"></div>
     <h1 class="category-header">{{ eventeraByCategory.category | capitalize }}</h1>
     <ul class="eventera-list">
       <eventera-preview
@@ -9,8 +12,12 @@
         :eventera="eventera"
       ></eventera-preview>
     </ul>
-    
-    <button @click="emitCategory" class="show-more-btn">Show more</button>
+
+    <button
+      v-if="eventeraByCategory.eventeras.length"
+      @click="emitCategory"
+      class="show-more-btn"
+    >Show more</button>
   </section>
 </template>
 
@@ -18,12 +25,18 @@
 import EventeraPreview from "@/components/EventeraPreview";
 export default {
   data() {
-    return {
-    }
+    return {};
   },
   computed: {
-    isLoading(){
-      return this.$store.getters.isLoading
+    isLoading() {
+      return this.$store.getters.isLoading;
+    },
+    mainClass() {
+      let isLanding = true;
+      if (this.$route.path === "/") {
+        isLanding = false;
+      }
+      return { isntMain: isLanding };
     }
   },
   props: {
@@ -31,7 +44,7 @@ export default {
   },
   methods: {
     emitCategory() {
-      this.$emit('showMore', this.eventeraByCategory.category);
+      this.$emit("showMore", this.eventeraByCategory.category);
     }
   },
   components: {

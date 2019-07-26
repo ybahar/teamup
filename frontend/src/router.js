@@ -8,7 +8,7 @@ import UserBasics from '@/components/user/UserBasics.vue';
 import UserPicture from '@/components/user/UserPicture.vue';
 import UserLocation from '@/components/user/UserLocation.vue';
 import UserEventera from '@/components/user/UserEventera.vue';
-
+import UserProfilePage from '@/components/user/UserProfilePage.vue';
 
 // import LoggedUser from '@/components/user/LoggedUser.vue'
 import EventeraApp from './views/EventeraAppPage.vue'
@@ -56,7 +56,12 @@ export default new Router({
         { path: 'picture', component: UserPicture },
         { path: 'location', component: UserLocation },
         { path: 'eventera', component: UserEventera },
+
       ]
-    }
+    },
+    {
+      path: '/user/:id', component: UserProfilePage
+    },
+    // { path: '*', component: PageNotFound } // TODO: needs implementing!
   ]
 })

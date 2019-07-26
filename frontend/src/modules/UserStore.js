@@ -19,6 +19,7 @@ export default {
             //     formatted_address: ""
             // },
         },
+        currUser: null
     },
     getters: {
         loggedUser(state) {
@@ -26,6 +27,9 @@ export default {
         },
         loc(state) {
             return state.loggedUser.loc;
+        },
+        currUser(state) {
+            return state.currUser
         }
     },
     mutations: {
@@ -34,7 +38,11 @@ export default {
         },
         setLocation(state, { loc }) {
             state.loggedUser.loc = loc;
+        },
+        setCurrUser(state, { user }) {
+            state.currUser = user;
         }
+
     },
     actions: {
         async saveUserBasics(context, { name, email, phone }) {
@@ -77,6 +85,18 @@ export default {
             // without copying I get 'dont change state outside out of mutation' err
             const userCopy = JSON.parse(JSON.stringify(context.getters.loggedUser))
             await userService.update(userCopy); // returns an updated user, not gonna use
+        },
+        async loadCurrUser(context, { id }) {
+            context.commit({type: "setLoading", isLoading: true})
+            try {
+                const user =  await userService.getById(id);
+                context.commit({ type: "setCurrUser", user })
+                context.commit({type: "setLoading", isLoading: false})
+            } catch (err) {
+                context.commit({ type: "setCurrUser", user: null })
+                throw err;
+            }
+
         }
     },
 }

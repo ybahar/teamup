@@ -1,5 +1,5 @@
 <template>
-  <header class="app-header">
+  <header class="app-header" :class="mainClass">
     <VueResize :ranges="rangesForHamburger" @resize="handleResizeEvent"></VueResize>
     <div class="header flex flex-center space-between">
       <div class="logo-container" @click="goToHome">
@@ -13,7 +13,7 @@
             class="router-categories"
             to="/eventera/edit"
           >Plan event</router-link>
-          <router-link @click.native="routeChange" class="router-about" to="/about">Help</router-link>
+          <router-link @click.native="routeChange" class="router-about" to="/about">About</router-link>
           <div class="user-greeting" v-if="loggedUser && loggedUser._id">
             <loggedUser @logout="logout" />
           </div>
