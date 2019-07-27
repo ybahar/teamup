@@ -16,4 +16,10 @@ Vue.filter('meterToKM', num => {
     if (km > 50) return '>50km'
     return `${km}km away`
 });
+Vue.filter('imgSrc', url => {
+    if(url.includes('http')) return url 
+    else {
+        return  process.env.BASE_URL + url
+    }
+})
 

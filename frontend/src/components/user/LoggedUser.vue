@@ -8,7 +8,7 @@
       <img
         @mouseover="isMenuDisplayed = true"
         @click="toggleMenu"
-        :src="user.profileImgUrl"
+        :src="user.profileImgUrl | imgSrc"
         height="65"
         width="65"
       />

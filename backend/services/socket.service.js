@@ -53,10 +53,7 @@ function setup(http) {
             io.to(`members_${eventera._id}`).emit('alert' , alert)
         });
         let eventeras = await eventerasByUser(user._id)
-        console.log(eventeras.length)
-        eventeras.forEach(({_id}) => {
-            console.log('joined',_id)
-            socket.join(`members_${_id}`)})
+        eventeras.forEach(({_id}) => socket.join(`members_${_id}`))
     });
 
 

@@ -4,7 +4,7 @@
       <h1 slot="header">{{ profileUser.name}}</h1>
       <div slot="body">
         <div class="profile-modal-body">
-          <img :src="`../${profileUser.profileImgUrl}`" />
+          <img :src="eventera.creator.profileImgUrl | imgSrc" />
         </div>
       </div>
       <div slot="footer"></div>
@@ -12,13 +12,13 @@
     <div class="bg-details-container"></div>
     <section class="gallery-contianer">
       <div class="img-container-one">
-        <img class="gallery-img" :src="`${imgs[0]}`" />
+        <img class="gallery-img" :src="imgs[0] | imgSrc" />
       </div>
       <div class="img-container-two">
-        <img class="gallery-img" :src="`${imgs[1]}`" />
+        <img class="gallery-img" :src="imgs[1] | imgSrc" />
       </div>
       <div class="img-container-three">
-        <img class="gallery-img" :src="`${imgs[2]}`" />
+        <img class="gallery-img" :src="imgs[2] | imgSrc" />
       </div>
     </section>
     <section class="desc-container max-width">
@@ -128,7 +128,6 @@ export default {
     },
     imgs() {
       let urls = this.eventera.imgUrls.map(url => {
-        if (!url.includes("http")) url = "../" + url;
         return url;
       });
       while (urls.length < 3) {
