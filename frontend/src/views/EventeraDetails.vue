@@ -42,7 +42,7 @@
             {{member.name}}
             <img
               @click="loadUserProfile(member._id)"
-              :src="`../${member.profileImgUrl}`"
+              :src="member.profileImgUrl | imgSrc"
               alt="member"
             />
           </li>
