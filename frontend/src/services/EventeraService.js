@@ -10,6 +10,7 @@ export default {
     remove,
     join,
     leave,
+    checkTime,
 }
 
 function query(filterBy) {
@@ -35,4 +36,8 @@ function join(_id) {
 }
 function leave(_id) {
     return httpService.put(`${URL_ENDING}/leave/${_id}`)
+} 
+function checkTime(date){
+    
+    return httpService.post(`auth/checktime`,{date})
 }

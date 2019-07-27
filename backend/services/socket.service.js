@@ -17,7 +17,7 @@ function setup(http) {
         activeUsersCount++;
         if(!user) {
             socket.emit('not logged in');
-            return;
+            return 
         }
         socket.on('join', async (id) => {
             socket.join(id);
@@ -52,6 +52,17 @@ function setup(http) {
             let alert = makeAlert('warn',`${username} left ${eventera.name}` , `${eventera.spotsLeft} spots left`)
             io.to(`members_${eventera._id}`).emit('alert' , alert)
         });
+        socket.on('update' , eventera => {
+            let {username} = user
+            let alert = makeAlert('warn',`${eventera.name}'s details has been updated by ${username}`
+             , `We hope they made it better`)
+            io.to(`members_${eventera._id}`).emit('alert' , alert)
+            
+        })
+        socket.on('add',({categories,_id}) =>{
+            socket.join(`members_${_id}`);
+            socket.broadcast.emit('added',categories)
+        })
         let eventeras = await eventerasByUser(user._id)
         eventeras.forEach(({_id}) => socket.join(`members_${_id}`))
     });

@@ -48,13 +48,17 @@ async function query(filterBy = {}) {
 }
 
 async function add(newEventera, user) {
+  newEventera.creator = {
+      _id: user._id,
+      profileImgUrl : user.profileImgUrl,
+      name: user.name,
 
-    newEventera.creator = {
-        _id: user._id,
+
     }
     newEventera.members = [{
-        _id: user._id,
+        _id: ObjectId(user._id),
         name: user.name,
+        profileImgUrl : user.profileImgUrl,
         mvpVoteCount: 0,
     }]
     const collection = await dbService.getCollection(COLLECTION_KEY)
@@ -70,7 +74,6 @@ async function add(newEventera, user) {
 async function update(eventera, user) {
     if (eventera.creator._id !== user._id) return Promise.reject('Not authrized')
     console.log(eventera);
-    const collection = await dbService.getCollection(COLLECTION_KEY)
     let eventeraId = eventera._id;
     try {
         let updatedEventera = await _saveUpdateToMongo(eventeraId,eventera);

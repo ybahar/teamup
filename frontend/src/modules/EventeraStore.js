@@ -73,12 +73,16 @@ export default {
     actions: {
         async saveEventera(context, eventera) {
             let updatedEventera;
+            console.log(eventera);
+            
             context.commit({type:'setLoading',isLoading:true})
             if (eventera._id) {
                 updatedEventera = await eventeraService.update(eventera)
+                context.dispatch({type:'updateNotification',eventera:updatedEventera})
             } else {
                 eventera.createdAt = Date.now();
                 updatedEventera = await eventeraService.add(eventera)
+                context.dispatch({type:'addNotification',eventera:updatedEventera})
             }
             context.commit({ type: 'saveEventera', eventera: updatedEventera, _id: eventera._id })
             context.commit({type:'setLoading',isLoading:false})
@@ -90,6 +94,7 @@ export default {
             const eventeras = await eventeraService.query(filterBy)
             context.commit({type:'setLoading',isLoading:false})
             context.commit({ type: 'setEventeras', eventeras })
+            context.commit({ type: 'resetAddedMap' })
         },
         async getEventeraById(context, { _id }) {
             context.commit({type:'setLoading',isLoading:true})
@@ -118,7 +123,6 @@ export default {
                 let updatedEventera = await eventeraService.join(_id);
                 context.commit({ type: 'saveEventera', eventera: updatedEventera, _id })
                 context.dispatch({type:'eventeraNotification',eventera:updatedEventera,method:'join'})
-                console.log('after dispatch')
                 return updatedEventera
             } catch(err){
                 AlertService.err('Failed to join' , 'please try again later')
@@ -129,11 +133,13 @@ export default {
             let updatedEventera = await eventeraService.leave(_id);
             context.commit({ type: 'saveEventera', eventera: updatedEventera, _id })
             context.dispatch({type:'eventeraNotification',eventera:updatedEventera,method:'leave'})
-            console.log('after dispatch')
             return updatedEventera
         }catch(err){
                 AlertService.err('Failed to leave' , 'please try again later')
             }
         },
+        async checkTime(context,date){
+            return eventeraService.checkTime(date)
+        }
     },
 }

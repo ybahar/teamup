@@ -1,5 +1,10 @@
 <template>
     <section class="eventera-list-container max-width" v-if="!isLoading">
+      <div v-if="newEventeraMap" class="load-container">
+        <button @click.stop="loadEventeras">
+          Load {{newEventeraMap}} new EventEras
+        </button>
+      </div>
       <div class="bg-container"></div>
     <h1>{{category | capitalize }}</h1>
 
@@ -26,6 +31,14 @@ export default {
   computed:{
     isLoading(){
       return this.$store.getters.isLoading
+    },
+    newEventeraMap(){
+      return this.$store.getters.newEventeraMap[this.category.toLowerCase()]
+    }
+  },
+  methods:{
+    loadEventeras(){
+      this.$store.dispatch('loadEventeras')
     }
   },
   created(){

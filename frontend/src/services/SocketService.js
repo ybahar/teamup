@@ -2,7 +2,7 @@
 import io from 'socket.io-client'
 import store from '@/store'
 import alertService from '@/services/AlertService'
-import {handleSessionTimeout} from '@/services/HttpService'
+import { handleSessionTimeout } from '@/services/HttpService'
 export default {
     join,
     leave,
@@ -10,6 +10,8 @@ export default {
     init,
     disconnect,
     sendNotification,
+    updateNotification,
+    addNotification
 }
 let socket;
 
@@ -20,9 +22,10 @@ async function init() {
         } else socket = await io('//localhost:3000')
         socket.on('msgs-history', _setMsgs)
         socket.on('msg', _setMsg)
-        socket.on('alert',_alert)
-        socket.on('not logged in' , handleSessionTimeout)
-        if(store.getters.roomId){
+        socket.on('alert', _alert)
+        socket.on('added', updateAddedMap)
+        socket.on('not logged in', handleSessionTimeout)
+        if (store.getters.roomId) {
             join(store.getters.roomId)
         }
     } catch (err) {
@@ -47,10 +50,10 @@ async function leave(_id) {
 }
 
 function _setMsgs(msgs) {
-        store.dispatch('setMsgs', msgs)
+    store.dispatch('setMsgs', msgs)
 }
 function _setMsg(msg) {
-        store.dispatch('setMsg', msg)
+    store.dispatch('setMsg', msg)
 
 }
 function sendMsg(msg) {
@@ -58,10 +61,20 @@ function sendMsg(msg) {
         socket.emit('chat msg', msg)
     }
 }
-function _alert(alert){
-      alertService[alert.type](alert.title,alert.body)
+function _alert(alert) {
+    alertService[alert.type](alert.title, alert.body)
 }
-function sendNotification(eventera , method){
-      let spotsLeft = eventera.maxMembers - eventera.members.length;
-      socket.emit(`eventera ${method}` , {spotsLeft , _id :eventera._id , name : eventera.name})
+function sendNotification(eventera, method) {
+    let spotsLeft = eventera.maxMembers - eventera.members.length;
+    socket.emit(`eventera ${method}`, { spotsLeft, _id: eventera._id, name: eventera.name })
+}
+
+function updateAddedMap(categories) {
+    store.dispatch({ type: 'updateAddedMap', categories })
+}
+function updateNotification(eventera) {
+    socket.emit('update',eventera)
+}
+function addNotification(eventera) {
+    socket.emit('add',eventera)
 }

@@ -6,6 +6,7 @@ module.exports = {
     login,
     signup,
     logout,
+    checkTime
 }
 
 async function login(req, res) {
@@ -41,4 +42,10 @@ async function logout(req, res) {
         res.status(500).send({ error: err })
     }
 }
+
+ function checkTime(req,res){
+    let {date} = req.body
+    let timeStamp = new Date(date).getTime()
+    res.json(timeStamp)
+ }
 

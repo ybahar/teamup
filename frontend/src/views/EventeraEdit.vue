@@ -160,6 +160,9 @@ export default {
       let expireAt = new Date(
         this.expireDate + ":" + this.expireTime
       ).getTime();
+      if(isNaN(expireAt)){
+        expireAt = await this.$store.dispatch('checkTime',this.expireDate + ":" + this.expireTime)
+      }
       if(expireAt < Date.now()) return alertService.err('Invalid time','Please input a date in the future')
       this.eventera.expireAt = expireAt;
       let {_id} = await this.$store.dispatch("saveEventera", this.eventera);
