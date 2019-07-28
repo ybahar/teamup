@@ -110,6 +110,7 @@ input[type="time"].time::-webkit-inner-spin-button {
 	background: lighten($color:  $clr4 , $amount: 15%);
 }
 
+
 @media (max-width: 600px) {
 .form_wrapper .col_half {
 	width:100%;

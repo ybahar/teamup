@@ -4,7 +4,7 @@
       <h1 slot="header">{{ profileUser.name}}</h1>
       <div slot="body">
         <div class="profile-modal-body">
-          <img :src="eventera.creator.profileImgUrl | imgSrc" />
+          <img :src="profileUser.profileImgUrl | imgSrc" />
         </div>
       </div>
       <div slot="footer"></div>
@@ -39,6 +39,9 @@
             :key="index"
             class="member-item flex space-between"
           >
+          <span class="clap-icon" @click.stop="clap(member._id)">
+            <img  src="@/imgs/clap-icon.svg" >
+          </span>
             {{member.name}}
             <img
               @click="loadUserProfile(member._id)"
@@ -194,7 +197,14 @@ export default {
           this.eventera = eventera;
           break;
       }
-    }
+    },
+    clap(_id){
+      console.log('clapping' , _id);
+      if(this.userType !== 'creator' && this.userType !== 'member' ) return;
+      this.$store.dispatch('clap',{eventeraId:this.eventera._id , userId:_id})
+      let user = this.eventera.members.find(member => member._id === _id);
+      user.mvpVotesCount++;
+    },
   },
   components: {
     EventeraImages,

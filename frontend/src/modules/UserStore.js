@@ -84,7 +84,9 @@ export default {
                 context.commit({ type: "setCurrUser", user: null })
                 throw err;
             }
-
-        }
+        },
+        async clap(context,payload){
+            userService.clap(payload);
+          }
     },
 }

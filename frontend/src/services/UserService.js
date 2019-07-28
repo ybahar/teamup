@@ -11,7 +11,8 @@ export default {
     logout,
     signup,
     update,
-    getLoggedUser, // this can be removed when we get a backend
+    getLoggedUser, 
+    clap,
 }
 
 
@@ -70,3 +71,6 @@ async function getById(_id) {
     }
 }
 
+async function  clap(clapData){
+  httpService.post(`${URL_ENDING}/clap`,clapData)
+}

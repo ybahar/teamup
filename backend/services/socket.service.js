@@ -63,6 +63,7 @@ function setup(http) {
             socket.join(`members_${_id}`);
             socket.broadcast.emit('added',categories)
         })
+        socket.join(`user_${user._id}`);
         let eventeras = await eventerasByUser(user._id)
         eventeras.forEach(({_id}) => socket.join(`members_${_id}`))
     });

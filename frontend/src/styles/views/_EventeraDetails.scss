@@ -118,6 +118,25 @@
         height: rem(48px);
         object-fit: cover;
       }
+      .clap-icon{
+        cursor: pointer;
+        border: 1px solid black;
+        border-radius: 100%;
+        padding: 3px;
+        img{
+          width: 40px;
+          height: auto;
+          &:hover {
+            filter:
+            invert(0.5)
+          sepia(1)
+          hue-rotate(200deg)
+          saturate(4)
+          // brightness(2);
+        }
+      }
+        
+      }
     }
   }
 }
@@ -189,3 +208,4 @@
   height: rem(35px);
   padding: 10px 10px;
 }
+

@@ -84,6 +84,7 @@ export default {
     },
     addNotification(context,{eventera}){
        socketService.addNotification(eventera)
-    }
+    },
+ 
   },
 }

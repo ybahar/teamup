@@ -8,7 +8,8 @@ module.exports = {
     getByUsername,
     remove,
     update,
-    add
+    add,
+    clap
 }
 
 async function query(filterBy = {}) {
@@ -88,5 +89,11 @@ async function add(user) {
     }
 }
 
-
+async function clap({userId,eventeraId}){
+    let user = await getById(userId);
+    if(!user.totalClaps) user.totalClaps = 0;
+    user.totalClaps++;
+    console.log('in clap service');
+     
+}
 

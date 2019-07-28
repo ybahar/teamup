@@ -11,7 +11,7 @@ export default {
     disconnect,
     sendNotification,
     updateNotification,
-    addNotification
+    addNotification,
 }
 let socket;
 
