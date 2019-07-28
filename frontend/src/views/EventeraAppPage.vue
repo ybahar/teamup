@@ -43,6 +43,7 @@ export default {
   methods: {
     setFilterCategory(category) {
       this.$store.commit('setFilterCategory', category)
+      this.$store.dispatch('loadEventeras')
     }
   },
   components: {

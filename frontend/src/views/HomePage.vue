@@ -40,6 +40,7 @@ export default {
     },
      setFilterCategory(category) {
       this.$store.commit('setFilterCategory', category)
+      this.loadEventeras();
        this.$router.push('/eventera')
     }
   },
