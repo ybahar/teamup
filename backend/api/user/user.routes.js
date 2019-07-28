@@ -11,7 +11,6 @@ router.get('/current', userController.getLoggedInUser)
 router.get('/:id', userController.getUser)
 router.put('/:id', userController.updateUser)
 router.delete('/:id', requireAuth, userController.deleteUser)
-router.post('/clap',requireAuth,userController.clap)
 
 
 module.exports = router

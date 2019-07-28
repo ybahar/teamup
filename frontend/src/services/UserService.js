@@ -12,7 +12,6 @@ export default {
     signup,
     update,
     getLoggedUser, 
-    clap,
 }
 
 
@@ -71,6 +70,3 @@ async function getById(_id) {
     }
 }
 
-async function  clap(clapData){
-  httpService.post(`${URL_ENDING}/clap`,clapData)
-}

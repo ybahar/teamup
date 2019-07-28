@@ -85,6 +85,8 @@ export default {
     addNotification(context,{eventera}){
        socketService.addNotification(eventera)
     },
- 
+    clap(context,payload){
+      socketService.clap(payload);
+    }
   },
 }

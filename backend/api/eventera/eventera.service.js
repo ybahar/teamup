@@ -11,7 +11,8 @@ module.exports = {
     getById,
     join,
     leave,
-    eventerasByUser
+    eventerasByUser,
+    clap
 
 }
 
@@ -161,4 +162,20 @@ async function _saveUpdateToMongo(_id, eventera){
     await collection.updateOne({ "_id": ObjectId(_id) }, { $set: eventera })
     eventera._id = _id;
     return eventera
+}
+
+async function clap(eventeraId,memberId){
+    try{
+        const eventera = await getById(eventeraId);
+        let member = await eventera.members.find(member => { 
+            return `${member._id}` === `${memberId}`
+        });
+        member.mvpVoteCount++ ;
+       await _saveUpdateToMongo(eventeraId , eventera)
+       return
+    } catch(err){
+        logger.error(`eventera clap service ${err} `)
+         throw err;
+    }
+
 }

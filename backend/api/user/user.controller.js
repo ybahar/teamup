@@ -36,15 +36,7 @@ async function updateUser(req, res) {
     }
     else return res.status(401).send('Unautharized')
 }
-async function clap(req,res){
-     let clapData = req.body;
-     try {
-         await userService.clap(clapData)
-         return res.json({})
-     } catch (err){
-         console.log('clap controller error',err)
-     }
-}
+
 
 module.exports = {
     getUser,
@@ -52,6 +44,5 @@ module.exports = {
     deleteUser,
     getLoggedInUser,
     updateUser,
-    clap
 
 }

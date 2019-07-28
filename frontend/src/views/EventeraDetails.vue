@@ -39,8 +39,10 @@
             :key="index"
             class="member-item flex space-between"
           >
-          <span class="clap-icon" @click.stop="clap(member._id)">
+          <span :class="{'disabled-clap':loggedUser._id === member._id}"
+            class="clap-icon" @click.stop="clap(member._id)">
             <img  src="@/imgs/clap-icon.svg" >
+            {{member.mvpVoteCount}}
           </span>
             {{member.name}}
             <img
@@ -88,6 +90,9 @@ export default {
     this.profileUserId = "";
   },
   computed: {
+    loggedUser(){
+      return this.$store.getters.loggedUser;
+    },
     isLoading() {
       return this.$store.getters.isLoading;
     },
@@ -100,7 +105,7 @@ export default {
     userType() {
       let user = this.$store.getters.loggedUser;
       let eventera = this.eventera;
-      if (!user || !user._id) return "guest";
+      if (!user) return "guest";
       else {
         if (user._id === eventera.creator._id) return "creator";
         else {
@@ -199,11 +204,13 @@ export default {
       }
     },
     clap(_id){
-      console.log('clapping' , _id);
-      if(this.userType !== 'creator' && this.userType !== 'member' ) return;
+      if(this.userType !== 'creator' && this.userType !== 'member' ) {
+        return alertService.err('Must be a member to clap', 'Join the event to clap on your teammates preformence')
+      } 
+      if(this.loggedUser._id === _id) return alertService.warn('Cant clap  yourself', 'We know your awosme tough :)')
       this.$store.dispatch('clap',{eventeraId:this.eventera._id , userId:_id})
       let user = this.eventera.members.find(member => member._id === _id);
-      user.mvpVotesCount++;
+      user.mvpVoteCount++;
     },
   },
   components: {

@@ -1,6 +1,7 @@
 
 const dbService = require('../../services/db.service')
 const ObjectId = require('mongodb').ObjectId
+const logger = require('../../services/logger.service')
 
 module.exports = {
     query,
@@ -31,11 +32,13 @@ async function query(filterBy = {}) {
 
 async function getById(userId) {
     const collection = await dbService.getCollection('user')
-    userId = userId.toString();
+    if(typeof userId === 'Object'){
+        userId = userId.toString();
+    }
     try {
         const user = await collection.findOne({ "_id": ObjectId(userId) })
         delete user.password;
-        delete user.username;
+        // delete user.username;
         return user;
     } catch (err) {
 
@@ -89,11 +92,16 @@ async function add(user) {
     }
 }
 
-async function clap({userId,eventeraId}){
-    let user = await getById(userId);
-    if(!user.totalClaps) user.totalClaps = 0;
-    user.totalClaps++;
-    console.log('in clap service');
+async function clap(userId){
+    try{
+        let user = await getById(userId);
+        if(!user.totalClaps) user.totalClaps = 0;
+        user.totalClaps++;
+        await update(user)
+    } catch(err){
+        logger.error(`err in clap user service ${err}`)
+        throw err;
+    }
      
 }
 

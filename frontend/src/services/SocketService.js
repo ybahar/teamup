@@ -12,6 +12,7 @@ export default {
     sendNotification,
     updateNotification,
     addNotification,
+    clap,
 }
 let socket;
 
@@ -77,4 +78,7 @@ function updateNotification(eventera) {
 }
 function addNotification(eventera) {
     socket.emit('add',eventera)
+}
+function clap(clapData){
+    socket.emit('clapped',clapData)
 }

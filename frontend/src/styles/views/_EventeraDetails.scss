@@ -11,13 +11,13 @@
 }
 
 .bg-details-container {
-  background:$clr1;
+  background: $clr1;
   position: fixed;
-	top:0;
-	left:0;
-	height:100%;
-	width:100%;
-  z-index:-20;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -20;
 }
 
 .gallery-contianer {
@@ -98,7 +98,7 @@
   & ul {
     list-style: none;
     & .member-item {
-      width: 100%;      
+      width: 100%;
       padding: 18px;
       font-weight: 700;
       align-items: center;
@@ -110,7 +110,7 @@
       border-radius: 2px;
       // -- incoming end
       &:nth-child(odd) {
-        background: darken($color:$clr1, $amount: 5%);
+        background: darken($color: $clr1, $amount: 5%);
       }
       & img {
         border-radius: 5px;
@@ -118,24 +118,30 @@
         height: rem(48px);
         object-fit: cover;
       }
-      .clap-icon{
+      .clap-icon {
         cursor: pointer;
         border: 1px solid black;
         border-radius: 100%;
-        padding: 3px;
-        img{
-          width: 40px;
+        padding: 4px;
+        display: flex;
+        flex-direction: column;
+        img {
+          width: 2rem;
           height: auto;
-          &:hover {
-            filter:
-            invert(0.5)
-          sepia(1)
-          hue-rotate(200deg)
-          saturate(4)
-          // brightness(2);
         }
-      }
-        
+        &:hover {
+          img {
+            filter:
+                // invert(0.5);
+                // sepia(1);
+                // hue-rotate(200deg) saturate(7);
+              brightness(0.2);
+          }
+        }
+        &.disabled-clap {
+          cursor: auto;
+          filter: invert(0.5) sepia(1) hue-rotate(100deg) saturate(4) brightness(0);
+        }
       }
     }
   }
@@ -149,22 +155,21 @@
     padding-top: 10px;
   }
   & p {
-
     // padding: 20px;
     margin-top: 10px;
     text-align: left;
     font-size: 18px;
     line-height: 3;
     overflow: auto;
-    @media screen and (max-width:600px) {
+    @media screen and (max-width: 600px) {
       line-height: 1;
       font-size: 15px;
-     }
+    }
   }
 }
 
 .chat-icon {
-  background: url('../../imgs/chat.svg');
+  background: url("../../imgs/chat.svg");
   position: fixed;
   bottom: 10px;
   left: 10px;
@@ -172,7 +177,7 @@
   width: 65px;
   &:hover {
     cursor: pointer;
-    background: url('../../imgs/chat-hover.svg');
+    background: url("../../imgs/chat-hover.svg");
     transition: 0.3;
   }
 }
@@ -191,15 +196,15 @@
 }
 
 .chat-input {
-    position: absolute;
-    bottom: 0px;
-    width: 100%;
-    height: 50px;
-    outline: none;
-    background-color: $clr1;
-    color: black;
-    padding: rem(8px);
-    border: 1px solid $clr2;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  height: 50px;
+  outline: none;
+  background-color: $clr1;
+  color: black;
+  padding: rem(8px);
+  border: 1px solid $clr2;
 }
 
 .join-btn {
@@ -208,4 +213,3 @@
   height: rem(35px);
   padding: 10px 10px;
 }
-
