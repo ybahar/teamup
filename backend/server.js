@@ -12,7 +12,7 @@ const authRoutes = require('./api/auth/auth.routes')
 const userRoutes = require('./api/user/user.routes')
 const eventeraRoutes = require('./api/eventera/eventera.routes')
 const cloudinaryRoutes = require('./api/cloudinary.routes')
-
+const history = require('connect-history-api-fallback');
 const logger = require('./services/logger.service')
 const socketService = require('./services/socket.service')
 
@@ -26,6 +26,7 @@ module.exports = sessionMiddleware
   app.use(cookieParser())
 app.use(bodyParser.json());
 app.use(sessionMiddleware)
+app.use(history())
 
 
 if (process.env.NODE_ENV !== 'production') {
@@ -45,6 +46,7 @@ socketService.setup(http);
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.resolve(__dirname, 'public')));
+
 }
 
 
