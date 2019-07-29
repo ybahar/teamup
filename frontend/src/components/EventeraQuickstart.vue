@@ -1,9 +1,7 @@
 <template>
   <section class="filter-container flex space-around column">
-    <h1>Find unique events and like-minded people around you</h1>
-    <!-- <div class="search-container flex row space-between"> -->
+    <h1>Unique events and like-minded people to be explored</h1>
       <input @keydown.enter="emitSearch" class="search-filter-input" v-model="filterBy.txt" type="text" placeholder="Try: Fireworks display" />
-    <!-- </div> -->
       <button class="search-eventeras" @click="emitSearch">Explore</button>
   </section>
 </template>
@@ -25,10 +23,7 @@ export default {
     emitSearch() {
       if (!this.filterBy.txt) return
       this.$emit("searchEventeras", this.filterBy);
-    },
-    // emitBuild() {
-    //   this.$emit("buildEventera", this.newEventera);
-    // }
+    }
   }
 };
 </script>
