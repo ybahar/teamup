@@ -2,6 +2,7 @@
   <section class="landing-container">
     <section class="home-container flex">
       <div class="bg-container"></div>
+      <h1>see??????????????????</h1>
       <EventeraQuickstart @searchEventeras="searchEventeras" />
     </section>
     <h1 class="list-header-home">Find your event:</h1>
