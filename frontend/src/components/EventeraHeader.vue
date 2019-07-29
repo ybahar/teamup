@@ -124,7 +124,7 @@ export default {
     },
     mainClass() {
       let isLanding = true;
-      if (this.$route.path === "/" || this.$route.path === "/eventera/edit") {
+      if (this.$route.path === "/" || this.$route.path.includes( "/eventera/edit")) {
         isLanding = false;
       }
       return { isMain: isLanding };
