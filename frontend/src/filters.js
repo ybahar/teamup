@@ -19,7 +19,7 @@ Vue.filter('meterToKM', num => {
 Vue.filter('imgSrc', url => {
     if(url){
         if(url.includes('https')) return url; 
-        if(url.includes('http')) return 'https' + url.subString(5); 
+        if(url.includes('http')) return 'https' + url.substring(4); 
         else {
             return  process.env.BASE_URL + url;
         }
