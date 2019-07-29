@@ -53,7 +53,7 @@ input.chat-input {
 
 .chat-msgs {
     height: calc(56vh - 90px);
-    overflow: scroll;
+    overflow-y: scroll;
 
     .chat-msg {
         background: darken($color: $clr2, $amount: 10%);
