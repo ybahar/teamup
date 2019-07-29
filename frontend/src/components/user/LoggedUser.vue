@@ -74,7 +74,7 @@ export default {
   border-bottom: 1px solid white;
 }
 .menu-item {
-  cursor: pointer;
+    cursor: pointer;
     position: relative;
     transition: left 0.2s;
   &:hover {

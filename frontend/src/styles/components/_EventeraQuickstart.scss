@@ -8,8 +8,7 @@
     background: $clr1;
     opacity: 0.9;
     position: absolute;
-    // top: calc(100vh - 550px);
-    top:calc(100vh - 85%);
+    top: calc(100vh - 85%);
     left: rem(65px);
     & h1 {
        font-size: 25px;
