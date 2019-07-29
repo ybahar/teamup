@@ -39,7 +39,7 @@
             :key="index"
             class="member-item flex space-between"
           >
-          <span :class="{'disabled-clap':loggedUser._id === member._id}"
+          <span :class="{'disabled-clap':loggedUser && oggedUser._id === member._id}"
             class="clap-icon" @click.stop="clap(member._id)">
             <img  src="@/imgs/clap-icon.svg" >
             {{member.mvpVoteCount}}
@@ -91,6 +91,7 @@ export default {
   },
   computed: {
     loggedUser(){
+      
       return this.$store.getters.loggedUser;
     },
     isLoading() {
