@@ -1,6 +1,6 @@
 <template>
   <section class="filter-container flex space-around column">
-    <h1>Unique events and like-minded people to be explored</h1>
+    <h1>Unique events and people to be explored</h1>
       <input @keydown.enter="emitSearch" class="search-filter-input" v-model="filterBy.txt" type="text" placeholder="Try: Fireworks display" />
       <button class="search-eventeras" @click="emitSearch">Explore</button>
   </section>
