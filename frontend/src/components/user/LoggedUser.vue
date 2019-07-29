@@ -57,6 +57,9 @@ export default {
 <style lang="scss" scoped>
 .logged-user {
   position: relative;
+  & img {
+    border-radius: 50%;
+  }
 }
 .menu {
   padding: 5px;
