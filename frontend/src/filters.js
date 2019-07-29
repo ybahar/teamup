@@ -18,9 +18,10 @@ Vue.filter('meterToKM', num => {
 });
 Vue.filter('imgSrc', url => {
     if(url){
-        if(url.includes('http')) return 'https' + url.subString(5) 
+        if(url.includes('https')) return url; 
+        if(url.includes('http')) return 'https' + url.subString(5); 
         else {
-            return  process.env.BASE_URL + url
+            return  process.env.BASE_URL + url;
         }
     } else return '';
 })
