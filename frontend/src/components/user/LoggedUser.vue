@@ -40,7 +40,7 @@ export default {
     isLandingClass() {
       return {
         isLanding:
-          this.$route.path === "/" || this.$route.path === "/eventera/edit"
+          this.$route.path === "/" || this.$route.path.includes("/eventera/edit")
       };
     }
   },
@@ -54,6 +54,7 @@ export default {
   }
 };
 </script>
+
 <style lang="scss" scoped>
 .logged-user {
   position: relative;
@@ -74,7 +75,7 @@ export default {
 }
 .menu-item {
   cursor: pointer;
-  position: relative;
+    position: relative;
     transition: left 0.2s;
   &:hover {
     transition: transform 0.2s;
