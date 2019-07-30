@@ -25,6 +25,9 @@
 
 .filter-form {
     margin: 0 auto;
+    @media screen and (max-width: 600px) {
+        justify-content: space-evenly;
+    }
 }
 
 .search-name-input, .category-filter, .time-filter {

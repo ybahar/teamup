@@ -25,7 +25,6 @@
       <div class="text-container flex flex-center space-around">
         <h1>{{eventera.name}}</h1>
         <img v-if="eventera.creator.profileImgUrl" :src="creatorImg" width="65px" height="65px" />
-        <!-- <img v-else src="../imgs/user.png" width="65px" height="65px" /> all users have pictures -->
       </div>
       <div class="eventera-status flex flex-center space-around">
         <h2 class="members">{{eventera.members.length}} / {{eventera.maxMembers}}</h2>

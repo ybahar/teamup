@@ -19,7 +19,6 @@
         <button class="btn-action">Save</button>
       </form>
     </div>
-    {{ loc.geo }}
   </section>
 </template>
 
