@@ -7,7 +7,6 @@
           <div class="btn-quit" @click="$emit('close')">
             <span>X</span>
           </div>
-          <!-- <button class="modal-default-button" @click="$emit('close')">X</button> -->
           <div class="modal-header">
             <slot name="header">default header</slot>
           </div>
@@ -25,12 +24,8 @@
 </template>
 
 <script>
-// TODO: 
-// j: currently the modal just pops without a small animation
-// with the current rendering - v-if - we can't implement an animation upon rendering
-// need to check vue animations before hand
-// mb check yaron's ppt 
 import eventBus, { ALERT_SUCCESS } from "@/EventBus";
+
 export default {
   methods: {
     close(e) {
@@ -59,7 +54,6 @@ export default {
   border-radius: 50%;
   width: 40px;
   height: 40px;
-  /* margin: 5px; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -67,8 +61,6 @@ export default {
   background-color: transparent;
   color: buttontext;
   display: block;
-  /* height: 16px;
-  width: 16px; */
   display: block;
   position: absolute;
   left: 10px;
@@ -77,7 +69,6 @@ export default {
 .btn-quit > * {
   position: relative;
   top: 10px;
-  /* left: 2px; */
   line-height: 20px;
   font-size: 20px;
 }
@@ -102,7 +93,6 @@ export default {
 .modal-container {
   position: relative;
   width: 300px;
-  /* height: 580px; */
   margin: 0px auto;
   padding: 15px 30px;
   background-color: #fff;
@@ -127,8 +117,6 @@ export default {
   position: relative;
   top: 0;
   right: 0;
-  /* top: 10px;
-  right: 10px; */
 }
 
 /*
