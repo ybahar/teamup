@@ -15,10 +15,10 @@
 
 .chat-container {
     position: fixed;
-    width: 33%;
-    height: 56vh;
-    bottom: 20px;
-    left: -1000px;
+    width: 70%;
+    height: 50vh;
+    bottom: 2px;
+    left: -5000px;
     background: url("../../imgs/chat.png");
     &.chat {
         left: 0;
@@ -92,7 +92,7 @@ input.chat-input {
     scrollbar-width: thin;
 
     &::-webkit-scrollbar {
-        width: 5px;
+        width: 10px;
     }
 
     /* Track */
