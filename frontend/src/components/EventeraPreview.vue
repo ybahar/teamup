@@ -1,7 +1,7 @@
 <template>
   <router-link tag="div" :to="detailsUrl">
     <section class="eventera-preview flex column space-around">
-      <img class="prev-image" :src="eventera.imgUrls[0]" alt width="350px" height="240px" />
+      <img class="prev-image" :src="eventera.imgUrls[0] | imgSrc" alt width="350px" height="240px" />
       <div class="secondary">
         <span>{{eventera.categories[0] | capitalize }}</span>
         <span v-if="distance">{{ distance | meterToKM }}</span>
@@ -26,7 +26,7 @@
             :key="user._id"
             class="carousel-slide"
           >
-            <img v-if="user.profileImgUrl" class="user-img-carousel" :src="user.profileImgUrl" />
+            <img v-if="user.profileImgUrl" class="user-img-carousel" :src="user.profileImgUrl | imgSrc" />
           </slide>
         </carousel>
       </div>
