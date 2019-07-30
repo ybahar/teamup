@@ -187,6 +187,7 @@ async function clap(eventeraId, memberId) {
             if (eventeras.length < 20) {
                 eventeras = await query({ showClosed: 'true' });
                 eventeras.forEach(async eventera => {
+                    try{
                     if (eventera.expireAt < Date.now() || eventera.members >= eventera.maxMembers) {
                         if (eventera.expireAt < Date.now()) {
                             eventera.expireAt = utilService.getTimeStamp(10800000, 604800000)
@@ -200,6 +201,9 @@ async function clap(eventeraId, memberId) {
                         }
                         await _saveUpdateToMongo(eventera._id, eventera)
                     }
+                }catch(err){
+                    console.log(err)
+                }
                 })
             }
         } catch (err) {
