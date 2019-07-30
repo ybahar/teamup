@@ -48,7 +48,7 @@
                   <input
                     type="text"
                     name="location"
-                    v-model="eventera.loc.address"
+                    v-model="eventera.loc.streetName"
                     placeholder="Address: Habonim 6"
                   />
                 </div>
@@ -113,7 +113,7 @@ export default {
             lng: null
           },
           city: "",
-          address: ""
+          streetName: ""
         },
         imgUrls: [],
       description: "",
