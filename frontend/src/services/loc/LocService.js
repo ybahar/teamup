@@ -1,5 +1,5 @@
 var searchedPositions = [{ formatted: '', lat: 1, lng: 1 }];
-export const LOC_API_KEY = 'AIzaSyCdP6PdiSpHc1Ld8fuwHLzvk2-kLSx6hWc';
+export const LOC_API_KEY = 'null';
 
 export default {
     getUserPosition,

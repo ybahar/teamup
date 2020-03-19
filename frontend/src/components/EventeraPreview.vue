@@ -59,7 +59,7 @@ export default {
     },
     spacesRemain() {
       const spacesRemain =
-        this.eventera.maxMembers - this.eventera.members.length;
+      this.eventera.maxMembers - this.eventera.members.length;
       let res = `${spacesRemain} Spaces Remain`; // Default
       if (!spacesRemain) res = `No spaces remain`;
       if (spacesRemain === 1) res = "Last spot remaining";
