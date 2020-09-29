@@ -1,9 +1,10 @@
 # Eventera
 
 ## This project is the brainchild of 3 developers, each with his different approach. Eventera is an event management & sharing platform.
-## We wanted to practice every technology available for us and therefore, this project uses many different tools.
+### We wanted to practice every technology available for us and therefore, this project is an SPA & PWA using many different tools.
 
 Eventera is running using Vue.js CLI and Node.js Express server.
+Link: http://eventera.herokuapp.com/
 
 ## Project setup
 ```
